@@ -1,0 +1,172 @@
+# ==========================================
+# English Messages
+# ==========================================
+# All messages support color codes (&a, &c, etc.) and MiniMessage format
+# Use "" (empty string) to disable a message
+
+prefix: '&c&lUltra&e&lCoinFlip &f|| &r'
+no-perms: '&8[&c&l!&8] <##eb3434>You do not have permission to perform this action!'
+
+# Help Command Messages
+help:
+  messages:
+    - "&6&l=== UltraCoinFlip Help ==="
+    - "&e/coinflip &7- Open the coinflip menu"
+    - "&e/coinflip create <currency> <amount> &7- Create a new coinflip game"
+    - "&e/coinflip delete &7- Cancel your active coinflip game"
+    - "&e/coinflip history &7- Open coinflip history GUI"
+    - "&e/coinflip help &7- Show this help message"
+
+# Command Messages
+command:
+  no-bet: '&fYou have not placed a bet!'
+  bet-cancelled: '&fYour bet has been cancelled!'
+  bet-cancelled-multiple: '&fAll of your coinflips were cancelled (&e<amount>&f)!'
+  usage: '&cUsage: /cf create <money|playerpoints|tokenmanager|coinsengine:<id>|placeholder:<id>|<currency_id>> <amount>'
+  invalid-currency: '&cInvalid currency type! Use &emoney&c, &eplayerpoints&c, &etokenmanager&c, &ecoinsengine:<id>&c, &eplaceholder:<id> &cor currency ID'
+  not-enough-playerpoints: '&cYou do not have enough PlayerPoints!'
+  not-enough-tokenmanager: '&cYou do not have enough Tokens!'
+  not-enough-beasttokens: '&cYou do not have enough BeastTokens!'
+  not-enough-coinsengine: '&cYou do not have enough currency!'
+  not-enough-placeholder: '&cYou do not have enough currency!'
+  bet-created-playerpoints: '&fYou have placed a bet of &e<amount><symbol>'
+  bet-created-tokenmanager: '&fYou have placed a bet of &e<amount><symbol>'
+  bet-created-beasttokens: '&fYou have placed a bet of &e<amount><symbol>'
+  bet-created-coinsengine: '&fYou have placed a bet of &e<amount><symbol>'
+  bet-created-placeholder: '&fYou have placed a bet of &e<amount><symbol>'
+  reload-success: '&aPlugin configuration reloaded successfully!'
+  reload-error: '&cFailed to reload plugin configuration! Check console for detailed error messages. Some settings may not have been reloaded.'
+  reload-busy: '&cCannot reload while refunds are in progress. Please wait.'
+  economy-not-ready: '&cEconomy system is not ready yet. Please wait a moment and try again. If this persists, check if your economy plugin is properly installed.'
+  invalid-amount: '&cInvalid amount! Please enter a valid number greater than 0.'
+  min-bid: '&cYou need to bet at least &e<amount>&c! Your current bet is too low.'
+  max-bid: '&cYou cannot bet more than &e<amount>&c! Your current bet exceeds the maximum limit.'
+  not-enough-money: '&cYou do not have enough money! You need &e<amount>&c but only have &e<balance>&c.'
+  not-enough-money-reserve: '&cYou cannot bet this amount! You need to keep a minimum reserve balance of &e<reserve>&c. You have &e<balance>&c, so you can bet at most &e<max_bet>&c.'
+  not-enough-playerpoints-reserve: '&cYou cannot bet this amount! You need to keep a minimum reserve balance of &e<reserve>&c. You have &e<balance>&c, so you can bet at most &e<max_bet>&c.'
+  not-enough-tokenmanager-reserve: '&cYou cannot bet this amount! You need to keep a minimum reserve balance of &e<reserve>&c. You have &e<balance>&c, so you can bet at most &e<max_bet>&c.'
+  not-enough-beasttokens-reserve: '&cYou cannot bet this amount! You need to keep a minimum reserve balance of &e<reserve>&c. You have &e<balance>&c, so you can bet at most &e<max_bet>&c.'
+  not-enough-coinsengine-reserve: '&cYou cannot bet this amount! You need to keep a minimum reserve balance of &e<reserve>&c. You have &e<balance>&c, so you can bet at most &e<max_bet>&c.'
+  not-enough-placeholder-reserve: '&cYou cannot bet this amount! You need to keep a minimum reserve balance of &e<reserve>&c. You have &e<balance>&c, so you can bet at most &e<max_bet>&c.'
+  # Betting limit messages
+  betting-limit-daily-exceeded: '&cYou have reached your daily betting limit! Limit: &e<limit>&c, Already bet today: &e<current>&c, Remaining: &e<remaining>&c. Try again tomorrow!'
+  betting-limit-weekly-exceeded: '&cYou have reached your weekly betting limit! Limit: &e<limit>&c, Already bet this week: &e<current>&c, Remaining: &e<remaining>&c. Try again next week!'
+  already-bet: '&fYou have already placed a bet!'
+  bet-limit-reached: '&cYou reached your maximum of <limit> active coinflips!'
+  rolling-active: '&cFinish your current coinflip before starting another one!'
+  bet-created-money: '&fYou have placed a bet of &e<amount>$'
+  broadcast-created: '&fPlayer &a<player> &fhas created a coinflip with bet amount &e<amount><symbol> &f! Who will accept the challenge? &7(/cf)'
+  no-permission: '&cYou do not have permission to perform this action!'
+  # Anti-dupe protection messages
+  cooldown-wait: '&cPlease wait <seconds> seconds before cancelling another game.'
+  plugin-busy: '&cPlugin is busy. Please try again in a moment.'
+  refund-processing: '&eProcessing your refund...'
+  transaction-in-progress: '&cTransaction already in progress. Please wait.'
+  # Currency error messages
+  currency-disabled: '&cCurrency type <type> is disabled!'
+  currency-not-available: '&cCurrency <id> is not available!'
+  currency-check-hint-1: '&7  1. The plugin is installed and loaded'
+  currency-check-hint-2: '&7  2. Currency ID <id> exists'
+  currency-check-hint-3: '&7  3. Try reloading the plugin: /cf reload'
+  no-currency-available: '&cNo currency available! Please enable at least one currency in config.'
+  currency-withdraw-failed: '&cFailed to withdraw currency!'
+  # Invalid currency help
+  invalid-currency-help: '&cInvalid currency type!'
+  available-currencies: '&7Available currencies: <list>'
+  no-currencies-enabled: '&cNo currencies are enabled!'
+  coinsengine-ids-available: '&7Available CoinsEngine IDs: &e<ids>'
+  coinsengine-none-enabled: '&7No CoinsEngine currencies are enabled.'
+  placeholder-ids-available: '&7Available Placeholder IDs: &e<ids>'
+  placeholder-none-enabled: '&7No Placeholder currencies are enabled.'
+  
+# Currency Restriction Messages
+restriction:
+  cannot-use-currency: '&cYou cannot use this currency! Check if you have the required permissions or are in the correct world.'
+  cannot-join-game: '&cYou cannot join this game! The currency used in this game may be restricted in your current world or you may lack required permissions.'
+  host-cannot-use: '&cThe game host cannot use this currency in their current world! Please try a different currency or world.'
+  cannot-gamble-together: '&cYou cannot gamble with this player using this currency! One of you may be in a restricted world or lack required permissions.'
+  world-blocked: '&7This currency is blocked in world &e<world>&7'
+  world-allowed-only: '&7This currency is only allowed in worlds: &e<worlds>'
+  permission-required-single: '&7This currency requires permission: &e<permission>'
+  permission-required-multiple: '&7This currency requires one of these permissions: &e<permissions>'
+
+# Heads/Tails Messages
+heads-tails:
+  heads: 'Heads'
+  tails: 'Tails'
+  selected: '&fYou selected &e<choice> &ffor this coinflip!'
+
+# Game Messages
+game:
+  cannot-play-self: '&cYou cannot play with yourself!'
+  player-not-found: '&cPlayer not found!'
+  winner: '&fYou won against &a<loser> &fin coinflip! &8(&a+<amount><symbol>&8, tax deducted <tax_rate>%: -<tax><symbol>&8)'
+  loser: '&fYou lost against &c<winner> &fin coinflip! &8(&c-<amount><symbol>&8)'
+  broadcast-result: '&fPlayer &a<winner> &fwon against &c<loser> &fin coinflip with bet amount &e<amount><symbol> &f(after tax received &a<taxed_amount><symbol>&f)'
+  refunded: '&fYour coinflip game was refunded. You received &a<amount><symbol> &fback.'
+  consecutive-win: '&e&lThis is your <count><ordinal> consecutive win against <opponent>!'
+
+# Play with Bot Messages
+house:
+  disabled: '&cPlay with Bot is currently disabled!'
+  no-permission: '&cYou do not have permission to use Play with Bot!'
+  min-bet: '&cYou need to bet at least &e<amount>&c for play with bot!'
+  max-bet: '&cYou cannot bet more than &e<amount>&c for play with bot!'
+  delay-remaining: '&cPlease wait &e<time> &cmore seconds before playing with bot again!'
+  daily-limit-reached: '&cYou have reached your daily limit of &e<limit> &cplay with bot games!'
+  win: '&a&lYOU WON! &r&fYou won against the Bot! &8(&a+<amount><symbol>&8, tax deducted: -<tax><symbol>&8)'
+  lose: '&c&lYOU LOST! &r&fYou lost against the Bot! &8(&c-<amount><symbol>&8)'
+  game-type: 'Bot'
+  game-type-player: 'Player'
+
+# Title settings
+titles:
+  game-win-title: '&a&lYOU WON!'
+  game-win-subtitle: '&fReceived &a<amount><symbol>'
+  game-lose-title: '&c&lYOU LOST!'
+  game-lose-subtitle: '&fLost &c<amount><symbol>'
+
+# ActionBar settings
+actionbar:
+  game-win: '&a&lYOU WON! &fReceived &a<amount><symbol>'
+  game-lose: '&c&lYOU LOST! &fLost &c<amount><symbol>'
+
+# BossBar settings
+bossbar:
+  game-win: '&a&lYOU WON! &fReceived &a<amount><symbol>'
+  game-lose: '&c&lYOU LOST! &fLost &c<amount><symbol>'
+
+# Admin Audit Messages
+admin:
+  audit-header: '&6=== UltraCoinFlip Status ==='
+  audit-active-games: '&7Active Games: &e<count>'
+  audit-rolling-games: '&7Rolling Games: &e<count>'
+  audit-players-in-transaction: '&7Players in Transaction: &e<count>'
+  audit-refund-in-progress: '&7Refund In Progress: &e<status>'
+  audit-global-lock: '&7Global Lock: <status>'
+  audit-reloading: '&7Reloading: <status>'
+  audit-active-refund-count: '&7Active Refund Count: &e<count>'
+  audit-games-processing: '&7Games Processing: &e<count>'
+  audit-pending-logs: '&7Pending Log Entries: &e<count>'
+  audit-footer: '&6========================='
+  audit-yes: '&cYes'
+  audit-no: '&aNo'
+
+# Update Checker Messages
+update:
+  latest-version: '&fYou are running the latest version &a(v<version>)'
+  new-version-available: '&e⚠ &fA new update is available!'
+  current-version: '&7Current version: &c<version>'
+  latest-version-label: '&7Latest version:  &a<version>'
+  download-link: '&bDownload: &fhttps://www.spigotmc.org/resources/ultracoinflip-1-20-x-1-21-10-folia-support.130124/'
+  check-failed: '&cUnable to check for updates: <error>'
+  # Short in-game message (separate from console)
+  in-game-new-version: "<yellow>A new version of UltraCoinFlip is available <gray>(Current: <red><current> <gray>| Latest: <green><latest><gray>). <aqua><click:open_url:'https://www.spigotmc.org/resources/ultracoinflip-1-20-x-1-21-10-folia-support.130124'><u>Download here</u></click><gray>."
+
+# ==========================================
+# Configuration Version
+# ==========================================
+# DO NOT MODIFY THIS VALUE - It is used by the plugin to track configuration updates
+# Changing this value may cause configuration issues
+config-version: 13
+

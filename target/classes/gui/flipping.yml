@@ -1,0 +1,238 @@
+# Flipping Animation GUI Configuration
+#
+# =====================================================
+# MINECRAFT VERSION COMPATIBILITY NOTES
+# =====================================================
+# 
+# This config supports both modern Minecraft (1.13+) and legacy (1.8.8-1.12.2)
+#
+# MATERIAL NAMES:
+# ---------------
+# For 1.13+ (modern): Use material names like "RED_STAINED_GLASS_PANE", "BLUE_WOOL", etc.
+# For 1.8.8-1.12.2 (legacy): Use "MATERIAL:DATA" format, e.g., "STAINED_GLASS_PANE:14"
+#
+# STAINED GLASS PANE DATA VALUES (for 1.8.8-1.12.2):
+# --------------------------------------------------
+#   STAINED_GLASS_PANE:0  = White
+#   STAINED_GLASS_PANE:1  = Orange  
+#   STAINED_GLASS_PANE:2  = Magenta
+#   STAINED_GLASS_PANE:3  = Light Blue
+#   STAINED_GLASS_PANE:4  = Yellow
+#   STAINED_GLASS_PANE:5  = Lime
+#   STAINED_GLASS_PANE:6  = Pink
+#   STAINED_GLASS_PANE:7  = Gray
+#   STAINED_GLASS_PANE:8  = Light Gray
+#   STAINED_GLASS_PANE:9  = Cyan
+#   STAINED_GLASS_PANE:10 = Purple
+#   STAINED_GLASS_PANE:11 = Blue
+#   STAINED_GLASS_PANE:12 = Brown
+#   STAINED_GLASS_PANE:13 = Green
+#   STAINED_GLASS_PANE:14 = Red
+#   STAINED_GLASS_PANE:15 = Black
+#
+# WOOL DATA VALUES (for 1.8.8-1.12.2):
+# ------------------------------------
+#   WOOL:0  = White      WOOL:8  = Light Gray
+#   WOOL:1  = Orange     WOOL:9  = Cyan
+#   WOOL:2  = Magenta    WOOL:10 = Purple
+#   WOOL:3  = Light Blue WOOL:11 = Blue
+#   WOOL:4  = Yellow     WOOL:12 = Brown
+#   WOOL:5  = Lime       WOOL:13 = Green
+#   WOOL:6  = Pink       WOOL:14 = Red
+#   WOOL:7  = Gray       WOOL:15 = Black
+#
+# =====================================================
+
+# CoinFlip Animation GUI - Appears when two players are flipping coins
+coinflip-gui:
+  size: 27
+  title: "&lFLIPPING COIN..."
+  
+  layout:
+    border-item:
+      # Animation mode for border items
+      # Options: rainbow, basic, pulse, wave, gradient, fade, random, sequence
+      # - rainbow: Cycles through rainbow colors (default)
+      # - basic: Static border with no animation
+      # - pulse: All border items pulse together (brighten/darken)
+      # - wave: Wave effect that travels across border items
+      # - gradient: Smooth gradient that moves across border
+      # - fade: Fade in/out effect
+      # - random: Random colors for each border slot
+      # - sequence: Sequential color change from start to end
+      animation-mode: "rainbow"
+      # Material for basic mode and as base for other modes
+      # For 1.13+: "BLACK_STAINED_GLASS_PANE"
+      # For 1.8.8: "STAINED_GLASS_PANE:15"
+      material: "BLACK_STAINED_GLASS_PANE"
+      name: " "
+      # Supports range format: [0-3, 5-9, 17-26]
+      positions: ["0-3", "5-9", "17-26"]
+      animation-speed: 3  # Ticks between color changes (lower = faster)
+      # Advanced animation settings (optional, uses defaults if not specified)
+      animation-settings:
+        # Color palette for animations (leave empty to use default rainbow with 11 colors)
+        # You can specify custom materials to create your own color scheme
+        #
+        # EXAMPLES FOR 1.13+ (modern):
+        #   - Only red/blue: ["RED_STAINED_GLASS_PANE", "BLUE_STAINED_GLASS_PANE"]
+        #   - Warm colors: ["RED_STAINED_GLASS_PANE", "ORANGE_STAINED_GLASS_PANE", "YELLOW_STAINED_GLASS_PANE"]
+        #   - Cool colors: ["CYAN_STAINED_GLASS_PANE", "BLUE_STAINED_GLASS_PANE", "PURPLE_STAINED_GLASS_PANE"]
+        #   - Monochrome: ["WHITE_STAINED_GLASS_PANE", "GRAY_STAINED_GLASS_PANE", "BLACK_STAINED_GLASS_PANE"]
+        #
+        # EXAMPLES FOR 1.8.8-1.12.2 (legacy):
+        #   - Only red/blue: ["STAINED_GLASS_PANE:14", "STAINED_GLASS_PANE:11"]
+        #   - Warm colors: ["STAINED_GLASS_PANE:14", "STAINED_GLASS_PANE:1", "STAINED_GLASS_PANE:4"]
+        #   - Cool colors: ["STAINED_GLASS_PANE:9", "STAINED_GLASS_PANE:11", "STAINED_GLASS_PANE:10"]
+        #   - Rainbow 1.8.8: ["STAINED_GLASS_PANE:14", "STAINED_GLASS_PANE:1", "STAINED_GLASS_PANE:4", "STAINED_GLASS_PANE:5", "STAINED_GLASS_PANE:9", "STAINED_GLASS_PANE:11", "STAINED_GLASS_PANE:10", "STAINED_GLASS_PANE:2"]
+        #
+        color-palette: []
+        # Wave settings (for wave animation mode)
+        wave:
+          direction: "left-to-right"  # Options: left-to-right, right-to-left, top-to-bottom, bottom-to-top
+          speed: 2  # Wave speed multiplier (higher = faster)
+        # Pulse settings (for pulse animation mode)
+        pulse:
+          min-brightness: 0.3  # Minimum brightness (0.0 - 1.0)
+          max-brightness: 1.0  # Maximum brightness (0.0 - 1.0)
+          cycle-duration: 20  # Ticks for one complete pulse cycle
+        # Gradient settings (for gradient animation mode)
+        gradient:
+          direction: "left-to-right"  # Options: left-to-right, right-to-left
+          smoothness: 5  # Higher = smoother gradient transition
+        # Fade settings (for fade animation mode)
+        fade:
+          fade-in-duration: 10  # Ticks to fade in
+          fade-out-duration: 10  # Ticks to fade out
+          hold-duration: 20  # Ticks to hold at full brightness
+        # Random settings (for random animation mode)
+        random:
+          change-frequency: 5  # Ticks between random color changes
+        # Sequence settings (for sequence animation mode)
+        sequence:
+          direction: "left-to-right"  # Options: left-to-right, right-to-left
+          delay-between-items: 2  # Ticks delay between each item in sequence
+    # Player slots configuration (can be overridden per animation type)
+    player-slots:
+      # Default player slots (used for default, vertical animations)
+      default:
+        arrow-slot: 4
+        arrow-texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzI0MzE5MTFmNDE3OGI0ZDJiNDEzYWE3ZjVjNzhhZTQ0NDdmZTkyNDY5NDNjMzFkZjMxMTYzYzBlMDQzZTBkNiJ9fX0="
+        arrow-name: ">> WINNER <<"
+      # Slot-machine animation specific player slots
+      slot-machine:
+        player-slot: 13  # Player head slot for slot-machine animation
+      # Circular animation specific player slots
+      circular:
+        # Player head slots (12 slots total, slot 29 is the last slot and will show winner)
+        player-slots: [3, 4, 5, 11, 15, 20, 24, 33, 39, 40, 41, 29]
+        # Arrow slots (2 slots with customizable player heads)
+        arrow-slots:
+          - slot: 19
+            use-head: true  # true = use player head, false = use custom material
+            material: "BLACK_STAINED_GLASS_PANE"  # Used if use-head is false
+            texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjgyYWQxYjljYjRkZDIxMjU5YzBkNzVhYTMxNWZmMzg5YzNjZWY3NTJiZTM5NDkzMzgxNjRiYWM4NGE5NmUifX19"  # Base64 texture if use-head is false
+            name: "&7&l>> WINNER <<"
+          - slot: 21
+            use-head: true
+            material: "BLACK_STAINED_GLASS_PANE"
+            texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzdhZWU5YTc1YmYwZGY3ODk3MTgzMDE1Y2NhMGIyYTdkNzU1YzYzMzg4ZmYwMTc1MmQ1ZjQ0MTlmYzY0NSJ9fX0="
+            name: "&7&l<< WINNER >>"
+      # Vertical animation specific player slots
+      vertical:
+        # Player head slots (5 slots from top to bottom in column 4)
+        player-slots: [4, 13, 22, 31, 40]
+        arrow-slot: 21  # Arrow slot for vertical animation (next to winner slot 22)
+        arrow-texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjgyYWQxYjljYjRkZDIxMjU5YzBkNzVhYTMxNWZmMzg5YzNjZWY3NTJiZTM5NDkzMzgxNjRiYWM4NGE5NmUifX19"
+        arrow-name: ">> WINNER <<"
+  
+  rolling:
+    # Rolling animation type for the coin flip items
+    # Options: default, slot-machine, circular, vertical
+    # - default: Standard left-to-right scrolling animation
+    # - slot-machine: Player head changes at slot 13, other slots use border-item
+    # - circular: Items rotate in a circular pattern (GUI expanded to 45 rows)
+    # - vertical: Items scroll vertically from top to bottom (GUI expanded to 45 rows)
+    animation-type: "default"
+    timing:
+      duration: 80  # Total animation duration in ticks (20 ticks = 1 second)
+      frame-speed: 2  # Ticks between each frame (lower = faster)
+      slot-amount: 7  # Number of slots that will animate (for default animation)
+      first-slot: 10  # Starting slot index (for default animation)
+      result-slot: 13  # Slot to display result (center of row 2)
+      # Slot-machine specific settings
+      slot-machine:
+        center-slot: 13  # Center slot for slot-machine animation (where 2 heads change)
+        change-speed: 1  # Ticks between each head change (lower = faster)
+      # Circular animation specific settings
+      circular:
+        center-slot: 22  # Center slot for circular animation (row 2, col 4 in 9x5 grid)
+        radius: 3  # Number of slots from center (creates circle of items)
+        rotation-speed: 2  # Speed of rotation (higher = faster)
+        clockwise: true  # true = clockwise, false = counter-clockwise
+      # Vertical animation specific settings
+      vertical:
+        start-row: 0  # Starting row (for 54-row inventory)
+        column: 4  # Column to animate (0-8, typically center column 4)
+        rows-to-animate: 54  # Number of rows to animate (full inventory height)
+    # Animation settings
+    animation-settings:
+      # Slot-machine settings
+      slot-machine:
+        glow-on-change: true  # Add glowing effect when head changes
+        change-sound: true  # Play sound on each change (uses animation.during-roll sound)
+      # Circular settings
+      circular:
+        show-center: true  # Show center item (winner) in the middle
+        outer-glow: false  # Add glow to outer items
+        rotation-smoothness: 5  # Smoothness of rotation (higher = smoother, 1-10)
+      # Vertical settings
+      vertical:
+        direction: "top-to-bottom"  # Direction: top-to-bottom
+    players:
+      player1:
+        use-head: true  # true = use player's head, false = use custom material
+        material: "RED_WOOL"  # Used if use-head is false
+        display-name: "&e&l{PLAYER}"  # {PLAYER} - player name
+        glowing: false
+        custom-model-data: 0
+      player2:
+        use-head: true
+        material: "BLUE_WOOL"
+        display-name: "&e&l{PLAYER}"
+        glowing: false
+        custom-model-data: 0
+      bot:
+        # Bot configuration for play with bot games
+        name: "YourServer"  # Bot name displayed in animation
+        use-head: true  # true = use custom bot head, false = use custom material
+        material: "GOLD_INGOT"  # Used if use-head is false
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjQ4ZDU1YjMzZWQ2ZmViNjE0ZTJjYTVkNGY1MGJiMzdmMTYxYWRhMzU4MmZjZmM2ZTQwMjg4YzZmYjA2ZjFmIn19fQ=="  # Base64 texture for bot head
+        display-name: "&e&l{BOT}"  # {BOT} - bot name
+        glowing: false
+        custom-model-data: 0
+  
+  results:
+    winner:
+      item-type: "PLAYER_HEAD"
+      glowing: false  # Default: false
+      custom-model-data: 0  # Default: 0
+      skin:
+        source: "player"  # Options: player, custom, default
+        texture: ""  # Base64 texture if source is custom
+      display:
+        name: "&e&l{PLAYER} &a&l(WINNER)"  # {PLAYER} - player name
+        description: []
+    loser:
+      item-type: "PLAYER_HEAD"
+      glowing: false  # Default: false
+      custom-model-data: 0  # Default: 0
+      skin:
+        source: "player"
+        texture: ""
+      display:
+        name: "&7{PLAYER} &c(Loser)"
+        description: []
+
+# DO NOT MODIFY config-version - It is used to track configuration updates
+config-version: 4

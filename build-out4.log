@@ -1,0 +1,42 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.kstudio.ultracoinflip:CoinFlip >-----------------
+[INFO] Building CoinFlip 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ CoinFlip ---
+[INFO] Deleting C:\Users\User\system\Documents\CoinFlip\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ CoinFlip ---
+[INFO] Copying 69 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.8.1:compile (default-compile) @ CoinFlip ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 78 source files to C:\Users\User\system\Documents\CoinFlip\target\classes
+[INFO] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/util/ChatInputManager.java: Some input files use or override a deprecated API.
+[INFO] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/util/ChatInputManager.java: Recompile with -Xlint:deprecation for details.
+[INFO] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/GUIHelper.java: Some input files use unchecked or unsafe operations.
+[INFO] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/GUIHelper.java: Recompile with -Xlint:unchecked for details.
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[1881,78] local variables referenced from a lambda expression must be final or effectively final
+[INFO] 1 error
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  36.643 s
+[INFO] Finished at: 2026-02-01T12:33:17+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.1:compile (default-compile) on project CoinFlip: Compilation failure
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[1881,78] local variables referenced from a lambda expression must be final or effectively final
+[ERROR] 
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

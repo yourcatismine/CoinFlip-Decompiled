@@ -1,0 +1,172 @@
+# ==========================================
+# Vietnamese Messages
+# ==========================================
+# Tất cả messages đều hỗ trợ mã màu (&a, &c, v.v.) và định dạng MiniMessage
+# Sử dụng "" (chuỗi rỗng) để tắt một message
+
+prefix: '&c&lUltra&e&lCoinFlip &f|| &r'
+no-perms: '&8[&c&l!&8] <##eb3434>Bạn không có quyền thực hiện hành động này!'
+
+# Help Command Messages
+help:
+  messages:
+    - "&6&l=== UltraCoinFlip Trợ Giúp ==="
+    - "&e/coinflip &7- Mở menu coinflip"
+    - "&e/coinflip create <currency> <amount> &7- Tạo game coinflip mới"
+    - "&e/coinflip delete &7- Hủy game coinflip đang chơi"
+    - "&e/coinflip history &7- Open coinflip history GUI"
+    - "&e/coinflip help &7- Hiển thị thông báo trợ giúp này"
+
+# Command Messages
+command:
+  no-bet: '&fBạn chưa đặt cược!'
+  bet-cancelled: '&fCược của bạn đã được hủy!'
+  bet-cancelled-multiple: '&fTất cả coinflip của bạn đã được hủy (&e<amount>&f)!'
+  usage: '&cCách dùng: /cf create <money|playerpoints|tokenmanager|coinsengine:<id>|placeholder:<id>|<currency_id>> <số tiền>'
+  invalid-currency: '&cLoại tiền tệ không hợp lệ! Dùng &emoney&c, &eplayerpoints&c, &etokenmanager&c, &ecoinsengine:<id>&c, &eplaceholder:<id> &choặc currency ID'
+  not-enough-playerpoints: '&cBạn không đủ PlayerPoints!'
+  not-enough-tokenmanager: '&cBạn không đủ Tokens!'
+  not-enough-beasttokens: '&cBạn không đủ BeastTokens!'
+  not-enough-coinsengine: '&cBạn không đủ tiền tệ!'
+  not-enough-placeholder: '&cBạn không đủ tiền tệ!'
+  bet-created-playerpoints: '&fBạn đã đặt cược &e<amount><symbol>'
+  bet-created-tokenmanager: '&fBạn đã đặt cược &e<amount><symbol>'
+  bet-created-beasttokens: '&fBạn đã đặt cược &e<amount><symbol>'
+  bet-created-coinsengine: '&fBạn đã đặt cược &e<amount><symbol>'
+  bet-created-placeholder: '&fBạn đã đặt cược &e<amount><symbol>'
+  reload-success: '&aĐã tải lại cấu hình plugin thành công!'
+  reload-error: '&cKhông thể tải lại cấu hình plugin! Kiểm tra console để xem thông báo lỗi chi tiết. Một số cài đặt có thể chưa được tải lại.'
+  reload-busy: '&cKhông thể tải lại khi đang có hoàn tiền. Vui lòng đợi.'
+  economy-not-ready: '&cHệ thống kinh tế chưa sẵn sàng. Vui lòng đợi một chút và thử lại. Nếu vấn đề vẫn tiếp tục, hãy kiểm tra xem plugin kinh tế của bạn đã được cài đặt đúng cách chưa.'
+  invalid-amount: '&cSố tiền không hợp lệ! Vui lòng nhập một số hợp lệ lớn hơn 0.'
+  min-bid: '&cBạn cần cược ít nhất &e<amount>&c! Số tiền cược hiện tại của bạn quá thấp.'
+  max-bid: '&cBạn không thể cược quá &e<amount>&c! Số tiền cược hiện tại của bạn vượt quá giới hạn tối đa.'
+  not-enough-money: '&cBạn không đủ tiền! Bạn cần &e<amount>&c nhưng chỉ có &e<balance>&c.'
+  not-enough-money-reserve: '&cBạn không thể cược số tiền này! Bạn cần giữ lại số dư tối thiểu là &e<reserve>&c. Bạn có &e<balance>&c, vì vậy bạn chỉ có thể cược tối đa &e<max_bet>&c.'
+  not-enough-playerpoints-reserve: '&cBạn không thể cược số tiền này! Bạn cần giữ lại số dư tối thiểu là &e<reserve>&c. Bạn có &e<balance>&c, vì vậy bạn chỉ có thể cược tối đa &e<max_bet>&c.'
+  not-enough-tokenmanager-reserve: '&cBạn không thể cược số tiền này! Bạn cần giữ lại số dư tối thiểu là &e<reserve>&c. Bạn có &e<balance>&c, vì vậy bạn chỉ có thể cược tối đa &e<max_bet>&c.'
+  not-enough-beasttokens-reserve: '&cBạn không thể cược số tiền này! Bạn cần giữ lại số dư tối thiểu là &e<reserve>&c. Bạn có &e<balance>&c, vì vậy bạn chỉ có thể cược tối đa &e<max_bet>&c.'
+  not-enough-coinsengine-reserve: '&cBạn không thể cược số tiền này! Bạn cần giữ lại số dư tối thiểu là &e<reserve>&c. Bạn có &e<balance>&c, vì vậy bạn chỉ có thể cược tối đa &e<max_bet>&c.'
+  not-enough-placeholder-reserve: '&cBạn không thể cược số tiền này! Bạn cần giữ lại số dư tối thiểu là &e<reserve>&c. Bạn có &e<balance>&c, vì vậy bạn chỉ có thể cược tối đa &e<max_bet>&c.'
+  # Tin nhắn giới hạn cược
+  betting-limit-daily-exceeded: '&cBạn đã đạt giới hạn cược hàng ngày! Giới hạn: &e<limit>&c, Đã cược hôm nay: &e<current>&c, Còn lại: &e<remaining>&c. Thử lại vào ngày mai!'
+  betting-limit-weekly-exceeded: '&cBạn đã đạt giới hạn cược hàng tuần! Giới hạn: &e<limit>&c, Đã cược tuần này: &e<current>&c, Còn lại: &e<remaining>&c. Thử lại vào tuần sau!'
+  already-bet: '&fBạn đã đặt cược rồi!'
+  bet-limit-reached: '&cBạn đã đạt giới hạn tối đa <limit> coinflip đang hoạt động!'
+  rolling-active: '&cHãy hoàn thành coinflip hiện tại trước khi bắt đầu một trận mới!'
+  bet-created-money: '&fBạn đã đặt cược &e<amount>$'
+  broadcast-created: '&fNgười chơi &a<player> &fđã tạo coinflip với số tiền cược &e<amount><symbol> &f! Ai sẽ nhận kèo? &7(/cf)'
+  no-permission: '&cBạn không có quyền thực hiện hành động này!'
+  # Tin nhắn bảo vệ chống dupe
+  cooldown-wait: '&cVui lòng đợi <seconds> giây trước khi hủy game khác.'
+  plugin-busy: '&cPlugin đang bận. Vui lòng thử lại sau giây lát.'
+  refund-processing: '&eĐang xử lý hoàn tiền của bạn...'
+  transaction-in-progress: '&cGiao dịch đang được xử lý. Vui lòng đợi.'
+  # Tin nhắn lỗi tiền tệ
+  currency-disabled: '&cLoại tiền tệ <type> đã bị tắt!'
+  currency-not-available: '&cTiền tệ <id> không khả dụng!'
+  currency-check-hint-1: '&7  1. Plugin đã được cài đặt và tải'
+  currency-check-hint-2: '&7  2. ID tiền tệ <id> tồn tại'
+  currency-check-hint-3: '&7  3. Thử tải lại plugin: /cf reload'
+  no-currency-available: '&cKhông có tiền tệ nào khả dụng! Vui lòng bật ít nhất một loại tiền tệ trong config.'
+  currency-withdraw-failed: '&cKhông thể rút tiền tệ!'
+  # Trợ giúp tiền tệ không hợp lệ
+  invalid-currency-help: '&cLoại tiền tệ không hợp lệ!'
+  available-currencies: '&7Các tiền tệ khả dụng: <list>'
+  no-currencies-enabled: '&cKhông có tiền tệ nào được bật!'
+  coinsengine-ids-available: '&7ID CoinsEngine khả dụng: &e<ids>'
+  coinsengine-none-enabled: '&7Không có tiền tệ CoinsEngine nào được bật.'
+  placeholder-ids-available: '&7ID Placeholder khả dụng: &e<ids>'
+  placeholder-none-enabled: '&7Không có tiền tệ Placeholder nào được bật.'
+  
+# Currency Restriction Messages
+restriction:
+  cannot-use-currency: '&cBạn không thể sử dụng loại tiền tệ này! Kiểm tra xem bạn có quyền cần thiết hoặc đang ở đúng world không.'
+  cannot-join-game: '&cBạn không thể tham gia game này! Loại tiền tệ được sử dụng trong game này có thể bị hạn chế ở world hiện tại của bạn hoặc bạn thiếu quyền cần thiết.'
+  host-cannot-use: '&cNgười chơi tạo game không thể sử dụng loại tiền tệ này ở world hiện tại! Vui lòng thử một loại tiền tệ hoặc world khác.'
+  cannot-gamble-together: '&cBạn không thể đánh bạc với người chơi này bằng loại tiền tệ này! Một trong hai người có thể đang ở world bị hạn chế hoặc thiếu quyền cần thiết.'
+  world-blocked: '&7Loại tiền tệ này bị chặn ở world &e<world>&7'
+  world-allowed-only: '&7Loại tiền tệ này chỉ được phép ở các worlds: &e<worlds>'
+  permission-required-single: '&7Loại tiền tệ này yêu cầu quyền: &e<permission>'
+  permission-required-multiple: '&7Loại tiền tệ này yêu cầu một trong các quyền: &e<permissions>'
+
+# Heads/Tails Messages
+heads-tails:
+  heads: 'Ngửa'
+  tails: 'Sấp'
+  selected: '&fBạn đã chọn &e<choice> &fcho coinflip này!'
+
+# Game Messages
+game:
+  cannot-play-self: '&cBạn không thể chơi với chính mình!'
+  player-not-found: '&cKhông tìm thấy người chơi!'
+  winner: '&fBạn đã thắng &a<loser> &ftrong coinflip! &8(&a+<amount><symbol>&8, đã trừ thuế <tax_rate>%: -<tax><symbol>&8)'
+  loser: '&fBạn đã thua &c<winner> &ftrong coinflip! &8(&c-<amount><symbol>&8)'
+  broadcast-result: '&fNgười chơi &a<winner> &fđã thắng &c<loser> &ftrong coinflip với số tiền cược &e<amount><symbol> &f(sau thuế nhận &a<taxed_amount><symbol>&f)'
+  refunded: '&fGame coinflip của bạn đã được hoàn tiền. Bạn đã nhận lại &a<amount><symbol>&f.'
+  consecutive-win: '&e&lĐây là lần thứ <count> liên tiếp bạn thắng <opponent>!'
+
+# Play with Bot Messages
+house:
+  disabled: '&cChơi với Bot hiện đang bị tắt!'
+  no-permission: '&cBạn không có quyền sử dụng Chơi với Bot!'
+  min-bet: '&cBạn cần cược ít nhất &e<amount> &ccho chơi với bot!'
+  max-bet: '&cBạn không thể cược nhiều hơn &e<amount> &ccho chơi với bot!'
+  delay-remaining: '&cVui lòng đợi thêm &e<time> &cgiây trước khi chơi với bot tiếp!'
+  daily-limit-reached: '&cBạn đã đạt giới hạn &e<limit> &cgame chơi với bot mỗi ngày!'
+  win: '&a&lBẠN ĐÃ THẮNG! &fBạn đã thắng Bot! &8(&a+<amount><symbol>&8, đã trừ thuế: -<tax><symbol>&8)'
+  lose: '&c&lBẠN ĐÃ THUA! &fBạn đã thua Bot! &8(&c-<amount><symbol>&8)'
+  game-type: 'Bot'
+  game-type-player: 'Người chơi'
+
+# Title settings
+titles:
+  game-win-title: '&a&lBẠN ĐÃ THẮNG!'
+  game-win-subtitle: '&fNhận được &a<amount><symbol>'
+  game-lose-title: '&c&lBẠN ĐÃ THUA!'
+  game-lose-subtitle: '&fMất &c<amount><symbol>'
+
+# ActionBar settings
+actionbar:
+  game-win: '&a&lBẠN ĐÃ THẮNG! &fNhận được &a<amount><symbol>'
+  game-lose: '&c&lBẠN ĐÃ THUA! &fMất &c<amount><symbol>'
+
+# BossBar settings
+bossbar:
+  game-win: '&a&lBẠN ĐÃ THẮNG! &fNhận được &a<amount><symbol>'
+  game-lose: '&c&lBẠN ĐÃ THUA! &fMất &c<amount><symbol>'
+
+# Tin nhắn Admin Audit
+admin:
+  audit-header: '&6=== Trạng Thái UltraCoinFlip ==='
+  audit-active-games: '&7Game đang hoạt động: &e<count>'
+  audit-rolling-games: '&7Game đang quay: &e<count>'
+  audit-players-in-transaction: '&7Người chơi trong giao dịch: &e<count>'
+  audit-refund-in-progress: '&7Đang hoàn tiền: &e<status>'
+  audit-global-lock: '&7Khóa toàn cục: <status>'
+  audit-reloading: '&7Đang tải lại: <status>'
+  audit-active-refund-count: '&7Số hoàn tiền đang xử lý: &e<count>'
+  audit-games-processing: '&7Game đang xử lý: &e<count>'
+  audit-pending-logs: '&7Log đang chờ: &e<count>'
+  audit-footer: '&6========================='
+  audit-yes: '&cCó'
+  audit-no: '&aKhông'
+
+# Update Checker Messages
+update:
+  latest-version: '&fBạn đang sử dụng phiên bản mới nhất &a(v<version>)'
+  new-version-available: '&e⚠ &fCó bản cập nhật mới!'
+  current-version: '&7Phiên bản hiện tại: &c<version>'
+  latest-version-label: '&7Phiên bản mới nhất:  &a<version>'
+  download-link: '&bTải xuống: &fhttps://www.spigotmc.org/resources/ultracoinflip-1-20-x-1-21-10-folia-support.130124/'
+  check-failed: '&cKhông thể kiểm tra cập nhật: <error>'
+  # Short in-game message (separate from console)
+  in-game-new-version: "<yellow>Đã có phiên bản mới của UltraCoinFlip <gray>(Hiện tại: <red><current> <gray>| Mới nhất: <green><latest><gray>). <aqua><click:open_url:'https://www.spigotmc.org/resources/ultracoinflip-1-20-x-1-21-10-folia-support.130124'><u>Tải tại đây</u></click><gray>."
+
+# ==========================================
+# Configuration Version
+# ==========================================
+# DO NOT MODIFY THIS VALUE - It is used by the plugin to track configuration updates
+# Changing this value may cause configuration issues
+config-version: 13
+

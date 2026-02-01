@@ -1,0 +1,285 @@
+nohup: ignoring input
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.kstudio.ultracoinflip:CoinFlip >-----------------
+[INFO] Building CoinFlip 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+Downloading from spigot-repo: https://hub.spigotmc.org/nexus/content/repositories/snapshots/io/papermc/paper/paper-api/1.18.2-R0.1-SNAPSHOT/maven-metadata.xml
+Downloading from aikar-repo: https://repo.aikar.co/content/groups/aikar/io/papermc/paper/paper-api/1.18.2-R0.1-SNAPSHOT/maven-metadata.xml
+Downloading from papermc-repo: https://repo.papermc.io/repository/maven-public/io/papermc/paper/paper-api/1.18.2-R0.1-SNAPSHOT/maven-metadata.xml
+Downloading from jitpack.io: https://jitpack.io/io/papermc/paper/paper-api/1.18.2-R0.1-SNAPSHOT/maven-metadata.xml
+Downloading from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/io/papermc/paper/paper-api/1.18.2-R0.1-SNAPSHOT/maven-metadata.xml
+Progress (1): 2.4 kBProgress (2): 2.4 kB | 2.4 kB                             Downloaded from papermc-repo: https://repo.papermc.io/repository/maven-public/io/papermc/paper/paper-api/1.18.2-R0.1-SNAPSHOT/maven-metadata.xml (2.4 kB at 1.6 kB/s)
+Downloaded from aikar-repo: https://repo.aikar.co/content/groups/aikar/io/papermc/paper/paper-api/1.18.2-R0.1-SNAPSHOT/maven-metadata.xml (2.4 kB at 1.1 kB/s)
+Downloading from spigot-repo: https://hub.spigotmc.org/nexus/content/repositories/snapshots/co/aikar/acf-paper/0.5.0-SNAPSHOT/maven-metadata.xml
+Downloading from jitpack.io: https://jitpack.io/co/aikar/acf-paper/0.5.0-SNAPSHOT/maven-metadata.xml
+Downloading from papermc-repo: https://repo.papermc.io/repository/maven-public/co/aikar/acf-paper/0.5.0-SNAPSHOT/maven-metadata.xml
+Downloading from aikar-repo: https://repo.aikar.co/content/groups/aikar/co/aikar/acf-paper/0.5.0-SNAPSHOT/maven-metadata.xml
+Downloading from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/co/aikar/acf-paper/0.5.0-SNAPSHOT/maven-metadata.xml
+Progress (1): 1.4 kBProgress (2): 1.4 kB | 1.4 kB                             Downloaded from papermc-repo: https://repo.papermc.io/repository/maven-public/co/aikar/acf-paper/0.5.0-SNAPSHOT/maven-metadata.xml (1.4 kB at 4.8 kB/s)
+Downloaded from aikar-repo: https://repo.aikar.co/content/groups/aikar/co/aikar/acf-paper/0.5.0-SNAPSHOT/maven-metadata.xml (1.4 kB at 2.7 kB/s)
+Downloading from spigot-repo: https://hub.spigotmc.org/nexus/content/repositories/snapshots/co/aikar/acf-parent/0.5.0-SNAPSHOT/maven-metadata.xml
+Downloading from papermc-repo: https://repo.papermc.io/repository/maven-public/co/aikar/acf-parent/0.5.0-SNAPSHOT/maven-metadata.xml
+Downloading from jitpack.io: https://jitpack.io/co/aikar/acf-parent/0.5.0-SNAPSHOT/maven-metadata.xml
+Downloading from aikar-repo: https://repo.aikar.co/content/groups/aikar/co/aikar/acf-parent/0.5.0-SNAPSHOT/maven-metadata.xml
+Downloading from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/co/aikar/acf-parent/0.5.0-SNAPSHOT/maven-metadata.xml
+Progress (1): 814 BProgress (2): 814 B | 814 B                           Downloaded from papermc-repo: https://repo.papermc.io/repository/maven-public/co/aikar/acf-parent/0.5.0-SNAPSHOT/maven-metadata.xml (814 B at 2.8 kB/s)
+Downloaded from aikar-repo: https://repo.aikar.co/content/groups/aikar/co/aikar/acf-parent/0.5.0-SNAPSHOT/maven-metadata.xml (814 B at 1.6 kB/s)
+Downloading from spigot-repo: https://hub.spigotmc.org/nexus/content/repositories/snapshots/net/wesjd/anvilgui/1.5.3-SNAPSHOT/maven-metadata.xml
+Downloading from aikar-repo: https://repo.aikar.co/content/groups/aikar/net/wesjd/anvilgui/1.5.3-SNAPSHOT/maven-metadata.xml
+Downloading from jitpack.io: https://jitpack.io/net/wesjd/anvilgui/1.5.3-SNAPSHOT/maven-metadata.xml
+Downloading from papermc-repo: https://repo.papermc.io/repository/maven-public/net/wesjd/anvilgui/1.5.3-SNAPSHOT/maven-metadata.xml
+Downloading from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/net/wesjd/anvilgui/1.5.3-SNAPSHOT/maven-metadata.xml
+Progress (1): 770 B                   Downloaded from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/net/wesjd/anvilgui/1.5.3-SNAPSHOT/maven-metadata.xml (770 B at 1.5 kB/s)
+Downloading from papermc-repo: https://repo.papermc.io/repository/maven-public/net/wesjd/anvilgui-parent/1.5.3-SNAPSHOT/maven-metadata.xml
+Downloading from spigot-repo: https://hub.spigotmc.org/nexus/content/repositories/snapshots/net/wesjd/anvilgui-parent/1.5.3-SNAPSHOT/maven-metadata.xml
+Downloading from jitpack.io: https://jitpack.io/net/wesjd/anvilgui-parent/1.5.3-SNAPSHOT/maven-metadata.xml
+Downloading from aikar-repo: https://repo.aikar.co/content/groups/aikar/net/wesjd/anvilgui-parent/1.5.3-SNAPSHOT/maven-metadata.xml
+Downloading from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/net/wesjd/anvilgui-parent/1.5.3-SNAPSHOT/maven-metadata.xml
+Progress (1): 603 B                   Downloaded from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/net/wesjd/anvilgui-parent/1.5.3-SNAPSHOT/maven-metadata.xml (603 B at 577 B/s)
+Downloading from spigot-repo: https://hub.spigotmc.org/nexus/content/repositories/snapshots/com/zaxxer/HikariCP/4.0.3/HikariCP-4.0.3.pom
+Downloading from papermc-repo: https://repo.papermc.io/repository/maven-public/com/zaxxer/HikariCP/4.0.3/HikariCP-4.0.3.pom
+Progress (1): 1.4/26 kBProgress (1): 2.7/26 kBProgress (1): 4.1/26 kBProgress (1): 5.5/26 kBProgress (1): 6.8/26 kBProgress (1): 8.2/26 kBProgress (1): 9.6/26 kBProgress (1): 11/26 kB Progress (1): 12/26 kBProgress (1): 14/26 kBProgress (1): 15/26 kBProgress (1): 16/26 kBProgress (1): 18/26 kBProgress (1): 19/26 kBProgress (1): 20/26 kBProgress (1): 21/26 kBProgress (1): 22/26 kBProgress (1): 24/26 kBProgress (1): 25/26 kBProgress (1): 26 kB                      Downloaded from papermc-repo: https://repo.papermc.io/repository/maven-public/com/zaxxer/HikariCP/4.0.3/HikariCP-4.0.3.pom (26 kB at 75 kB/s)
+Downloading from spigot-repo: https://hub.spigotmc.org/nexus/content/repositories/snapshots/org/slf4j/slf4j-api/2.0.0-alpha1/slf4j-api-2.0.0-alpha1.pom
+Downloading from papermc-repo: https://repo.papermc.io/repository/maven-public/org/slf4j/slf4j-api/2.0.0-alpha1/slf4j-api-2.0.0-alpha1.pom
+Progress (1): 0.3/1.7 kBProgress (1): 1.6/1.7 kBProgress (1): 1.7 kB                        Downloaded from papermc-repo: https://repo.papermc.io/repository/maven-public/org/slf4j/slf4j-api/2.0.0-alpha1/slf4j-api-2.0.0-alpha1.pom (1.7 kB at 5.8 kB/s)
+Downloading from spigot-repo: https://hub.spigotmc.org/nexus/content/repositories/snapshots/org/slf4j/slf4j-parent/2.0.0-alpha1/slf4j-parent-2.0.0-alpha1.pom
+Downloading from papermc-repo: https://repo.papermc.io/repository/maven-public/org/slf4j/slf4j-parent/2.0.0-alpha1/slf4j-parent-2.0.0-alpha1.pom
+Progress (1): 1.4/16 kBProgress (1): 2.7/16 kBProgress (1): 4.1/16 kBProgress (1): 5.5/16 kBProgress (1): 6.8/16 kBProgress (1): 8.2/16 kBProgress (1): 12/16 kB Progress (1): 16 kB                      Downloaded from papermc-repo: https://repo.papermc.io/repository/maven-public/org/slf4j/slf4j-parent/2.0.0-alpha1/slf4j-parent-2.0.0-alpha1.pom (16 kB at 47 kB/s)
+Downloading from spigot-repo: https://hub.spigotmc.org/nexus/content/repositories/snapshots/com/zaxxer/HikariCP/4.0.3/HikariCP-4.0.3.jar
+Downloading from papermc-repo: https://repo.papermc.io/repository/maven-public/com/zaxxer/HikariCP/4.0.3/HikariCP-4.0.3.jar
+Progress (1): 3.1/159 kBProgress (1): 7.4/159 kBProgress (1): 12/159 kB Progress (1): 16/159 kBProgress (1): 20/159 kBProgress (1): 24/159 kBProgress (1): 25/159 kBProgress (1): 29/159 kBProgress (1): 33/159 kBProgress (1): 37/159 kBProgress (1): 41/159 kBProgress (1): 46/159 kBProgress (1): 50/159 kBProgress (1): 54/159 kBProgress (1): 58/159 kBProgress (1): 63/159 kBProgress (1): 67/159 kBProgress (1): 71/159 kBProgress (1): 75/159 kBProgress (1): 80/159 kBProgress (1): 84/159 kBProgress (1): 88/159 kBProgress (1): 92/159 kBProgress (1): 96/159 kBProgress (1): 101/159 kBProgress (1): 105/159 kBProgress (1): 109/159 kBProgress (1): 113/159 kBProgress (1): 118/159 kBProgress (1): 122/159 kBProgress (1): 126/159 kBProgress (1): 130/159 kBProgress (1): 135/159 kBProgress (1): 139/159 kBProgress (1): 143/159 kBProgress (1): 147/159 kBProgress (1): 151/159 kBProgress (1): 156/159 kBProgress (1): 159 kB                        Downloaded from papermc-repo: https://repo.papermc.io/repository/maven-public/com/zaxxer/HikariCP/4.0.3/HikariCP-4.0.3.jar (159 kB at 232 kB/s)
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ CoinFlip ---
+[INFO] Copying 69 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.8.1:compile (default-compile) @ CoinFlip ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 78 source files to C:\Users\User\system\Documents\CoinFlip\target\classes
+[INFO] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/util/ChatInputManager.java: Some input files use or override a deprecated API.
+[INFO] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/util/ChatInputManager.java: Recompile with -Xlint:deprecation for details.
+[INFO] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/GUIHelper.java: Some input files use unchecked or unsafe operations.
+[INFO] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/GUIHelper.java: Recompile with -Xlint:unchecked for details.
+[INFO] Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/KStudio.java:[92,35] cannot find symbol
+  symbol: method getPluginMeta()
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/KStudio.java:[469,46] cannot find symbol
+  symbol:   method getPluginMeta()
+  location: class org.bukkit.plugin.java.JavaPlugin
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/adventure/AdventureHelper.java:[535,43] method valueOf in class java.lang.Enum<E> cannot be applied to given types;
+  required: java.lang.Class<T>,java.lang.String
+  found:    java.lang.Class<capture#1 of ?>,java.lang.String
+  reason: inference variable T has incompatible bounds
+    equality constraints: capture#1 of ?
+    upper bounds: java.lang.Enum<T>
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/GUIHelper.java:[447,117] incompatible types: java.lang.Object cannot be converted to net.kyori.adventure.text.Component
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/GUIHelper.java:[447,128] incompatible types: inference variable T has incompatible bounds
+    equality constraints: java.lang.String
+    lower bounds: java.lang.Object
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/discord/DiscordWebhookHandler.java:[236,13] cannot find symbol
+  symbol:   variable responseCode
+  location: class com.kstudio.ultracoinflip.discord.DiscordWebhookHandler
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/discord/DiscordWebhookHandler.java:[247,30] cannot find symbol
+  symbol:   variable responseCode
+  location: class com.kstudio.ultracoinflip.discord.DiscordWebhookHandler
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/discord/DiscordWebhookHandler.java:[247,53] cannot find symbol
+  symbol:   variable responseCode
+  location: class com.kstudio.ultracoinflip.discord.DiscordWebhookHandler
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/discord/DiscordWebhookHandler.java:[270,36] cannot find symbol
+  symbol:   variable responseCode
+  location: class com.kstudio.ultracoinflip.discord.DiscordWebhookHandler
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/discord/DiscordWebhookHandler.java:[288,82] cannot find symbol
+  symbol:   variable responseCode
+  location: class com.kstudio.ultracoinflip.discord.DiscordWebhookHandler
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/discord/DiscordWebhookHandler.java:[290,82] cannot find symbol
+  symbol:   variable responseCode
+  location: class com.kstudio.ultracoinflip.discord.DiscordWebhookHandler
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/discord/DiscordWebhookHandler.java:[293,79] cannot find symbol
+  symbol:   variable responseCode
+  location: class com.kstudio.ultracoinflip.discord.DiscordWebhookHandler
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/util/AnvilInputManager.java:[35,17] cannot find symbol
+  symbol:   method mainThreadExecutor((runnable)[...]able))
+  location: variable builder of type net.wesjd.anvilgui.AnvilGUI.Builder
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/util/AnvilInputManager.java:[36,17] cannot find symbol
+  symbol:   method onClick((slot,stat[...]} } })
+  location: variable builder of type net.wesjd.anvilgui.AnvilGUI.Builder
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/util/AnvilInputManager.java:[47,60] cannot find symbol
+  symbol:   variable ResponseAction
+  location: class net.wesjd.anvilgui.AnvilGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[810,56] cannot find symbol
+  symbol:   variable slot
+  location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[810,69] cannot find symbol
+  symbol:   variable slot
+  location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[810,104] cannot find symbol
+  symbol:   variable slot
+  location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[825,44] cannot find symbol
+  symbol:   variable slot
+  location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[825,57] cannot find symbol
+  symbol:   variable slot
+  location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[825,92] cannot find symbol
+  symbol:   variable slot
+  location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[836,47] cannot find symbol
+  symbol:   variable slot
+  location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[836,60] cannot find symbol
+  symbol:   variable slot
+  location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[836,95] cannot find symbol
+  symbol:   variable slot
+  location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[1874,93] cannot find symbol
+  symbol:   variable animationType
+  location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[1878,63] cannot find symbol
+  symbol:   variable animationType
+  location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[1880,66] cannot find symbol
+  symbol:   variable animationType
+  location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[1882,66] cannot find symbol
+  symbol:   variable animationType
+  location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[1886,46] cannot find symbol
+  symbol:   variable inventorySize
+  location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/util/LegacyCompatibility.java:[77,24] method valueOf in class java.lang.Enum<E> cannot be applied to given types;
+  required: java.lang.Class<T>,java.lang.String
+  found:    java.lang.Class<capture#2 of ?>,java.lang.String
+  reason: inference variable T has incompatible bounds
+    equality constraints: capture#2 of ?
+    upper bounds: java.lang.Enum<T>
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/util/LegacyCompatibility.java:[223,29] method valueOf in class java.lang.Enum<E> cannot be applied to given types;
+  required: java.lang.Class<T>,java.lang.String
+  found:    java.lang.Class<capture#3 of ?>,java.lang.String
+  reason: inference variable T has incompatible bounds
+    equality constraints: capture#3 of ?
+    upper bounds: java.lang.Enum<T>
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/LeaderboardGUI.java:[147,34] incompatible types: boolean cannot be converted to int
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/LeaderboardGUI.java:[648,20] variable loreTemplate is already defined in method createFilterButton()
+[INFO] 33 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  38.157 s
+[INFO] Finished at: 2026-02-01T12:24:26+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.1:compile (default-compile) on project CoinFlip: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/KStudio.java:[92,35] cannot find symbol
+[ERROR]   symbol: method getPluginMeta()
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/KStudio.java:[469,46] cannot find symbol
+[ERROR]   symbol:   method getPluginMeta()
+[ERROR]   location: class org.bukkit.plugin.java.JavaPlugin
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/adventure/AdventureHelper.java:[535,43] method valueOf in class java.lang.Enum<E> cannot be applied to given types;
+[ERROR]   required: java.lang.Class<T>,java.lang.String
+[ERROR]   found:    java.lang.Class<capture#1 of ?>,java.lang.String
+[ERROR]   reason: inference variable T has incompatible bounds
+[ERROR]     equality constraints: capture#1 of ?
+[ERROR]     upper bounds: java.lang.Enum<T>
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/GUIHelper.java:[447,117] incompatible types: java.lang.Object cannot be converted to net.kyori.adventure.text.Component
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/GUIHelper.java:[447,128] incompatible types: inference variable T has incompatible bounds
+[ERROR]     equality constraints: java.lang.String
+[ERROR]     lower bounds: java.lang.Object
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/discord/DiscordWebhookHandler.java:[236,13] cannot find symbol
+[ERROR]   symbol:   variable responseCode
+[ERROR]   location: class com.kstudio.ultracoinflip.discord.DiscordWebhookHandler
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/discord/DiscordWebhookHandler.java:[247,30] cannot find symbol
+[ERROR]   symbol:   variable responseCode
+[ERROR]   location: class com.kstudio.ultracoinflip.discord.DiscordWebhookHandler
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/discord/DiscordWebhookHandler.java:[247,53] cannot find symbol
+[ERROR]   symbol:   variable responseCode
+[ERROR]   location: class com.kstudio.ultracoinflip.discord.DiscordWebhookHandler
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/discord/DiscordWebhookHandler.java:[270,36] cannot find symbol
+[ERROR]   symbol:   variable responseCode
+[ERROR]   location: class com.kstudio.ultracoinflip.discord.DiscordWebhookHandler
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/discord/DiscordWebhookHandler.java:[288,82] cannot find symbol
+[ERROR]   symbol:   variable responseCode
+[ERROR]   location: class com.kstudio.ultracoinflip.discord.DiscordWebhookHandler
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/discord/DiscordWebhookHandler.java:[290,82] cannot find symbol
+[ERROR]   symbol:   variable responseCode
+[ERROR]   location: class com.kstudio.ultracoinflip.discord.DiscordWebhookHandler
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/discord/DiscordWebhookHandler.java:[293,79] cannot find symbol
+[ERROR]   symbol:   variable responseCode
+[ERROR]   location: class com.kstudio.ultracoinflip.discord.DiscordWebhookHandler
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/util/AnvilInputManager.java:[35,17] cannot find symbol
+[ERROR]   symbol:   method mainThreadExecutor((runnable)[...]able))
+[ERROR]   location: variable builder of type net.wesjd.anvilgui.AnvilGUI.Builder
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/util/AnvilInputManager.java:[36,17] cannot find symbol
+[ERROR]   symbol:   method onClick((slot,stat[...]} } })
+[ERROR]   location: variable builder of type net.wesjd.anvilgui.AnvilGUI.Builder
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/util/AnvilInputManager.java:[47,60] cannot find symbol
+[ERROR]   symbol:   variable ResponseAction
+[ERROR]   location: class net.wesjd.anvilgui.AnvilGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[810,56] cannot find symbol
+[ERROR]   symbol:   variable slot
+[ERROR]   location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[810,69] cannot find symbol
+[ERROR]   symbol:   variable slot
+[ERROR]   location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[810,104] cannot find symbol
+[ERROR]   symbol:   variable slot
+[ERROR]   location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[825,44] cannot find symbol
+[ERROR]   symbol:   variable slot
+[ERROR]   location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[825,57] cannot find symbol
+[ERROR]   symbol:   variable slot
+[ERROR]   location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[825,92] cannot find symbol
+[ERROR]   symbol:   variable slot
+[ERROR]   location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[836,47] cannot find symbol
+[ERROR]   symbol:   variable slot
+[ERROR]   location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[836,60] cannot find symbol
+[ERROR]   symbol:   variable slot
+[ERROR]   location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[836,95] cannot find symbol
+[ERROR]   symbol:   variable slot
+[ERROR]   location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[1874,93] cannot find symbol
+[ERROR]   symbol:   variable animationType
+[ERROR]   location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[1878,63] cannot find symbol
+[ERROR]   symbol:   variable animationType
+[ERROR]   location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[1880,66] cannot find symbol
+[ERROR]   symbol:   variable animationType
+[ERROR]   location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[1882,66] cannot find symbol
+[ERROR]   symbol:   variable animationType
+[ERROR]   location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[1886,46] cannot find symbol
+[ERROR]   symbol:   variable inventorySize
+[ERROR]   location: class com.kstudio.ultracoinflip.gui.impl.CoinFlipRollGUI
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/util/LegacyCompatibility.java:[77,24] method valueOf in class java.lang.Enum<E> cannot be applied to given types;
+[ERROR]   required: java.lang.Class<T>,java.lang.String
+[ERROR]   found:    java.lang.Class<capture#2 of ?>,java.lang.String
+[ERROR]   reason: inference variable T has incompatible bounds
+[ERROR]     equality constraints: capture#2 of ?
+[ERROR]     upper bounds: java.lang.Enum<T>
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/util/LegacyCompatibility.java:[223,29] method valueOf in class java.lang.Enum<E> cannot be applied to given types;
+[ERROR]   required: java.lang.Class<T>,java.lang.String
+[ERROR]   found:    java.lang.Class<capture#3 of ?>,java.lang.String
+[ERROR]   reason: inference variable T has incompatible bounds
+[ERROR]     equality constraints: capture#3 of ?
+[ERROR]     upper bounds: java.lang.Enum<T>
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/LeaderboardGUI.java:[147,34] incompatible types: boolean cannot be converted to int
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/LeaderboardGUI.java:[648,20] variable loreTemplate is already defined in method createFilterButton()
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

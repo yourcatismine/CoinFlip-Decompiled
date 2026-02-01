@@ -1,0 +1,443 @@
+# Settings GUI Configuration
+#
+# =====================================================
+# MINECRAFT VERSION COMPATIBILITY NOTES
+# =====================================================
+# 
+# This config supports both modern Minecraft (1.13+) and legacy (1.8.8-1.12.2)
+#
+# MATERIAL NAMES:
+# ---------------
+# For 1.13+ (modern): Use material names like "BLACK_STAINED_GLASS_PANE", "LIME_DYE", "GRAY_DYE", etc.
+# For 1.8.8-1.12.2 (legacy): Use "MATERIAL:DATA" format, e.g., "STAINED_GLASS_PANE:15" for black
+#
+# STAINED GLASS PANE DATA VALUES (for 1.8.8-1.12.2):
+# --------------------------------------------------
+#   STAINED_GLASS_PANE:15 = Black
+#
+# DYE DATA VALUES (for 1.8.8-1.12.2):
+# -----------------------------------
+#   INK_SACK:10 = Lime Dye (Lime Green) - ON state
+#   INK_SACK:8  = Gray Dye (Gray) - OFF state
+#
+# OTHER COMMON MATERIALS (1.8.8):
+# -------------------------------
+#   NETHER_STAR = Nether Star
+#
+# =====================================================
+
+# Settings GUI - Player preferences for coinflip messages and notifications
+settings-gui:
+  size: 45
+  title: '&lUltraCoinFlip &8[Settings]'
+  
+  filler:
+    # For 1.13+: 'BLACK_STAINED_GLASS_PANE'
+    # For 1.8.8: 'STAINED_GLASS_PANE:15'
+    material: 'BLACK_STAINED_GLASS_PANE'
+    display-name: ' '
+    glowing: false
+    custom-model-data: 0
+    slots: ["0-8", "9", "17", "18", "26", "27", "35", "36-44"]
+  
+  # Settings items slots (arranged in rows)
+  settings-slots: ["10-16", "19-25", "28-34"]
+  
+  # Toggle materials
+  toggle:
+    enabled: 'LIME_DYE'   # For 1.8.8: 'INK_SACK:10'
+    disabled: 'GRAY_DYE'  # For 1.8.8: 'INK_SACK:8'
+  
+  back:
+    slot: 40
+    material: 'NETHER_STAR'
+    title: '&c&lBack to Main Menu'
+    glowing: false
+    custom-model-data: 0
+    lore:
+      - "&7Click to return to"
+      - "&7the main menu"
+  
+  # Settings items configuration
+  # Each setting can be enabled/disabled in the GUI
+  # If enabled: false, the setting item will not appear in the GUI
+  # Setting keys (for reference):
+  #   message-game-created: Toggle messages when creating a game
+  #   message-game-joined: Toggle messages when someone joins your game
+  #   message-game-won: Toggle messages when you win a game
+  #   message-game-lost: Toggle messages when you lose a game
+  #   message-game-cancelled: Toggle messages when you cancel a game
+  #   message-broadcasts: Toggle broadcast messages from other players' games
+  #   message-bot-game: Toggle messages when playing with bot
+  #   message-game-result-broadcast: Toggle broadcast messages when games finish
+  #   message-consecutive-wins: Toggle messages for consecutive wins
+  #   message-error: Toggle error messages (insufficient balance, invalid amount, etc.)
+  #   notification-title: Toggle title notifications during games
+  #   notification-actionbar: Toggle actionbar notifications during games
+  #   notification-bossbar: Toggle bossbar notifications during games
+  #   notification-sound: Toggle general sound notifications during games
+  #   notification-game-start-sound: Toggle sound when game starts
+  #   notification-consecutive-win-sound: Toggle sound for consecutive wins
+  #   notification-animation-sound: Toggle sounds during coinflip animation
+  settings:
+    # Message toggles
+    message-game-created:
+      enabled: true  # Set to false to hide this setting from GUI
+      slot: 10  # Slot position in GUI
+      title-enabled: '&fGame Created messages &7[&a&l✓&7]'  # Display name when setting is enabled
+      title-disabled: '&fGame Created messages &7[&c&l✗&7]'  # Display name when setting is disabled
+      lore-enabled:  # Lore lines shown when setting is enabled
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&aEnabled"
+        - "&7You will receive messages"
+        - "&7when you create a game"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &c&lDISABLE"
+      lore-disabled:  # Lore lines shown when setting is disabled
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Disabled"
+        - "&7You will not receive messages"
+        - "&7when you create a game"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &a&lENABLE"
+      default: true  # Default value for new players (true = enabled, false = disabled)
+    
+    message-game-joined:
+      enabled: true
+      slot: 11
+      title-enabled: '&fGame Joined messages &7[&a&l✓&7]'
+      title-disabled: '&fGame Joined messages &7[&c&l✗&7]'
+      lore-enabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&aEnabled"
+        - "&7You will receive messages"
+        - "&7when someone joins your game"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &c&lDISABLE"
+      lore-disabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Disabled"
+        - "&7You will not receive messages"
+        - "&7when someone joins your game"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &a&lENABLE"
+      default: true
+    
+    message-game-won:
+      enabled: true
+      slot: 12
+      title-enabled: '&fGame Won messages &7[&a&l✓&7]'
+      title-disabled: '&fGame Won messages &7[&c&l✗&7]'
+      lore-enabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&aEnabled"
+        - "&7You will receive messages"
+        - "&7when you win a game"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &c&lDISABLE"
+      lore-disabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Disabled"
+        - "&7You will not receive messages"
+        - "&7when you win a game"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &a&lENABLE"
+      default: true
+    
+    message-game-lost:
+      enabled: true
+      slot: 13
+      title-enabled: '&fGame Lost messages &7[&a&l✓&7]'
+      title-disabled: '&fGame Lost messages &7[&c&l✗&7]'
+      lore-enabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&aEnabled"
+        - "&7You will receive messages"
+        - "&7when you lose a game"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &c&lDISABLE"
+      lore-disabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Disabled"
+        - "&7You will not receive messages"
+        - "&7when you lose a game"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &a&lENABLE"
+      default: true
+    
+    message-game-cancelled:
+      enabled: true
+      slot: 14
+      title-enabled: '&fGame Cancelled messages &7[&a&l✓&7]'
+      title-disabled: '&fGame Cancelled messages &7[&c&l✗&7]'
+      lore-enabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&aEnabled"
+        - "&7You will receive messages"
+        - "&7when you cancel a game"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &c&lDISABLE"
+      lore-disabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Disabled"
+        - "&7You will not receive messages"
+        - "&7when you cancel a game"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &a&lENABLE"
+      default: true
+    
+    message-broadcasts:
+      enabled: true
+      slot: 15
+      title-enabled: '&fBroadcast messages &7[&a&l✓&7]'
+      title-disabled: '&fBroadcast messages &7[&c&l✗&7]'
+      lore-enabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&aEnabled"
+        - "&7You will see broadcast messages"
+        - "&7from other players' games"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &c&lDISABLE"
+      lore-disabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Disabled"
+        - "&7You will not see broadcast messages"
+        - "&7from other players' games"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &a&lENABLE"
+      default: true
+    
+    message-bot-game:
+      enabled: true
+      slot: 16
+      title-enabled: '&fBot Game messages &7[&a&l✓&7]'
+      title-disabled: '&fBot Game messages &7[&c&l✗&7]'
+      lore-enabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&aEnabled"
+        - "&7You will receive messages"
+        - "&7when playing with bot"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &c&lDISABLE"
+      lore-disabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Disabled"
+        - "&7You will not receive messages"
+        - "&7when playing with bot"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &a&lENABLE"
+      default: true
+    
+    message-game-result-broadcast:
+      enabled: true
+      slot: 19
+      title-enabled: '&fGame Result broadcasts &7[&a&l✓&7]'
+      title-disabled: '&fGame Result broadcasts &7[&c&l✗&7]'
+      lore-enabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&aEnabled"
+        - "&7You will see broadcast messages"
+        - "&7when games finish"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &c&lDISABLE"
+      lore-disabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Disabled"
+        - "&7You will not see broadcast messages"
+        - "&7when games finish"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &a&lENABLE"
+      default: true
+    
+    message-consecutive-wins:
+      enabled: true
+      slot: 20
+      title-enabled: '&fConsecutive Wins messages &7[&a&l✓&7]'
+      title-disabled: '&fConsecutive Wins messages &7[&c&l✗&7]'
+      lore-enabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&aEnabled"
+        - "&7You will receive messages"
+        - "&7when you get consecutive wins"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &c&lDISABLE"
+      lore-disabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Disabled"
+        - "&7You will not receive messages"
+        - "&7when you get consecutive wins"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &a&lENABLE"
+      default: true
+    
+    message-error:
+      enabled: true
+      slot: 21
+      title-enabled: '&fError messages &7[&a&l✓&7]'
+      title-disabled: '&fError messages &7[&c&l✗&7]'
+      lore-enabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&aEnabled"
+        - "&7You will receive error messages"
+        - "&7(not enough money, invalid amount, etc.)"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &c&lDISABLE"
+      lore-disabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Disabled"
+        - "&7You will not receive error messages"
+        - "&7(not enough money, invalid amount, etc.)"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &a&lENABLE"
+      default: true
+    
+    # Notification toggles
+    notification-title:
+      enabled: true
+      slot: 22
+      title-enabled: '&fTitle Notifications &7[&a&l✓&7]'
+      title-disabled: '&fTitle Notifications &7[&c&l✗&7]'
+      lore-enabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&aEnabled"
+        - "&7You will receive title"
+        - "&7notifications during games"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &c&lDISABLE"
+      lore-disabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Disabled"
+        - "&7You will not receive title"
+        - "&7notifications during games"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &a&lENABLE"
+      default: true
+    
+    notification-actionbar:
+      enabled: true
+      slot: 23
+      title-enabled: '&fActionBar notifications &7[&a&l✓&7]'
+      title-disabled: '&fActionBar Notifications &7[&c&l✗&7]'
+      lore-enabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&aEnabled"
+        - "&7You will receive actionbar"
+        - "&7notifications during games"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &c&lDISABLE"
+      lore-disabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Disabled"
+        - "&7You will not receive actionbar"
+        - "&7notifications during games"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &a&lENABLE"
+      default: true
+    
+    notification-bossbar:
+      enabled: true
+      slot: 24
+      title-enabled: '&fBossBar notifications &7[&a&l✓&7]'
+      title-disabled: '&fBossBar notifications &7[&c&l✗&7]'
+      lore-enabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&aEnabled"
+        - "&7You will receive bossbar"
+        - "&7notifications during games"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &c&lDISABLE"
+      lore-disabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Disabled"
+        - "&7You will not receive bossbar"
+        - "&7notifications during games"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &a&lENABLE"
+      default: true
+    
+    notification-sound:
+      enabled: true
+      slot: 25
+      title-enabled: '&fSound ntifications &7[&a&l✓&7]'
+      title-disabled: '&fSound notifications &7[&c&l✗&7]'
+      lore-enabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&aEnabled"
+        - "&7You will hear sounds"
+        - "&7during coinflip games"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &c&lDISABLE"
+      lore-disabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Disabled"
+        - "&7You will not hear sounds"
+        - "&7during coinflip games"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &a&lENABLE"
+      default: true
+    
+    notification-game-start-sound:
+      enabled: true
+      slot: 28
+      title-enabled: '&fGame Start sound &7[&a&l✓&7]'
+      title-disabled: '&fGame Start Sound &7[&c&l✗&7]'
+      lore-enabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&aEnabled"
+        - "&7You will hear sound"
+        - "&7when game starts"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &c&lDISABLE"
+      lore-disabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Disabled"
+        - "&7You will not hear sound"
+        - "&7when game starts"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &a&lENABLE"
+      default: true
+    
+    notification-consecutive-win-sound:
+      enabled: true
+      slot: 29
+      title-enabled: '&fConsecutive Win sound &7[&a&l✓&7]'
+      title-disabled: '&fConsecutive Win Sound &7[&c&l✗&7]'
+      lore-enabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&aEnabled"
+        - "&7You will hear sound"
+        - "&7when you get consecutive wins"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &c&lDISABLE"
+      lore-disabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Disabled"
+        - "&7You will not hear sound"
+        - "&7when you get consecutive wins"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &a&lENABLE"
+      default: true
+    
+    notification-animation-sound:
+      enabled: true
+      slot: 30
+      title-enabled: '&fAnimation sounds &7[&a&l✓&7]'
+      title-disabled: '&fAnimation sounds &7[&c&l✗&7]'
+      lore-enabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&aEnabled"
+        - "&7You will hear sounds"
+        - "&7during coinflip animation"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &c&lDISABLE"
+      lore-disabled:
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Disabled"
+        - "&7You will not hear sounds"
+        - "&7during coinflip animation"
+        - "&8&m━━━━━━━━━━━━━━━━"
+        - "&7Click to &a&lENABLE"
+      default: true
+
+# DO NOT MODIFY config-version - It is used to track configuration updates
+config-version: 1

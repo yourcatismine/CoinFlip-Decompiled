@@ -1,0 +1,67 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.kstudio.ultracoinflip:CoinFlip >-----------------
+[INFO] Building CoinFlip 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ CoinFlip ---
+[INFO] Deleting C:\Users\User\system\Documents\CoinFlip\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ CoinFlip ---
+[INFO] Copying 69 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.8.1:compile (default-compile) @ CoinFlip ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 78 source files to C:\Users\User\system\Documents\CoinFlip\target\classes
+[INFO] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/util/ChatInputManager.java: Some input files use or override a deprecated API.
+[INFO] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/util/ChatInputManager.java: Recompile with -Xlint:deprecation for details.
+[INFO] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/GUIHelper.java: Some input files use unchecked or unsafe operations.
+[INFO] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/GUIHelper.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ CoinFlip ---
+[INFO] skip non existing resourceDirectory C:\Users\User\system\Documents\CoinFlip\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.8.1:testCompile (default-testCompile) @ CoinFlip ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.2.5:test (default-test) @ CoinFlip ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.1:jar (default-jar) @ CoinFlip ---
+[INFO] Building jar: C:\Users\User\system\Documents\CoinFlip\target\CoinFlip-1.0.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- shade:3.5.1:shade (default) @ CoinFlip ---
+[INFO] Including org.slf4j:slf4j-api:jar:1.8.0-beta4 in the shaded jar.
+[INFO] Including co.aikar:acf-paper:jar:0.5.0-SNAPSHOT in the shaded jar.
+[INFO] Including org.bstats:bstats-bukkit:jar:3.0.0 in the shaded jar.
+[INFO] Including org.bstats:bstats-base:jar:3.0.0 in the shaded jar.
+[INFO] Including net.wesjd:anvilgui:jar:1.9.0-SNAPSHOT in the shaded jar.
+[INFO] Including com.zaxxer:HikariCP:jar:4.0.3 in the shaded jar.
+[WARNING] CoinFlip-1.0.0-SNAPSHOT.jar, acf-paper-0.5.0-SNAPSHOT.jar define 38 overlapping resources: 
+[WARNING]   - acf-core_bg.properties
+[WARNING]   - acf-core_cs.properties
+[WARNING]   - acf-core_de.properties
+[WARNING]   - acf-core_en.properties
+[WARNING]   - acf-core_es.properties
+[WARNING]   - acf-core_fr.properties
+[WARNING]   - acf-core_hu.properties
+[WARNING]   - acf-core_ja.properties
+[WARNING]   - acf-core_nb.properties
+[WARNING]   - acf-core_nl.properties
+[WARNING]   - 28 more...
+[WARNING] maven-shade-plugin has detected that some files are
+[WARNING] present in two or more JARs. When this happens, only one
+[WARNING] single version of the file is copied to the uber jar.
+[WARNING] Usually this is not harmful and you can skip these warnings,
+[WARNING] otherwise try to manually exclude artifacts based on
+[WARNING] mvn dependency:tree -Ddetail=true and the above output.
+[WARNING] See https://maven.apache.org/plugins/maven-shade-plugin/
+[INFO] Replacing original artifact with shaded artifact.
+[INFO] Replacing C:\Users\User\system\Documents\CoinFlip\target\CoinFlip-1.0.0-SNAPSHOT.jar with C:\Users\User\system\Documents\CoinFlip\target\CoinFlip-1.0.0-SNAPSHOT-shaded.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:18 min
+[INFO] Finished at: 2026-02-01T18:06:23+08:00
+[INFO] ------------------------------------------------------------------------

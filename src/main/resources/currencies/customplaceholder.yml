@@ -1,0 +1,211 @@
+# ==========================================
+# Custom Placeholder Currency Configuration
+# ==========================================
+# Placeholder-based currencies - Requires PlaceholderAPI
+# IMPORTANT: The placeholder MUST output a numeric value (a number)
+# For detailed comments and examples, see vault.yml
+# ==========================================
+# PLACEHOLDER API USAGE:
+# When using PlaceholderAPI placeholders, use your currency ID as the <currency> value.
+# 
+# Example: If your currency ID is "orbs", you can use:
+#   %coinflip_placeholder_orbs_unit% - Unit of the currency (e.g., "Orbs")
+#   %coinflip_placeholder_orbs_display% - Display name of the currency (e.g., "Orbs")
+#   %coinflip_orbs_unit% - Short format (same as above)
+#   %coinflip_orbs_display% - Short format (same as above)
+#
+# In GUI config files, you can use:
+#   <placeholder_orbs_unit> - Unit of the currency
+#   <placeholder_orbs_display> - Display name of the currency
+#
+# NOTE: Custom placeholder currencies are NOT tracked in statistics.
+#       Therefore, winrate/profit/loss placeholders for custom currencies will return "0".
+#       Only built-in currencies (money, playerpoints, tokenmanager, beasttokens) have statistics tracking.
+#       For winrate placeholders, use: %coinflip_winrate_<currency>% where <currency> is one of:
+#         - money (Vault currency)
+#         - playerpoints (PlayerPoints currency)
+#         - tokenmanager (TokenManager currency)
+#         - beasttokens (BeastTokens currency)
+# ==========================================
+# MULTIPLE CURRENCIES SUPPORTED:
+# You can add as many custom currencies as you want!
+# Just copy the currency structure below and give it a unique ID.
+# Example:
+#   currencies:
+#     orbs:         <- Currency ID
+#       enabled: true
+#       tax-rate: 0.1
+#       dynamic-tax-enabled: false  <- Each currency has its own tax config
+#       ...
+#     gems:         <- Another currency ID
+#       enabled: true
+#       tax-rate: 0.15
+#       dynamic-tax-enabled: true   <- Can be different from orbs!
+#       tax-rate-config:
+#         base-tax-rate: 0.2
+#         tiers: ...
+#       ...
+#     tokens:       <- Yet another currency ID
+#       enabled: true
+#       ...
+# ==========================================
+# DYNAMIC TAX PER CURRENCY:
+# Each currency can have its own dynamic tax configuration!
+# This allows you to set different tax rates for different currencies.
+# For example: Orbs might have 5-10-15% tax tiers, while Gems have 10-20-30%.
+# ==========================================
+
+currencies:
+  # Example Currency 1: Orbs
+  # The key (orbs) is the currency ID - you can change this to any unique name
+  # IMPORTANT: This currency ID is used in PlaceholderAPI placeholders!
+  # Example placeholders for this currency (currency ID = "orbs"):
+  #   %coinflip_placeholder_orbs_unit% or %coinflip_orbs_unit% - Returns: "Orbs"
+  #   %coinflip_placeholder_orbs_display% or %coinflip_orbs_display% - Returns: "Orbs"
+  #   In GUI config: <placeholder_orbs_unit> or <placeholder_orbs_display>
+  orbs:
+    enabled: false
+    # PlaceholderAPI placeholder that returns the player's balance (MUST return a number)
+    placeholder: '%rivalhoes_essence%'
+    unit: 'Orbs'
+    display-name: 'Orbs'
+    # Placeholders: {player} - player name, {amount} - amount
+    give-command: 'orbs give {player} {amount} -s'
+    remove-command: 'orbs remove {player} {amount} -s'
+    syntax-command: 'orb'
+    broadcast-enabled: true
+    min-broadcast-amount: 100
+    min-bid: 1
+    max-bid: -1
+    min-reserve-balance: 0
+    tax-enabled: true
+    tax-rate: 0.1
+    # Dynamic Tax Rate System for this currency
+    dynamic-tax-enabled: false
+    tax-rate-config:
+      base-tax-rate: 0.1
+      tiers:
+        - min-amount: 0
+          max-amount: 100
+          tax-rate: 0.05
+        - min-amount: 100
+          max-amount: 1000
+          tax-rate: 0.1
+        - min-amount: 1000
+          max-amount: -1
+          tax-rate: 0.15
+  
+  # Example Currency 2: Gems
+  # Copy this structure to add more currencies!
+  # IMPORTANT: The currency ID (gems) is used in PlaceholderAPI placeholders!
+  # Example placeholders for this currency (currency ID = "gems"):
+  #   %coinflip_placeholder_gems_unit% or %coinflip_gems_unit% - Returns: "Gems"
+  #   %coinflip_placeholder_gems_display% or %coinflip_gems_display% - Returns: "Gems"
+  #   In GUI config: <placeholder_gems_unit> or <placeholder_gems_display>
+  gems:
+    enabled: false
+    # Change the placeholder to your plugin's placeholder
+    placeholder: '%yourplugin_gems%'
+    unit: 'Gems'
+    display-name: 'Gems'
+    # Adjust commands to match your plugin's commands
+    give-command: 'gems give {player} {amount}'
+    remove-command: 'gems take {player} {amount}'
+    syntax-command: 'gem'
+    broadcast-enabled: true
+    min-broadcast-amount: 50
+    min-bid: 1
+    max-bid: -1
+    min-reserve-balance: 0
+    tax-enabled: true
+    tax-rate: 0.1
+    # Dynamic Tax Rate System for this currency (can be different from orbs!)
+    dynamic-tax-enabled: false
+    tax-rate-config:
+      base-tax-rate: 0.15
+      tiers:
+        - min-amount: 0
+          max-amount: 50
+          tax-rate: 0.05
+        - min-amount: 50
+          max-amount: 500
+          tax-rate: 0.15
+        - min-amount: 500
+          max-amount: -1
+          tax-rate: 0.2
+    # Currency restrictions (world and permissions)
+    # Restrict currency usage based on world and permissions
+    # Examples:
+    #   - Only survival worlds: allowed-worlds: [world, world_nether]
+    #   - Block specific worlds: blocked-worlds: [lobby, creative]
+    #   - Require permission: required-permissions: [ultracoinflip.vip]
+    restrictions:
+      # Enable/disable restrictions (false = no restrictions)
+      enabled: false
+      # Allowed worlds (empty = all worlds allowed)
+      allowed-worlds: []
+      # Blocked worlds (takes priority over allowed-worlds)
+      blocked-worlds: []
+      # Required permissions (empty = no permissions required, player needs at least one)
+      required-permissions: []
+  
+  # Example Currency 2: Gems
+  # Copy this structure to add more currencies!
+  # IMPORTANT: The currency ID (gems) is used in PlaceholderAPI placeholders!
+  # Example placeholders for this currency (currency ID = "gems"):
+  #   %coinflip_placeholder_gems_unit% or %coinflip_gems_unit% - Returns: "Gems"
+  #   %coinflip_placeholder_gems_display% or %coinflip_gems_display% - Returns: "Gems"
+  #   In GUI config: <placeholder_gems_unit> or <placeholder_gems_display>
+  gems:
+    enabled: false
+    # Change the placeholder to your plugin's placeholder
+    placeholder: '%yourplugin_gems%'
+    unit: 'Gems'
+    display-name: 'Gems'
+    # Adjust commands to match your plugin's commands
+    give-command: 'gems give {player} {amount}'
+    remove-command: 'gems take {player} {amount}'
+    syntax-command: 'gem'
+    broadcast-enabled: true
+    min-broadcast-amount: 50
+    min-bid: 1
+    max-bid: -1
+    min-reserve-balance: 0
+    tax-enabled: true
+    tax-rate: 0.1
+    # Dynamic Tax Rate System for this currency (can be different from orbs!)
+    dynamic-tax-enabled: false
+    tax-rate-config:
+      base-tax-rate: 0.15
+      tiers:
+        - min-amount: 0
+          max-amount: 50
+          tax-rate: 0.05
+        - min-amount: 50
+          max-amount: 500
+          tax-rate: 0.15
+        - min-amount: 500
+          max-amount: -1
+          tax-rate: 0.2
+    # Currency restrictions (world and permissions)
+    # Restrict currency usage based on world and permissions
+    # Examples:
+    #   - Only survival worlds: allowed-worlds: [world, world_nether]
+    #   - Block specific worlds: blocked-worlds: [lobby, creative]
+    #   - Require permission: required-permissions: [ultracoinflip.vip]
+    restrictions:
+      # Enable/disable restrictions (false = no restrictions)
+      enabled: false
+      # Allowed worlds (empty = all worlds allowed)
+      allowed-worlds: []
+      # Blocked worlds (takes priority over allowed-worlds)
+      blocked-worlds: []
+      # Required permissions (empty = no permissions required, player needs at least one)
+      required-permissions: []
+
+# ==========================================
+# Configuration Version
+# ==========================================
+# DO NOT MODIFY THIS VALUE - It is used by the plugin to track configuration updates
+# Changing this value may cause configuration issues
+config-version: 6

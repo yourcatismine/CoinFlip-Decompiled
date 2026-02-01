@@ -1,0 +1,169 @@
+# ==========================================
+# Chinese Traditional Messages (繁體中文)
+# ==========================================
+# 所有訊息都支援顏色代碼 (&a, &c, 等) 和 MiniMessage 格式
+# 使用 "" (空字串) 來停用訊息
+
+prefix: '&c&lUltra&e&lCoinFlip &f|| &r'
+no-perms: '&8[&c&l!&8] <##eb3434>您沒有權限執行此操作!'
+
+# Help Command Messages
+help:
+  messages:
+    - "&6&l=== UltraCoinFlip 幫助 ==="
+    - "&e/coinflip &7- 開啟 coinflip 選單"
+    - "&e/coinflip create <currency> <amount> &7- 建立新的 coinflip 遊戲"
+    - "&e/coinflip delete &7- 取消您活躍的 coinflip 遊戲"
+    - "&e/coinflip history &7- 開啟 coinflip 歷史記錄介面"
+    - "&e/coinflip help &7- 顯示此幫助訊息"
+
+# Command Messages
+command:
+  no-bet: '&f您尚未下注!'
+  bet-cancelled: '&f您的下注已取消!'
+  bet-cancelled-multiple: '&f您的所有投幣遊戲已取消 (&e<amount>&f)!'
+  usage: '&c用法: /cf create <money|playerpoints|tokenmanager|coinsengine:<id>|placeholder:<id>|<currency_id>> <金額>'
+  invalid-currency: '&c無效的貨幣類型! 使用 &emoney&c, &eplayerpoints&c, &etokenmanager&c, &ecoinsengine:<id>&c, &eplaceholder:<id> &c或貨幣ID'
+  not-enough-playerpoints: '&c您的PlayerPoints不足!'
+  not-enough-tokenmanager: '&c您的代幣不足!'
+  not-enough-beasttokens: '&c您的 BeastTokens 不足!'
+  not-enough-coinsengine: '&c您的貨幣不足!'
+  not-enough-placeholder: '&c您的貨幣不足!'
+  bet-created-playerpoints: '&f您已下注 &e<amount><symbol>'
+  bet-created-tokenmanager: '&f您已下注 &e<amount><symbol>'
+  bet-created-beasttokens: '&f您已下注 &e<amount><symbol>'
+  bet-created-coinsengine: '&f您已下注 &e<amount><symbol>'
+  bet-created-placeholder: '&f您已下注 &e<amount><symbol>'
+  reload-success: '&a插件配置已成功重新載入!'
+  reload-error: '&c重新載入插件配置失敗! 請檢查控制台中的詳細錯誤訊息. 某些設定可能未重新載入.'
+  economy-not-ready: '&c經濟系統尚未準備就緒. 請稍等片刻再試. 如果問題仍然存在, 請檢查您的經濟插件是否正確安裝.'
+  invalid-amount: '&c無效的金額! 請輸入大於0的有效數字.'
+  min-bid: '&c您至少需要下注 &e<amount>&c! 您當前的投注金額太低.'
+  max-bid: '&c您不能下注超過 &e<amount>&c! 您當前的投注金額超過了最大限制.'
+  not-enough-money: '&c您的金錢不足! 您需要 &e<amount>&c 但只有 &e<balance>&c.'
+  not-enough-money-reserve: '&c您不能下注這個金額! 您需要保留最低儲備餘額 &e<reserve>&c. 您有 &e<balance>&c, 因此您最多只能下注 &e<max_bet>&c.'
+  not-enough-playerpoints-reserve: '&c您不能下注這個金額! 您需要保留最低儲備餘額 &e<reserve>&c. 您有 &e<balance>&c, 因此您最多只能下注 &e<max_bet>&c.'
+  not-enough-tokenmanager-reserve: '&c您不能下注這個金額! 您需要保留最低儲備餘額 &e<reserve>&c. 您有 &e<balance>&c, 因此您最多只能下注 &e<max_bet>&c.'
+  not-enough-beasttokens-reserve: '&c您不能下注這個金額! 您需要保留最低儲備餘額 &e<reserve>&c. 您有 &e<balance>&c, 因此您最多只能下注 &e<max_bet>&c.'
+  not-enough-coinsengine-reserve: '&c您不能下注這個金額! 您需要保留最低儲備餘額 &e<reserve>&c. 您有 &e<balance>&c, 因此您最多只能下注 &e<max_bet>&c.'
+  not-enough-placeholder-reserve: '&c您不能下注這個金額! 您需要保留最低儲備餘額 &e<reserve>&c. 您有 &e<balance>&c, 因此您最多只能下注 &e<max_bet>&c.'
+  # 投注限額訊息
+  betting-limit-daily-exceeded: '&c您已達到每日投注限額! 限額: &e<limit>&c, 今日已投注: &e<current>&c, 剩餘: &e<remaining>&c. 明天再試!'
+  betting-limit-weekly-exceeded: '&c您已達到每週投注限額! 限額: &e<limit>&c, 本週已投注: &e<current>&c, 剩餘: &e<remaining>&c. 下週再試!'
+  already-bet: '&f您已經下注了!'
+  bet-limit-reached: '&c您已達到最大活躍投幣遊戲數量 <limit>!'
+  rolling-active: '&c在開始新的投幣遊戲之前，請先完成當前的投幣遊戲!'
+  bet-created-money: '&f您已下注 &e<amount>$'
+  broadcast-created: '&f玩家 &a<player> &f建立了一個投幣遊戲，下注金額為 &e<amount><symbol> &f! 誰將接受挑戰? &7(/cf)'
+  no-permission: '&c您沒有權限執行此操作!'
+  reload-busy: '&c無法在退款進行時重新載入。請稍候。'
+  cooldown-wait: '&c請等待 <seconds> 秒後再取消另一個遊戲。'
+  plugin-busy: '&c插件繁忙。請稍後再試。'
+  refund-processing: '&e正在處理您的退款...'
+  transaction-in-progress: '&c交易正在進行中。請稍候。'
+  currency-disabled: '&c貨幣類型 <type> 已禁用!'
+  currency-not-available: '&c貨幣 <id> 不可用!'
+  currency-check-hint-1: '&7  1. 插件已安裝並載入'
+  currency-check-hint-2: '&7  2. 貨幣ID <id> 存在'
+  currency-check-hint-3: '&7  3. 嘗試重新載入插件: /cf reload'
+  no-currency-available: '&c沒有可用的貨幣! 請在配置中啟用至少一種貨幣。'
+  currency-withdraw-failed: '&c提取貨幣失敗!'
+  invalid-currency-help: '&c無效的貨幣類型!'
+  available-currencies: '&7可用貨幣: <list>'
+  no-currencies-enabled: '&c沒有啟用任何貨幣!'
+  coinsengine-ids-available: '&7可用的 CoinsEngine ID: &e<ids>'
+  coinsengine-none-enabled: '&7沒有啟用任何 CoinsEngine 貨幣。'
+  placeholder-ids-available: '&7可用的 Placeholder ID: &e<ids>'
+  placeholder-none-enabled: '&7沒有啟用任何 Placeholder 貨幣。'
+  
+# Currency Restriction Messages
+restriction:
+  cannot-use-currency: '&c您無法使用此貨幣! 請檢查您是否擁有所需權限或是否在正確的世界中.'
+  cannot-join-game: '&c您無法加入此遊戲! 此遊戲中使用的貨幣可能在您當前的世界中受到限制, 或者您可能缺少所需的權限.'
+  host-cannot-use: '&c遊戲建立者無法在目前世界使用此貨幣! 請嘗試使用其他貨幣或世界.'
+  cannot-gamble-together: '&c您無法與此玩家使用此貨幣進行遊戲! 你們中的一人可能在受限世界中或缺少所需權限.'
+  world-blocked: '&7此貨幣在世界 &e<world>&7 中被阻止'
+  world-allowed-only: '&7此貨幣僅允許在以下世界使用: &e<worlds>'
+  permission-required-single: '&7此貨幣需要權限: &e<permission>'
+  permission-required-multiple: '&7此貨幣需要以下權限之一: &e<permissions>'
+
+# Heads/Tails Messages
+heads-tails:
+  heads: '正面'
+  tails: '反面'
+  selected: '&f您已為此次投幣遊戲選擇 &e<choice>&f!'
+
+# Game Messages
+game:
+  cannot-play-self: '&c您不能與自己遊戲!'
+  player-not-found: '&c找不到玩家!'
+  winner: '&f您在投幣遊戲中擊敗了 &a<loser>&f! &8(&a+<amount><symbol>&8, 已扣除稅費 <tax_rate>%: -<tax><symbol>&8)'
+  loser: '&f您在投幣遊戲中輸給了 &c<winner>&f! &8(&c-<amount><symbol>&8)'
+  broadcast-result: '&f玩家 &a<winner> &f在投幣遊戲中擊敗了 &c<loser>&f, 下注金額為 &e<amount><symbol> &f(稅後獲得 &a<taxed_amount><symbol>&f)'
+  refunded: '&f您的投幣遊戲已退款. 您收到了 &a<amount><symbol> &f退款.'
+  consecutive-win: '&e&l這是您第 <count> 次連續擊敗 <opponent>!'
+
+# Play with Bot Messages
+house:
+  disabled: '&c與機器人遊戲目前已停用!'
+  no-permission: '&c您沒有使用與機器人遊戲的權限!'
+  min-bet: '&c您需要至少下注 &e<amount> &c才能與機器人遊戲!'
+  max-bet: '&c您不能下注超過 &e<amount> &c來與機器人遊戲!'
+  delay-remaining: '&c請再等待 &e<time> &c秒後再與機器人遊戲!'
+  daily-limit-reached: '&c您已達到每日 &e<limit> &c場與機器人遊戲的限制!'
+  win: '&a&l您贏了! &r&f您擊敗了機器人! &8(&a+<amount><symbol>&8, 已扣除稅費: -<tax><symbol>&8)'
+  lose: '&c&l您輸了! &r&f您輸給了機器人! &8(&c-<amount><symbol>&8)'
+  game-type: '機器人'
+  game-type-player: '玩家'
+
+# Title settings
+titles:
+  game-win-title: '&a&l您贏了!'
+  game-win-subtitle: '&f獲得 &a<amount><symbol>'
+  game-lose-title: '&c&l您輸了!'
+  game-lose-subtitle: '&f失去 &c<amount><symbol>'
+
+# ActionBar settings
+actionbar:
+  game-win: '&a&l您贏了! &f獲得 &a<amount><symbol>'
+  game-lose: '&c&l您輸了! &f失去 &c<amount><symbol>'
+
+# BossBar settings
+bossbar:
+  game-win: '&a&l您贏了! &f獲得 &a<amount><symbol>'
+  game-lose: '&c&l您輸了! &f失去 &c<amount><symbol>'
+
+# 管理員審計訊息
+admin:
+  audit-header: '&6=== UltraCoinFlip 狀態 ==='
+  audit-active-games: '&7活躍遊戲: &e<count>'
+  audit-rolling-games: '&7進行中遊戲: &e<count>'
+  audit-players-in-transaction: '&7交易中玩家: &e<count>'
+  audit-refund-in-progress: '&7退款進行中: &e<status>'
+  audit-global-lock: '&7全域鎖定: <status>'
+  audit-reloading: '&7重新載入中: <status>'
+  audit-active-refund-count: '&7活躍退款數: &e<count>'
+  audit-games-processing: '&7處理中遊戲: &e<count>'
+  audit-pending-logs: '&7待處理日誌: &e<count>'
+  audit-footer: '&6========================='
+  audit-yes: '&c是'
+  audit-no: '&a否'
+
+# Update Checker Messages
+update:
+  latest-version: '&a✓ &f您正在使用最新版本 &a(v<version>)'
+  new-version-available: '&e⚠ &f有新更新可用!'
+  current-version: '&7目前版本: &c<version>'
+  latest-version-label: '&7最新版本:  &a<version>'
+  download-link: '&b下載: &fhttps://www.spigotmc.org/resources/ultracoinflip-1-20-x-1-21-10-folia-support.130124/'
+  check-failed: '&c無法檢查更新: <error>'
+  # Short in-game message (separate from console)
+  in-game-new-version: "<yellow>UltraCoinFlip 已有新版本可用 <gray>(目前: <red><current> <gray>| 最新: <green><latest><gray>). <aqua><click:open_url:'https://www.spigotmc.org/resources/ultracoinflip-1-20-x-1-21-10-folia-support.130124'><u>在此下載</u></click><gray>."
+
+# ==========================================
+# Configuration Version
+# ==========================================
+# DO NOT MODIFY THIS VALUE - It is used by the plugin to track configuration updates
+# Changing this value may cause configuration issues
+config-version: 13
+

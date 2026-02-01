@@ -1,0 +1,60 @@
+# ==========================================
+# CoinsEngine Currency Configuration
+# ==========================================
+# CoinsEngine - Requires CoinsEngine plugin
+# Supports multiple currencies, each with its own ID
+# For detailed comments and examples, see vault.yml
+# ==========================================
+
+currencies:
+  # The key (coins) is the currency ID in CoinsEngine
+  coins:
+    enabled: false
+    unit: 'Coins'
+    display-name: 'Coins'
+    syntax-command: 'coin'
+    broadcast-enabled: true
+    min-broadcast-amount: 100
+    min-bid: 1
+    max-bid: -1
+    min-reserve-balance: 0
+    tax-enabled: true
+    tax-rate: 0.1
+    # Dynamic Tax Rate System for this currency
+    # Each currency can have its own dynamic tax configuration
+    dynamic-tax-enabled: false
+    tax-rate-config:
+      base-tax-rate: 0.1
+      tiers:
+        - min-amount: 0
+          max-amount: 100
+          tax-rate: 0.05
+        - min-amount: 100
+          max-amount: 1000
+          tax-rate: 0.1
+        - min-amount: 1000
+          max-amount: -1
+          tax-rate: 0.15
+
+    # Currency restrictions (world and permissions)
+    # Restrict currency usage based on world and permissions
+    # Examples:
+    #   - Only survival worlds: allowed-worlds: [world, world_nether]
+    #   - Block specific worlds: blocked-worlds: [lobby, creative]
+    #   - Require permission: required-permissions: [ultracoinflip.vip]
+    restrictions:
+      # Enable/disable restrictions (false = no restrictions)
+      enabled: false
+      # Allowed worlds (empty = all worlds allowed)
+      allowed-worlds: []
+      # Blocked worlds (takes priority over allowed-worlds)
+      blocked-worlds: []
+      # Required permissions (empty = no permissions required, player needs at least one)
+      required-permissions: []
+
+# ==========================================
+# Configuration Version
+# ==========================================
+# DO NOT MODIFY THIS VALUE - It is used by the plugin to track configuration updates
+# Changing this value may cause configuration issues
+config-version: 6

@@ -1,0 +1,127 @@
+# Leaderboard GUI Configuration
+#
+# =====================================================
+# MINECRAFT VERSION COMPATIBILITY NOTES
+# =====================================================
+# 
+# This config supports both modern Minecraft (1.13+) and legacy (1.8.8-1.12.2)
+#
+# MATERIAL NAMES:
+# ---------------
+# For 1.13+ (modern): Use material names like "GRAY_STAINED_GLASS_PANE", "OAK_SIGN", etc.
+# For 1.8.8-1.12.2 (legacy): Use "MATERIAL:DATA" format for colored items
+#
+# STAINED GLASS PANE DATA VALUES (for 1.8.8-1.12.2):
+# --------------------------------------------------
+#   STAINED_GLASS_PANE:7  = Gray
+#   STAINED_GLASS_PANE:15 = Black
+#
+# OTHER COMMON MATERIALS (1.8.8 equivalents):
+# -------------------------------------------
+#   OAK_SIGN (1.13+) = SIGN (1.8.8)
+#   SUNFLOWER (1.13+) = DOUBLE_PLANT (1.8.8)
+#   SKULL_ITEM:3 = Player Head
+#   NETHER_STAR = Nether Star
+#   BARRIER = Barrier
+#
+# =====================================================
+
+# Leaderboard GUI - Shows top 15 players
+leaderboard-gui:
+  size: 54
+  title: '&lUltraCoinFlip &8[Leaderboard]'
+  
+  filler:
+    # For 1.13+: 'GRAY_STAINED_GLASS_PANE'
+    # For 1.8.8: 'STAINED_GLASS_PANE:7'
+    material: 'GRAY_STAINED_GLASS_PANE'
+    display-name: ' '
+    glowing: false
+    custom-model-data: 0
+  
+  filter:
+    slot: 10
+    # For 1.13+: 'OAK_SIGN'
+    # For 1.8.8: 'SIGN'
+    material: 'OAK_SIGN'
+    title: '&6&lChange Filter'
+    glowing: false
+    custom-model-data: 0
+    lore:
+      - "&8&m━━━━━━━━━━━━"
+      - "&fCurrent Filter: &e<filter>"
+      - "&7Click to change filter"
+      - "&8&m━━━━━━━━━━━━"
+    names:
+      wins: 'Number of Wins'
+      profit: 'Most Profit'
+      largest-win: 'Largest Win'
+      worst-profit: 'Worst Profit'
+      winstreak: 'Winstreak'
+  
+  currency:
+    slot: 16  
+    material: 'SUNFLOWER'
+    title: '&6&lChange Currency'
+    glowing: false
+    custom-model-data: 0
+    lore:
+      - "&8&m━━━━━━━━━━━━"
+      - "&fCurrent Currency: &e<currency>"
+      - "&7Click to change currency"
+      - "&8&m━━━━━━━━━━━━"
+  
+  back:
+    slot: 49
+    material: 'NETHER_STAR'
+    title: '&6&lGo Back'
+    glowing: false
+    custom-model-data: 0
+    lore:
+      - "&7Click to return to main menu"
+  
+  player-head:
+    display-name: '&6&l#<rank> &e<player>'  # <rank>, <player>
+    lore:
+      - "&8&m━━━━━━━━━━━━"
+      - "&f<value_label>: &a<value><unit>"  # <value_label>, <value>, <unit>
+      - "&8&m━━━━━━━━━━━━"
+  
+  # Player head slots (15 slots total for top 15 players)
+  # Row 1: slot 13 (top 1)
+  # Row 2: slots 21, 22, 23 (top 2, 3, 4)
+  # Row 3: slots 29, 30, 31, 32, 33 (top 5, 6, 7, 8, 9)
+  # Row 4: slots 37, 38, 39, 40, 41, 42, 43 (top 10, 11, 12, 13, 14, 15)
+  player-head-slots:
+    - 13
+    - 21
+    - 22
+    - 23
+    - 29
+    - 30
+    - 31
+    - 32
+    - 33
+    - 37
+    - 38
+    - 39
+    - 40
+    - 41
+    - 42
+    - 43
+  
+  loading:
+    material: 'BARRIER'
+    title: '&7Loading...'
+    lore:
+      - "&7Please wait while data loads"
+  
+  unknown:
+    material: 'BARRIER'
+    title: 'Unknown'
+    lore:
+      - "&7No player data available"
+
+# DO NOT MODIFY config-version - It is used to track configuration updates
+config-version: 3
+

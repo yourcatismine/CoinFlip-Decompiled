@@ -1,0 +1,235 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.kstudio.ultracoinflip:CoinFlip >-----------------
+[INFO] Building CoinFlip 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ CoinFlip ---
+[INFO] Deleting C:\Users\User\system\Documents\CoinFlip\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ CoinFlip ---
+[INFO] Copying 69 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.8.1:compile (default-compile) @ CoinFlip ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 78 source files to C:\Users\User\system\Documents\CoinFlip\target\classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3059,10] 'try' without 'catch', 'finally' or resource declarations
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3656,12] 'catch' without 'try'
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3660,12] 'finally' without 'try'
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3692,12] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3694,7] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3696,7] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3699,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3700,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3701,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3702,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3703,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3705,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3707,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3709,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3714,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3715,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3717,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3719,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3722,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3724,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3727,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3729,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3732,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3734,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3738,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3742,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3743,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3744,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3746,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3747,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3748,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3750,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3751,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3752,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3755,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3756,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3758,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3760,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3762,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3763,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3764,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3765,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3766,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3767,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3772,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3774,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3775,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3784,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3789,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3791,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3792,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3796,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3798,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3803,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3805,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3806,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3810,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3811,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3812,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3813,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3814,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3824,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3826,22] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3829,25] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3831,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3836,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3839,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3840,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3841,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3842,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3843,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3844,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3847,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3848,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3849,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3850,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3851,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3856,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3858,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3859,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3868,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3873,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3875,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3876,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3880,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3882,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3887,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3889,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3890,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3894,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3895,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3896,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3897,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3898,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3908,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3910,22] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3913,25] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3915,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3920,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3923,16] class, interface, or enum expected
+[INFO] 100 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.011 s
+[INFO] Finished at: 2026-02-01T17:59:34+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.1:compile (default-compile) on project CoinFlip: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3059,10] 'try' without 'catch', 'finally' or resource declarations
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3656,12] 'catch' without 'try'
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3660,12] 'finally' without 'try'
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3692,12] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3694,7] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3696,7] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3699,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3700,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3701,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3702,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3703,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3705,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3707,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3709,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3714,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3715,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3717,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3719,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3722,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3724,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3727,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3729,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3732,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3734,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3738,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3742,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3743,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3744,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3746,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3747,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3748,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3750,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3751,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3752,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3755,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3756,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3758,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3760,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3762,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3763,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3764,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3765,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3766,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3767,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3772,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3774,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3775,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3784,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3789,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3791,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3792,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3796,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3798,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3803,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3805,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3806,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3810,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3811,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3812,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3813,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3814,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3824,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3826,22] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3829,25] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3831,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3836,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3839,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3840,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3841,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3842,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3843,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3844,13] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3847,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3848,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3849,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3850,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3851,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3856,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3858,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3859,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3868,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3873,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3875,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3876,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3880,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3882,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3887,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3889,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3890,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3894,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3895,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3896,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3897,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3898,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3908,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3910,22] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3913,25] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3915,19] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3920,16] class, interface, or enum expected
+[ERROR] /C:/Users/User/system/Documents/CoinFlip/src/main/java/com/kstudio/ultracoinflip/gui/impl/CoinFlipRollGUI.java:[3923,16] class, interface, or enum expected
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

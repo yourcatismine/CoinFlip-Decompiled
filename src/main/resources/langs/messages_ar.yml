@@ -1,0 +1,169 @@
+# ==========================================
+# Arabic Messages (العربية)
+# ==========================================
+# جميع الرسائل تدعم رموز الألوان (&a, &c, إلخ) وتنسيق MiniMessage
+# استخدم "" (سلسلة فارغة) لتعطيل رسالة
+
+prefix: '&c&lUltra&e&lCoinFlip &f|| &r'
+no-perms: '&8[&c&l!&8] <##eb3434>ليس لديك إذن لتنفيذ هذا الإجراء!'
+
+# Help Command Messages
+help:
+  messages:
+    - "&6&l=== UltraCoinFlip المساعدة ==="
+    - "&e/coinflip &7- فتح قائمة coinflip"
+    - "&e/coinflip create <currency> <amount> &7- إنشاء لعبة coinflip جديدة"
+    - "&e/coinflip delete &7- إلغاء لعبة coinflip النشطة الخاصة بك"
+    - "&e/coinflip history &7- فتح واجهة سجل coinflip"
+    - "&e/coinflip help &7- عرض رسالة المساعدة هذه"
+
+# Command Messages
+command:
+  no-bet: '&fلم تقم بوضع رهان!'
+  bet-cancelled: '&fتم إلغاء رهانك!'
+  bet-cancelled-multiple: '&fتم إلغاء جميع ألعاب coinflip الخاصة بك (&e<amount>&f)!'
+  usage: '&cالاستخدام: /cf create <money|playerpoints|tokenmanager|coinsengine:<id>|placeholder:<id>|<currency_id>> <المبلغ>'
+  invalid-currency: '&cنوع العملة غير صالح! استخدم &emoney&c, &eplayerpoints&c, &etokenmanager&c, &ecoinsengine:<id>&c, &eplaceholder:<id> &cأو معرف العملة'
+  not-enough-playerpoints: '&cليس لديك ما يكفي من PlayerPoints!'
+  not-enough-tokenmanager: '&cليس لديك ما يكفي من الرموز!'
+  not-enough-beasttokens: '&cليس لديك ما يكفي من BeastTokens!'
+  not-enough-coinsengine: '&cليس لديك ما يكفي من العملة!'
+  not-enough-placeholder: '&cليس لديك ما يكفي من العملة!'
+  bet-created-playerpoints: '&fلقد وضعت رهانًا بقيمة &e<amount><symbol>'
+  bet-created-tokenmanager: '&fلقد وضعت رهانًا بقيمة &e<amount><symbol>'
+  bet-created-beasttokens: '&fلقد وضعت رهانًا بقيمة &e<amount><symbol>'
+  bet-created-coinsengine: '&fلقد وضعت رهانًا بقيمة &e<amount><symbol>'
+  bet-created-placeholder: '&fلقد وضعت رهانًا بقيمة &e<amount><symbol>'
+  reload-success: '&aتم إعادة تحميل إعدادات الإضافة بنجاح!'
+  reload-error: '&cفشل إعادة تحميل إعدادات الإضافة! تحقق من رسائل الخطأ التفصيلية في وحدة التحكم. قد لا يتم إعادة تحميل بعض الإعدادات.'
+  economy-not-ready: '&cنظام الاقتصاد غير جاهز بعد. يرجى الانتظار قليلاً والمحاولة مرة أخرى. إذا استمرت المشكلة, تحقق من تثبيت إضافة الاقتصاد بشكل صحيح.'
+  invalid-amount: '&cمبلغ غير صالح! يرجى إدخال رقم صالح أكبر من 0.'
+  min-bid: '&cتحتاج إلى الرهان على الأقل &e<amount>&c! رهانك الحالي منخفض جداً.'
+  max-bid: '&cلا يمكنك الرهان بأكثر من &e<amount>&c! رهانك الحالي يتجاوز الحد الأقصى.'
+  not-enough-money: '&cليس لديك ما يكفي من المال! تحتاج &e<amount>&c ولكن لديك فقط &e<balance>&c.'
+  not-enough-money-reserve: '&cلا يمكنك الرهان بهذا المبلغ! يجب أن تحتفظ برصيد احتياطي أدنى قدره &e<reserve>&c. لديك &e<balance>&c, لذلك يمكنك الرهان بحد أقصى &e<max_bet>&c.'
+  not-enough-playerpoints-reserve: '&cلا يمكنك الرهان بهذا المبلغ! يجب أن تحتفظ برصيد احتياطي أدنى قدره &e<reserve>&c. لديك &e<balance>&c, لذلك يمكنك الرهان بحد أقصى &e<max_bet>&c.'
+  not-enough-tokenmanager-reserve: '&cلا يمكنك الرهان بهذا المبلغ! يجب أن تحتفظ برصيد احتياطي أدنى قدره &e<reserve>&c. لديك &e<balance>&c, لذلك يمكنك الرهان بحد أقصى &e<max_bet>&c.'
+  not-enough-beasttokens-reserve: '&cلا يمكنك الرهان بهذا المبلغ! يجب أن تحتفظ برصيد احتياطي أدنى قدره &e<reserve>&c. لديك &e<balance>&c, لذلك يمكنك الرهان بحد أقصى &e<max_bet>&c.'
+  not-enough-coinsengine-reserve: '&cلا يمكنك الرهان بهذا المبلغ! يجب أن تحتفظ برصيد احتياطي أدنى قدره &e<reserve>&c. لديك &e<balance>&c, لذلك يمكنك الرهان بحد أقصى &e<max_bet>&c.'
+  not-enough-placeholder-reserve: '&cلا يمكنك الرهان بهذا المبلغ! يجب أن تحتفظ برصيد احتياطي أدنى قدره &e<reserve>&c. لديك &e<balance>&c, لذلك يمكنك الرهان بحد أقصى &e<max_bet>&c.'
+  # رسائل حد الرهان
+  betting-limit-daily-exceeded: '&cلقد وصلت إلى حد الرهان اليومي! الحد: &e<limit>&c, رهنت اليوم: &e<current>&c, المتبقي: &e<remaining>&c. حاول مرة أخرى غداً!'
+  betting-limit-weekly-exceeded: '&cلقد وصلت إلى حد الرهان الأسبوعي! الحد: &e<limit>&c, رهنت هذا الأسبوع: &e<current>&c, المتبقي: &e<remaining>&c. حاول مرة أخرى الأسبوع المقبل!'
+  already-bet: '&fلقد وضعت رهانًا بالفعل!'
+  bet-limit-reached: '&cلقد وصلت إلى الحد الأقصى <limit> من ألعاب coinflip النشطة!'
+  rolling-active: '&cأكمل لعبة coinflip الحالية قبل بدء لعبة أخرى!'
+  bet-created-money: '&fلقد وضعت رهانًا بقيمة &e<amount>$'
+  broadcast-created: '&fاللاعب &a<player> &fأنشأ لعبة coinflip بمبلغ رهان &e<amount><symbol> &f! من سيقبل التحدي? &7(/cf)'
+  no-permission: '&cليس لديك إذن لتنفيذ هذا الإجراء!'
+  reload-busy: '&cلا يمكن إعادة التحميل أثناء الاسترداد. يرجى الانتظار.'
+  cooldown-wait: '&cيرجى الانتظار <seconds> ثانية قبل إلغاء لعبة أخرى.'
+  plugin-busy: '&cالإضافة مشغولة. يرجى المحاولة لاحقاً.'
+  refund-processing: '&eجاري معالجة استردادك...'
+  transaction-in-progress: '&cالمعاملة قيد التنفيذ بالفعل. يرجى الانتظار.'
+  currency-disabled: '&cنوع العملة <type> معطل!'
+  currency-not-available: '&cالعملة <id> غير متاحة!'
+  currency-check-hint-1: '&7  1. الإضافة مثبتة ومحملة'
+  currency-check-hint-2: '&7  2. معرف العملة <id> موجود'
+  currency-check-hint-3: '&7  3. حاول إعادة تحميل الإضافة: /cf reload'
+  no-currency-available: '&cلا توجد عملة متاحة! يرجى تفعيل عملة واحدة على الأقل في الإعدادات.'
+  currency-withdraw-failed: '&cفشل سحب العملة!'
+  invalid-currency-help: '&cنوع العملة غير صالح!'
+  available-currencies: '&7العملات المتاحة: <list>'
+  no-currencies-enabled: '&cلم يتم تفعيل أي عملات!'
+  coinsengine-ids-available: '&7معرفات CoinsEngine المتاحة: &e<ids>'
+  coinsengine-none-enabled: '&7لم يتم تفعيل أي عملات CoinsEngine.'
+  placeholder-ids-available: '&7معرفات Placeholder المتاحة: &e<ids>'
+  placeholder-none-enabled: '&7لم يتم تفعيل أي عملات Placeholder.'
+  
+# Currency Restriction Messages
+restriction:
+  cannot-use-currency: '&cلا يمكنك استخدام هذه العملة! تحقق من أن لديك الصلاحيات المطلوبة أو أنك في العالم الصحيح.'
+  cannot-join-game: '&cلا يمكنك الانضمام إلى هذه اللعبة! العملة المستخدمة في هذه اللعبة قد تكون مقيدة في عالمك الحالي أو قد تفتقر إلى الصلاحيات المطلوبة.'
+  host-cannot-use: '&cلا يمكن لصاحب اللعبة استخدام هذه العملة في عالمه الحالي! يرجى تجربة عملة أو عالم مختلف.'
+  cannot-gamble-together: '&cلا يمكنك المقامرة مع هذا اللاعب باستخدام هذه العملة! قد يكون أحدكما في عالم مقيد أو يفتقر إلى الصلاحيات المطلوبة.'
+  world-blocked: '&7هذه العملة محظورة في العالم &e<world>&7'
+  world-allowed-only: '&7هذه العملة مسموحة فقط في العوالم: &e<worlds>'
+  permission-required-single: '&7هذه العملة تتطلب إذن: &e<permission>'
+  permission-required-multiple: '&7هذه العملة تتطلب أحد هذه الأذونات: &e<permissions>'
+
+# Heads/Tails Messages
+heads-tails:
+  heads: 'رأس'
+  tails: 'ذيل'
+  selected: '&fلقد اخترت &e<choice> &fلهذا coinflip!'
+
+# Game Messages
+game:
+  cannot-play-self: '&cلا يمكنك اللعب مع نفسك!'
+  player-not-found: '&cلم يتم العثور على اللاعب!'
+  winner: '&fلقد فزت ضد &a<loser> &fفي coinflip! &8(&a+<amount><symbol>&8, خصم الضريبة <tax_rate>%: -<tax><symbol>&8)'
+  loser: '&fلقد خسرت ضد &c<winner> &fفي coinflip! &8(&c-<amount><symbol>&8)'
+  broadcast-result: '&fاللاعب &a<winner> &fفاز ضد &c<loser> &fفي coinflip بمبلغ رهان &e<amount><symbol> &f(بعد الضريبة حصل على &a<taxed_amount><symbol>&f)'
+  refunded: '&fتم استرداد لعبة coinflip الخاصة بك. لقد استلمت &a<amount><symbol> &fمرة أخرى.'
+  consecutive-win: '&e&lهذه هي فوزك <count><ordinal> المتتالي ضد <opponent>!'
+
+# Play with Bot Messages
+house:
+  disabled: '&cاللعب مع البوت معطل حاليًا!'
+  no-permission: '&cليس لديك إذن لاستخدام اللعب مع البوت!'
+  min-bet: '&cتحتاج إلى الرهان بمبلغ &e<amount> &cعلى الأقل للعب مع البوت!'
+  max-bet: '&cلا يمكنك الرهان بأكثر من &e<amount> &cللعب مع البوت!'
+  delay-remaining: '&cيرجى الانتظار &e<time> &cثوانٍ أخرى قبل اللعب مع البوت مرة أخرى!'
+  daily-limit-reached: '&cلقد وصلت إلى الحد اليومي البالغ &e<limit> &cلعبة للعب مع البوت!'
+  win: '&a&lلقد فزت! &r&fلقد فزت ضد البوت! &8(&a+<amount><symbol>&8, الضريبة المخصومة: -<tax><symbol>&8)'
+  lose: '&c&lلقد خسرت! &r&fلقد خسرت ضد البوت! &8(&c-<amount><symbol>&8)'
+  game-type: 'البوت'
+  game-type-player: 'اللاعب'
+
+# Title settings
+titles:
+  game-win-title: '&a&lلقد فزت!'
+  game-win-subtitle: '&fاستلمت &a<amount><symbol>'
+  game-lose-title: '&c&lلقد خسرت!'
+  game-lose-subtitle: '&fفقدت &c<amount><symbol>'
+
+# ActionBar settings
+actionbar:
+  game-win: '&a&lلقد فزت! &fاستلمت &a<amount><symbol>'
+  game-lose: '&c&lلقد خسرت! &fفقدت &c<amount><symbol>'
+
+# BossBar settings
+bossbar:
+  game-win: '&a&lلقد فزت! &fاستلمت &a<amount><symbol>'
+  game-lose: '&c&lلقد خسرت! &fفقدت &c<amount><symbol>'
+
+# رسائل تدقيق المسؤول
+admin:
+  audit-header: '&6=== حالة UltraCoinFlip ==='
+  audit-active-games: '&7الألعاب النشطة: &e<count>'
+  audit-rolling-games: '&7الألعاب الجارية: &e<count>'
+  audit-players-in-transaction: '&7اللاعبون في المعاملة: &e<count>'
+  audit-refund-in-progress: '&7الاسترداد جاري: &e<status>'
+  audit-global-lock: '&7القفل العام: <status>'
+  audit-reloading: '&7إعادة التحميل: <status>'
+  audit-active-refund-count: '&7الاستردادات النشطة: &e<count>'
+  audit-games-processing: '&7الألعاب قيد المعالجة: &e<count>'
+  audit-pending-logs: '&7السجلات المعلقة: &e<count>'
+  audit-footer: '&6========================='
+  audit-yes: '&cنعم'
+  audit-no: '&aلا'
+
+# Update Checker Messages
+update:
+  latest-version: '&a✓ &fأنت تستخدم أحدث إصدار &a(v<version>)'
+  new-version-available: '&e⚠ &fيتوفر تحديث جديد!'
+  current-version: '&7الإصدار الحالي: &c<version>'
+  latest-version-label: '&7أحدث إصدار:  &a<version>'
+  download-link: '&bتحميل: &fhttps://www.spigotmc.org/resources/ultracoinflip-1-20-x-1-21-10-folia-support.130124/'
+  check-failed: '&cتعذر التحقق من التحديثات: <error>'
+  # Short in-game message (separate from console)
+  in-game-new-version: "<yellow>يتوفر إصدار جديد من UltraCoinFlip <gray>(الحالي: <red><current> <gray>| الأحدث: <green><latest><gray>). <aqua><click:open_url:'https://www.spigotmc.org/resources/ultracoinflip-1-20-x-1-21-10-folia-support.130124'><u>تحميل هنا</u></click><gray>."
+
+# ==========================================
+# Configuration Version
+# ==========================================
+# DO NOT MODIFY THIS VALUE - It is used by the plugin to track configuration updates
+# Changing this value may cause configuration issues
+config-version: 13
+

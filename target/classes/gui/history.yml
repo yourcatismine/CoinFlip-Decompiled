@@ -1,0 +1,113 @@
+# History GUI Configuration
+#
+# =====================================================
+# MINECRAFT VERSION COMPATIBILITY NOTES
+# =====================================================
+# 
+# This config supports both modern Minecraft (1.13+) and legacy (1.8.8-1.12.2)
+#
+# MATERIAL NAMES:
+# ---------------
+# For 1.13+ (modern): Use material names like "BLACK_STAINED_GLASS_PANE", "RED_DYE", "LIME_DYE", etc.
+# For 1.8.8-1.12.2 (legacy): Use "MATERIAL:DATA" format
+#
+# STAINED GLASS PANE DATA VALUES (for 1.8.8-1.12.2):
+# --------------------------------------------------
+#   STAINED_GLASS_PANE:15 = Black
+#
+# DYE DATA VALUES (for 1.8.8-1.12.2):
+# -----------------------------------
+#   INK_SACK:1  = Red Dye (Rose Red)
+#   INK_SACK:10 = Lime Dye (Lime Green)
+#
+# OTHER COMMON MATERIALS (1.8.8):
+# -------------------------------
+#   SKULL_ITEM:3 = Player Head
+#   NETHER_STAR = Nether Star
+#
+# =====================================================
+
+# History GUI - Displays player's coinflip history
+history-gui:
+  size: 45  # Must be multiple of 9
+  items-per-page: 21
+  title: '&lCoinFlip History &8[Page <page>]'  # <page> - current page number
+  
+  filler:
+    # For 1.13+: 'BLACK_STAINED_GLASS_PANE'
+    # For 1.8.8: 'STAINED_GLASS_PANE:15'
+    material: 'BLACK_STAINED_GLASS_PANE'
+    display-name: ' '
+    glowing: false
+    custom-model-data: 0
+    # Supports range format: [0-3, 5-9, 17-18, 26, 27, 35-44]
+    slots: ["0-3", "5-9", "17-18", "26", "27", "35-44"]
+  
+  # Supports range format: [10-16, 19-25, 28-34]
+  history-slots: ["10-16", "19-25", "28-34"]
+  
+  stats:
+    slot: 4
+    material: 'PLAYER_HEAD'
+    title: '&6&lYour Statistics'
+    glowing: false
+    custom-model-data: 0
+    player-head:
+      type: 'Player'  # Options: Player, Base64, Default
+      texture: ''
+    show-win-percentage: true
+    show-net-profit: true
+  
+  back:
+    slot: 40
+    material: 'NETHER_STAR'
+    title: '&c&lBack to Main Menu'
+    glowing: false
+    custom-model-data: 0
+    lore:
+      - "&7Click to return to"
+      - "&7the main menu"
+  
+  navigation:
+    previous:
+      slot: 38
+      # For 1.13+: 'RED_DYE'
+      # For 1.8.8: 'INK_SACK:1'
+      material: 'RED_DYE'
+      text: '&cPrevious &8(&e<page>&8)'  # <page> - target page number
+      glowing: false  # Default: false
+      custom-model-data: 0  # Default: 0
+    next:
+      slot: 42
+      # For 1.13+: 'LIME_DYE'
+      # For 1.8.8: 'INK_SACK:10'
+      material: 'LIME_DYE'
+      text: '&aNext Page &8(&e<page>&8)'  # <page> - target page number
+      glowing: false  # Default: false
+      custom-model-data: 0  # Default: 0
+
+# History Item - Items displayed in history GUI
+history-item:
+  material: 'PLAYER_HEAD'
+  glowing: false  # Default: false
+  custom-model-data: 0  # Default: 0
+  player-head:
+    type: 'Opponent'  # Options: Player, Opponent, Base64, Default
+    texture: ''
+  display-name: '&6<result> &f- &e<amount><symbol> &7vs &b<opponent>'  # <result>, <amount>, <symbol>, <opponent>
+  placeholders:
+    result:
+      win-format: '&a&lWIN'
+      lose-format: '&c&lLOSE'
+    date-format: 'yyyy-MM-dd HH:mm'  # Java SimpleDateFormat pattern
+  lore:
+    lines:
+      - "&8&m━━━━━━━━━━━━━━━━"
+      - "&fOpponent: &b<opponent>"  # <opponent>, <amount>, <symbol>, <result>, <date>
+      - "&fAmount: &e<amount><symbol>"
+      - "&fResult: <result>"
+      - "&fDate: &7<date>"
+      - "&8&m━━━━━━━━━━━━━━━━"
+
+# DO NOT MODIFY config-version - It is used to track configuration updates
+config-version: 2

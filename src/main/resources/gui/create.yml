@@ -1,0 +1,195 @@
+# Create CoinFlip GUI Configuration
+#
+# =====================================================
+# MINECRAFT VERSION COMPATIBILITY NOTES
+# =====================================================
+# 
+# This config supports both modern Minecraft (1.13+) and legacy (1.8.8-1.12.2)
+#
+# MATERIAL NAMES:
+# ---------------
+# For 1.13+ (modern): Use material names like "RED_STAINED_GLASS_PANE", "LIME_STAINED_GLASS_PANE", etc.
+# For 1.8.8-1.12.2 (legacy): Use "MATERIAL:DATA" format, e.g., "STAINED_GLASS_PANE:14" for red
+#
+# STAINED GLASS PANE DATA VALUES (for 1.8.8-1.12.2):
+# --------------------------------------------------
+#   STAINED_GLASS_PANE:0  = White       STAINED_GLASS_PANE:8  = Light Gray
+#   STAINED_GLASS_PANE:1  = Orange      STAINED_GLASS_PANE:9  = Cyan
+#   STAINED_GLASS_PANE:2  = Magenta     STAINED_GLASS_PANE:10 = Purple
+#   STAINED_GLASS_PANE:3  = Light Blue  STAINED_GLASS_PANE:11 = Blue
+#   STAINED_GLASS_PANE:4  = Yellow      STAINED_GLASS_PANE:12 = Brown
+#   STAINED_GLASS_PANE:5  = Lime        STAINED_GLASS_PANE:13 = Green
+#   STAINED_GLASS_PANE:6  = Pink        STAINED_GLASS_PANE:14 = Red
+#   STAINED_GLASS_PANE:7  = Gray        STAINED_GLASS_PANE:15 = Black
+#
+# EXAMPLES:
+# ---------
+#   1.13+: material: 'RED_STAINED_GLASS_PANE'
+#   1.8.8: material: 'STAINED_GLASS_PANE:14'
+#
+#   1.13+: material: 'LIME_STAINED_GLASS_PANE'
+#   1.8.8: material: 'STAINED_GLASS_PANE:5'
+#
+#   1.13+: material: 'BLACK_STAINED_GLASS_PANE'
+#   1.8.8: material: 'STAINED_GLASS_PANE:15'
+#
+# =====================================================
+
+# Create GUI - For creating new coinflip games
+create-gui:
+  size: 27
+  title: "&lCreate CoinFlip"
+  
+  # Filler configuration
+  filler:
+    # For 1.13+: 'BLACK_STAINED_GLASS_PANE'
+    # For 1.8.8: 'STAINED_GLASS_PANE:15'
+    material: 'BLACK_STAINED_GLASS_PANE'
+    display-name: ' '
+    glowing: false
+    custom-model-data: 0
+    # Supports range format: [0-3, 5-8, 18, 19-21, 23-26]
+    slots: ["0-3", "5-8", "18", "19-21", "23-26"]
+  
+  # Amount adjustment buttons
+  # Default config is applied to all buttons unless overridden
+  decrease:
+    # For 1.13+: 'RED_STAINED_GLASS_PANE'
+    # For 1.8.8: 'STAINED_GLASS_PANE:14'
+    material: 'RED_STAINED_GLASS_PANE'
+    title: '&c&l-<amount>'
+    glowing: false
+    custom-model-data: 0
+    lore:
+      - "&7Click to decrease amount"
+      - "&7by <amount>"
+    buttons:
+      1:
+        slot: 9
+        amount: 500
+        glowing: false
+        custom-model-data: 0
+      2:
+        slot: 10
+        amount: 1000
+        glowing: false
+        custom-model-data: 0
+      3:
+        slot: 11
+        amount: 2000
+        glowing: false
+        custom-model-data: 0
+      4:
+        slot: 12
+        amount: 5000
+        glowing: false
+        custom-model-data: 0
+      # You can add more buttons by adding more entries:
+      # 5:
+      #   slot: <slot>
+      #   amount: <amount>
+      #   glowing: false
+      #   custom-model-data: 0
+  
+  increase:
+    # For 1.13+: 'LIME_STAINED_GLASS_PANE'
+    # For 1.8.8: 'STAINED_GLASS_PANE:5'
+    material: 'LIME_STAINED_GLASS_PANE'
+    title: '&a&l+<amount>'
+    glowing: false
+    custom-model-data: 0
+    lore:
+      - "&7Click to increase amount"
+      - "&7by <amount>"
+    buttons:
+      1:
+        slot: 14
+        amount: 500
+        glowing: false
+        custom-model-data: 0
+      2:
+        slot: 15
+        amount: 1000
+        glowing: false
+        custom-model-data: 0
+      3:
+        slot: 16
+        amount: 2000
+        glowing: false
+        custom-model-data: 0
+      4:
+        slot: 17
+        amount: 5000
+        glowing: false
+        custom-model-data: 0
+      # You can add more buttons by adding more entries:
+      # 5:
+      #   slot: <slot>
+      #   amount: <amount>
+      #   glowing: false
+      #   custom-model-data: 0
+  
+  # Main action buttons
+  currency:
+    slot: 4
+    material: 'SUNFLOWER'
+    title: '&6&lChange Currency'
+    glowing: false
+    custom-model-data: 0
+    lore:
+      - "&8&m━━━━━━━━━━━━━"
+      - "&fCurrent currency: &e<currency>"
+      - "&7Click to change currency"
+      - "&8&m━━━━━━━━━━━━━"
+  
+  custom-amount:
+    slot: 22
+    material: 'ANVIL'
+    title: '&6&lEnter Custom Amount'
+    glowing: false
+    custom-model-data: 0
+    lore:
+      - "&7Click to enter amount"
+      - "&7Supports format: &e1K, 1M, 1B, 1T"
+    # Chat input message (used when input.method is CHAT in config.yml)
+    chat-message: '&7Enter amount (supports format: 1K, 1M, 1B, 1T):'
+    # Anvil GUI configuration (used when input.method is ANVIL in config.yml)
+    anvil:
+      # Title of the anvil GUI window
+      title: "&6Enter Amount"
+      # Initial text shown in the anvil (leave empty to start blank)
+      # Use <current> placeholder to show current amount
+      # Example: "&e<current>" will show current amount in yellow
+      initial-text: "&e<current>"  # Shows current amount if set, empty if no amount
+      # Placeholder text when initial-text is empty (hint text)
+      placeholder: "Enter amount (1K, 1M, 1B, 1T)"
+  
+  create:
+    slot: 13
+    material: 'NETHER_STAR'  # When ready
+    material-disabled: 'BARRIER'  # When currency not selected
+    material-insufficient: 'BARRIER'  # When balance insufficient
+    title: '&a&lCreate CoinFlip'
+    title-no-currency: '&c&lNo Currency Selected'
+    title-insufficient: '&c&lInsufficient Balance'
+    glowing: false
+    custom-model-data: 0
+    lore:
+      - "&8&m━━━━━━━━━━━━━━━━"
+      - "&fAmount: &e<amount><unit>"
+      - "&fCurrency: &b<currency>"
+      - "&8&m━━━━━━━━━━━━━━━━"
+      - "&a&l» Click to create game"
+    lore-no-currency:
+      - "&7Please select a currency"
+      - "&7before creating game"
+    lore-insufficient:
+      - "&8&m━━━━━━━━━━━━━━━━"
+      - "&fAmount: &e<amount><unit>"
+      - "&fCurrency: &b<currency>"
+      - "&fCurrent balance: &c<balance><unit>"
+      - "&8&m━━━━━━━━━━━━━━━━"
+      - "&c&l» Insufficient balance!"
+
+# DO NOT MODIFY config-version - It is used to track configuration updates
+config-version: 5

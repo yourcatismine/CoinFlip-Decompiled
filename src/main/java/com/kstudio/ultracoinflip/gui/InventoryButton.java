@@ -1,0 +1,33 @@
+package com.kstudio.ultracoinflip.gui;
+
+import java.util.function.Consumer;
+import java.util.function.Function;
+import lombok.Generated;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
+
+public class InventoryButton {
+   private Function<Player, ItemStack> iconCreator;
+   private Consumer<InventoryClickEvent> eventConsumer;
+
+   public InventoryButton creator(Function<Player, ItemStack> iconCreator) {
+      this.iconCreator = iconCreator;
+      return this;
+   }
+
+   public InventoryButton consumer(Consumer<InventoryClickEvent> eventConsumer) {
+      this.eventConsumer = eventConsumer;
+      return this;
+   }
+
+   @Generated
+   public Function<Player, ItemStack> getIconCreator() {
+      return this.iconCreator;
+   }
+
+   @Generated
+   public Consumer<InventoryClickEvent> getEventConsumer() {
+      return this.eventConsumer;
+   }
+}

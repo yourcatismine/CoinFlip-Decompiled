@@ -1,0 +1,279 @@
+# ==========================================
+# Sound Configuration
+# ==========================================
+# All sounds used by the UltraCoinFlip plugin
+# Get sound names from: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+#
+# Format:
+#   sound-name:
+#     enabled: true/false
+#     sound: 'SOUND_NAME'  # Minecraft sound enum name or namespace:key format
+#     volume: 1.0          # Volume (0.0 to 1.0)
+#     pitch: 1.0           # Pitch (0.5 to 2.0)
+#
+# IMPORTANT FOR MINECRAFT 1.8.8 SERVERS:
+# If you are running Minecraft 1.8.8, you MUST use the legacy sound names instead of modern ones.
+# The plugin will automatically handle sound compatibility, but you can manually configure 1.8 sound IDs:
+#   - ENTITY_PLAYER_LEVELUP → LEVEL_UP
+#   - ENTITY_VILLAGER_NO → VILLAGER_NO
+#   - ENTITY_EXPERIENCE_ORB_PICKUP → ORB_PICKUP
+#   - UI_BUTTON_CLICK → WOOD_CLICK
+#   - BLOCK_NOTE_BLOCK_PLING → NOTE_PLING
+#   - BLOCK_CHEST_OPEN → CHEST_OPEN
+#   - BLOCK_ANVIL_USE → ANVIL_USE
+#   - BLOCK_WOODEN_BUTTON_CLICK_ON → WOOD_CLICK
+#   - BLOCK_NOTE_BLOCK_BASS → NOTE_BASS
+# For example, if you want to use 1.8 sound names, change 'ENTITY_PLAYER_LEVELUP' to 'LEVEL_UP'
+# The plugin supports both modern (1.9+) and legacy (1.8.8) sound names automatically.
+
+# ==========================================
+# Game Event Sounds
+# ==========================================
+game:
+  # Played when a player wins a coinflip game
+  # For 1.8.8 servers, use: 'LEVEL_UP' instead of 'ENTITY_PLAYER_LEVELUP'
+  win:
+    enabled: true
+    sound: 'ENTITY_PLAYER_LEVELUP'
+    volume: 1.0
+    pitch: 1.0
+  
+  # Played when a player loses a coinflip game
+  # For 1.8.8 servers, use: 'VILLAGER_NO' instead of 'ENTITY_VILLAGER_NO'
+  lose:
+    enabled: true
+    sound: 'ENTITY_VILLAGER_NO'
+    volume: 1.0
+    pitch: 1.0
+  
+  # Played when a coinflip game is created
+  # For 1.8.8 servers, use: 'ORB_PICKUP' instead of 'ENTITY_EXPERIENCE_ORB_PICKUP'
+  create:
+    enabled: true
+    sound: 'ENTITY_EXPERIENCE_ORB_PICKUP'
+    volume: 1.0
+    pitch: 1.0
+  
+  # Played when a coinflip game is cancelled
+  # For 1.8.8 servers, use: 'WOOD_CLICK' instead of 'UI_BUTTON_CLICK'
+  cancel:
+    enabled: true
+    sound: 'UI_BUTTON_CLICK'
+    volume: 1.0
+    pitch: 1.0
+  
+  # Played when a player joins an existing coinflip game
+  # For 1.8.8 servers, use: 'ORB_PICKUP' instead of 'ENTITY_EXPERIENCE_ORB_PICKUP'
+  join:
+    enabled: true
+    sound: 'ENTITY_EXPERIENCE_ORB_PICKUP'
+    volume: 1.0
+    pitch: 1.2
+  
+  # Played when a coinflip game starts (animation begins)
+  # For 1.8.8 servers, use: 'NOTE_PLING' instead of 'BLOCK_NOTE_BLOCK_PLING'
+  start:
+    enabled: true
+    sound: 'BLOCK_NOTE_BLOCK_PLING'
+    volume: 1.0
+    pitch: 1.5
+  
+  # Played when a player gets consecutive wins
+  # For 1.8.8 servers, use: 'LEVEL_UP' instead of 'ENTITY_PLAYER_LEVELUP'
+  consecutive-win:
+    enabled: true
+    sound: 'ENTITY_PLAYER_LEVELUP'
+    volume: 1.0
+    pitch: 1.3
+
+# ==========================================
+# Error Sounds
+# ==========================================
+error:
+  # Played when player doesn't have enough money/currency
+  # For 1.8.8 servers, use: 'VILLAGER_NO' instead of 'ENTITY_VILLAGER_NO'
+  not-enough-money:
+    enabled: true
+    sound: 'ENTITY_VILLAGER_NO'
+    volume: 1.0
+    pitch: 0.8
+  
+  # Played when player enters invalid amount
+  # For 1.8.8 servers, use: 'VILLAGER_NO' instead of 'ENTITY_VILLAGER_NO'
+  invalid-amount:
+    enabled: true
+    sound: 'ENTITY_VILLAGER_NO'
+    volume: 1.0
+    pitch: 0.8
+  
+  # Played for general errors (permission denied, cannot join, etc.)
+  # For 1.8.8 servers, use: 'NOTE_BASS' instead of 'BLOCK_NOTE_BLOCK_BASS'
+  general:
+    enabled: true
+    sound: 'BLOCK_NOTE_BLOCK_BASS'
+    volume: 1.0
+    pitch: 0.5
+
+# ==========================================
+# GUI Opening Sounds
+# ==========================================
+gui:
+  # Played when opening the coinflip history GUI
+  # For 1.8.8 servers, use: 'CHEST_OPEN' instead of 'BLOCK_CHEST_OPEN'
+  open-history:
+    enabled: true
+    sound: 'BLOCK_CHEST_OPEN'
+    volume: 1.0
+    pitch: 1.0
+  
+  # Played when opening the coinflip list GUI (active games)
+  # For 1.8.8 servers, use: 'CHEST_OPEN' instead of 'BLOCK_CHEST_OPEN'
+  open-list:
+    enabled: true
+    sound: 'BLOCK_CHEST_OPEN'
+    volume: 1.0
+    pitch: 1.0
+  
+  # Played when opening the create coinflip GUI
+  # For 1.8.8 servers, use: 'NOTE_PLING' instead of 'BLOCK_NOTE_BLOCK_PLING'
+  open-create:
+    enabled: true
+    sound: 'BLOCK_NOTE_BLOCK_PLING'
+    volume: 1.0
+    pitch: 1.0
+  
+  # Played when opening the currency selection GUI
+  # For 1.8.8 servers, use: 'NOTE_PLING' instead of 'BLOCK_NOTE_BLOCK_PLING'
+  open-currency:
+    enabled: true
+    sound: 'BLOCK_NOTE_BLOCK_PLING'
+    volume: 1.0
+    pitch: 1.0
+  
+  # Played when opening the main menu GUI
+  # For 1.8.8 servers, use: 'CHEST_OPEN' instead of 'BLOCK_CHEST_OPEN'
+  open-mainmenu:
+    enabled: true
+    sound: 'BLOCK_CHEST_OPEN'
+    volume: 1.0
+    pitch: 1.0
+  
+  # Played when clicking any button in plugin GUIs
+  # For 1.8.8 servers, use: 'WOOD_CLICK' instead of 'UI_BUTTON_CLICK'
+  click:
+    enabled: true
+    sound: 'UI_BUTTON_CLICK'
+    volume: 1.0
+    pitch: 1.0
+  
+  # Played when opening the coinflip roll/animation GUI (when game starts)
+  # For 1.8.8 servers, use: 'NOTE_PLING' instead of 'BLOCK_NOTE_BLOCK_PLING'
+  open-roll:
+    enabled: true
+    sound: 'BLOCK_NOTE_BLOCK_PLING'
+    volume: 1.0
+    pitch: 1.2
+  
+  # Played when opening the leaderboard GUI
+  # For 1.8.8 servers, use: 'CHEST_OPEN' instead of 'BLOCK_CHEST_OPEN'
+  open-leaderboard:
+    enabled: true
+    sound: 'BLOCK_CHEST_OPEN'
+    volume: 1.0
+    pitch: 1.0
+  
+  # Played when opening the settings GUI
+  # For 1.8.8 servers, use: 'CHEST_OPEN' instead of 'BLOCK_CHEST_OPEN'
+  open-settings:
+    enabled: true
+    sound: 'BLOCK_CHEST_OPEN'
+    volume: 1.0
+    pitch: 1.0
+  
+  # Played when opening the anvil input GUI
+  # For 1.8.8 servers, use: 'ANVIL_USE' instead of 'BLOCK_ANVIL_USE'
+  open:
+    enabled: true
+    sound: 'BLOCK_ANVIL_USE'
+    volume: 1.0
+    pitch: 1.0
+  
+  # Played when changing pages in GUI (next/previous page)
+  # For 1.8.8 servers, use: 'WOOD_CLICK' instead of 'UI_BUTTON_CLICK'
+  page-change:
+    enabled: true
+    sound: 'UI_BUTTON_CLICK'
+    volume: 0.8
+    pitch: 1.0
+  
+  # Played when player selects heads in heads/tails selection
+  # For 1.8.8 servers, use: 'NOTE_PLING' instead of 'BLOCK_NOTE_BLOCK_PLING'
+  select-heads:
+    enabled: true
+    sound: 'BLOCK_NOTE_BLOCK_PLING'
+    volume: 1.0
+    pitch: 1.2
+  
+  # Played when player selects tails in heads/tails selection
+  # For 1.8.8 servers, use: 'NOTE_PLING' instead of 'BLOCK_NOTE_BLOCK_PLING'
+  select-tails:
+    enabled: true
+    sound: 'BLOCK_NOTE_BLOCK_PLING'
+    volume: 1.0
+    pitch: 0.9
+
+# ==========================================
+# Animation Sounds
+# ==========================================
+animation:
+  # Sound played during coinflip animation (each tick)
+  # For 1.8.8 servers, use: 'WOOD_CLICK' instead of 'BLOCK_WOODEN_BUTTON_CLICK_ON'
+  during-roll:
+    enabled: true
+    sound: 'BLOCK_WOODEN_BUTTON_CLICK_ON'
+    volume: 1.0
+    pitch: 1.0
+  
+  # Sound played when coinflip animation completes
+  # For 1.8.8 servers, use: 'LEVEL_UP' instead of 'ENTITY_PLAYER_LEVELUP'
+  on-complete:
+    enabled: true
+    sound: 'ENTITY_PLAYER_LEVELUP'
+    volume: 1.0
+    pitch: 1.0
+
+# ==========================================
+# Command Sounds
+# ==========================================
+command:
+  # Played when plugin configuration is reloaded successfully
+  # For 1.8.8 servers, use: 'LEVEL_UP' instead of 'ENTITY_PLAYER_LEVELUP'
+  reload-success:
+    enabled: true
+    sound: 'ENTITY_PLAYER_LEVELUP'
+    volume: 1.0
+    pitch: 1.0
+  
+  # Played when plugin configuration reload fails
+  # For 1.8.8 servers, use: 'VILLAGER_NO' instead of 'ENTITY_VILLAGER_NO'
+  reload-error:
+    enabled: true
+    sound: 'ENTITY_VILLAGER_NO'
+    volume: 1.0
+    pitch: 0.8
+
+# ==========================================
+# Input Sounds
+# ==========================================
+input:
+  # Played when player submits amount input (anvil or chat)
+  # For 1.8.8 servers, use: 'NOTE_PLING' instead of 'BLOCK_NOTE_BLOCK_PLING'
+  amount-submit:
+    enabled: true
+    sound: 'BLOCK_NOTE_BLOCK_PLING'
+    volume: 1.0
+    pitch: 1.1
+
+# DO NOT MODIFY config-version - It is used to track configuration updates
+config-version: 5
+

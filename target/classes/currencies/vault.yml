@@ -1,0 +1,173 @@
+# ==========================================
+# Vault Currency Configuration
+# ==========================================
+# Vault (Money) - Requires Vault plugin and an economy plugin (e.g., EssentialsX, CMI)
+# This currency uses the server's economy system through Vault API
+
+# Enable/disable this currency
+enabled: true
+
+# Display Settings
+# Currency unit - Used in messages, GUI, Discord webhooks, and game displays to show the currency unit
+# This is displayed after amounts (e.g., "100$", "50 Points", "25 Tokens")
+# Examples: "$", "Points", "Tokens", "Coins", "Dollars", "Credits"
+unit: '$'
+display-name: 'Money'
+
+# ==========================================
+# Command Syntax Configuration
+# ==========================================
+# Command syntax used in /coinflip create command
+# This is the keyword that players will use to specify this currency
+# Example: If syntax-command is "money", players will use: /coinflip create money <amount>
+# This will be the only command shown in command completion (tab completion)
+# Must be unique across all currencies
+# Recommended: Use simple, lowercase words without spaces or special characters
+syntax-command: 'money'
+
+# ==========================================
+# Broadcast Settings
+# ==========================================
+# Enable/disable broadcasting game results for this currency
+# When enabled, players will see a message when a game with this currency is created or completed
+broadcast-enabled: true
+# Minimum bet amount required for a game to be broadcasted
+# Games with bet amounts below this value will not be broadcasted
+# Set to 0 to broadcast all games, or a high value to only broadcast large games
+# Example: 100 means only games with 100 or more will be broadcasted
+min-broadcast-amount: 100
+
+# ==========================================
+# Betting Limits
+# ==========================================
+# Minimum bet amount that players can place for this currency
+# Must be greater than or equal to 0
+# Recommended: 1 or higher to prevent zero-bet games
+min-bid: 1
+# Maximum bet amount that players can place for this currency
+# Set to -1 to disable maximum limit (unlimited)
+# Set to a positive number to limit maximum bet amount
+# Must be greater than or equal to min-bid if set
+# Example: 10000 means players can bet up to 10000
+max-bid: -1
+
+# Minimum reserve balance that must remain after betting
+# Prevents players from betting their entire balance, which could bypass limits in other plugins
+# Example: If min-reserve-balance is 1000, and player has 300K, they can bet at most 299K
+# Set to 0 to allow players to bet their entire balance (default behavior)
+# Recommended: Set to a value that matches your other plugin's minimum balance requirements
+# Example: If your fly plugin requires 300K minimum balance, set this to 300000
+min-reserve-balance: 0
+
+# ==========================================
+# Tax System
+# ==========================================
+# Enable/disable tax system for this currency
+# When disabled (false), no tax will be applied regardless of tax-rate settings
+# When enabled (true), tax will be calculated based on tax-rate or dynamic-tax settings below
+# Set to false to completely disable tax for this currency
+tax-enabled: true
+
+# Tax rate applied to the total pot (both players' bets combined) for this currency
+# Tax is deducted from the total pot before giving winnings to the winner
+# Only used when tax-enabled is true
+# 
+# How it works:
+# - Player 1 bets: 100
+# - Player 2 bets: 100
+# - Total pot: 200
+# - Tax rate: 0.1 (10%)
+# - Tax amount: 200 * 0.1 = 20
+# - Winner receives: 200 * (1 - 0.1) = 180 (after tax)
+# - Loser receives: 0
+# 
+# Formula:
+#   Total Pot = Bet Amount × 2
+#   Tax = Total Pot × Tax Rate
+#   Winner Receives = Total Pot × (1 - Tax Rate)
+# 
+# Value range: 0.0 to 1.0 (0% to 100%)
+# - 0.0 = No tax (winner receives full pot)
+# - 0.1 = 10% tax (winner receives 90% of pot)
+# - 0.5 = 50% tax (winner receives 50% of pot)
+# - 1.0 = 100% tax (winner receives nothing - NOT recommended!)
+# 
+# Recommended values:
+# - 0.0 to 0.1 (0% to 10%) for player-friendly servers
+# - 0.1 to 0.2 (10% to 20%) for balanced economy
+# - 0.2 to 0.3 (20% to 30%) for economy control
+# 
+# Note: Tax is rounded to 2 decimal places to avoid floating point errors
+# The winner always receives the remaining amount after tax deduction
+tax-rate: 0.1
+
+# ==========================================
+# Dynamic Tax Rate System
+# ==========================================
+# Enable/disable dynamic tax rate system
+# When enabled, tax rate will be calculated based on bet amount tiers (see tax-rate-config below)
+# When disabled, the simple tax-rate above will be used
+dynamic-tax-enabled: false
+
+# Dynamic tax rate configuration
+# Only used when dynamic-tax-enabled is true
+# If dynamic-tax-enabled is false, this section is ignored and tax-rate above is used instead
+tax-rate-config:
+  # Default tax rate (fallback if no tier matches)
+  base-tax-rate: 0.1
+  # Tax rate by bet amount (last matching tier wins - later tiers override earlier ones)
+  # Note: If tiers overlap, the tier configured later will override the earlier one
+  # Example: Tier 1 (0-1000: 5%) and Tier 2 (500-1200: 15%)
+  #   - Bet 501: Both match → Tier 2 wins (15%)
+  #   - Bet 400: Only Tier 1 matches → Tier 1 wins (5%)
+  tiers:
+    # Minimum amount (inclusive)
+    - min-amount: 0
+      # Maximum amount (exclusive, -1 = unlimited)
+      max-amount: 100
+      # Note: max-amount is EXCLUSIVE - tier 0-100 matches 0 to 99.999... but NOT 100
+      # To include 100, set max-amount to 101 or higher
+      # Tax rate for this tier (5%)
+      tax-rate: 0.05
+    - min-amount: 100
+      max-amount: 1000
+      # 10% tax
+      tax-rate: 0.1
+    - min-amount: 1000
+      # -1 = unlimited
+      max-amount: -1
+      # 15% tax
+      tax-rate: 0.15
+
+# ==========================================
+# Currency Restrictions
+# ==========================================
+# Restrict currency usage based on world and permissions
+# Examples:
+#   - Only survival worlds: allowed-worlds: [world, world_nether]
+#   - Block specific worlds: blocked-worlds: [lobby, creative]
+#   - Require permission: required-permissions: [ultracoinflip.vip]
+#
+# IMPORTANT NOTES:
+# - You can use the same permission for multiple currencies (each currency has its own restrictions)
+# - If a world is in both allowed-worlds and blocked-worlds, blocked takes priority (world will be blocked)
+#   Plugin will show a warning in console if this happens
+restrictions:
+  # Enable/disable restrictions (false = no restrictions)
+  enabled: false
+  # Allowed worlds (empty = all worlds allowed)
+  # If a world is in both allowed-worlds and blocked-worlds, blocked takes priority
+  allowed-worlds: []
+  # Blocked worlds (takes priority over allowed-worlds)
+  # If a world appears in both lists, it will be blocked (warning will be shown in console)
+  blocked-worlds: []
+  # Required permissions (empty = no permissions required, player needs at least one)
+  # You can use the same permission for multiple currencies - each currency is independent
+  required-permissions: []
+
+# ==========================================
+# Configuration Version
+# ==========================================
+# DO NOT MODIFY THIS VALUE - It is used by the plugin to track configuration updates
+# Changing this value may cause configuration issues
+config-version: 5

@@ -1,0 +1,52 @@
+# ==========================================
+# TokenManager Currency Configuration
+# ==========================================
+# TokenManager - Requires TokenManager plugin
+# For detailed comments and examples, see vault.yml
+# ==========================================
+
+enabled: false
+unit: 'Tokens'
+display-name: 'Tokens'
+syntax-command: 'token'
+broadcast-enabled: true
+min-broadcast-amount: 100
+min-bid: 1
+max-bid: -1
+min-reserve-balance: 0
+tax-enabled: true
+tax-rate: 0.1
+
+# ==========================================
+# Dynamic Tax Rate System
+# ==========================================
+dynamic-tax-enabled: false
+tax-rate-config:
+  base-tax-rate: 0.1
+  tiers:
+    - min-amount: 0
+      max-amount: 100
+      tax-rate: 0.05
+    - min-amount: 100
+      max-amount: 1000
+      tax-rate: 0.1
+    - min-amount: 1000
+      max-amount: -1
+      tax-rate: 0.15
+
+# ==========================================
+# Currency Restrictions
+# ==========================================
+restrictions:
+  enabled: false
+  allowed-worlds: []
+  blocked-worlds: []
+  required-permissions: []
+
+# ==========================================
+# Configuration Version
+# ==========================================
+# DO NOT MODIFY THIS VALUE - It is used by the plugin to track configuration updates
+# Changing this value may cause configuration issues
+config-version: 5
+

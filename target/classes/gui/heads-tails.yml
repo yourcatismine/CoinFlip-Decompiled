@@ -1,0 +1,78 @@
+# Heads/Tails Selection GUI Configuration
+#
+# =====================================================
+# MINECRAFT VERSION COMPATIBILITY NOTES
+# =====================================================
+# 
+# This config supports both modern Minecraft (1.13+) and legacy (1.8.8-1.12.2)
+#
+# MATERIAL NAMES:
+# ---------------
+# For 1.13+ (modern): Use material names like "BLACK_STAINED_GLASS_PANE", "GOLD_BLOCK", "IRON_BLOCK", etc.
+# For 1.8.8-1.12.2 (legacy): Use "MATERIAL:DATA" format for colored items
+#
+# STAINED GLASS PANE DATA VALUES (for 1.8.8-1.12.2):
+# --------------------------------------------------
+#   STAINED_GLASS_PANE:15 = Black
+#
+# OTHER COMMON MATERIALS (same name in both versions):
+# ----------------------------------------------------
+#   GOLD_BLOCK = Gold Block
+#   IRON_BLOCK = Iron Block
+#   BARRIER = Barrier
+#
+# =====================================================
+
+# Heads/Tails Selection GUI - For choosing heads or tails before creating coinflip
+heads-tails-gui:
+  size: 27
+  title: "&lChoose Heads or Tails"
+  
+  # Filler configuration
+  filler:
+    # For 1.13+: 'BLACK_STAINED_GLASS_PANE'
+    # For 1.8.8: 'STAINED_GLASS_PANE:15'
+    material: 'BLACK_STAINED_GLASS_PANE'
+    display-name: ' '
+    glowing: false
+    custom-model-data: 0
+    # Supports range format: [0-8, 18-26]
+    slots: ["0-8", "18-26"]
+  
+  # Heads button
+  heads:
+    slot: 11
+    material: 'GOLD_BLOCK'
+    title: '&6&lHEADS'
+    glowing: false
+    custom-model-data: 0
+    lore:
+      - "&8&m━━━━━━━━━━━━━━━━"
+      - "&fClick to choose &6&lHEADS"
+      - "&8&m━━━━━━━━━━━━━━━━"
+  
+  # Tails button
+  tails:
+    slot: 15
+    material: 'IRON_BLOCK'
+    title: '&7&lTAILS'
+    glowing: false
+    custom-model-data: 0
+    lore:
+      - "&8&m━━━━━━━━━━━━━━━━"
+      - "&fClick to choose &7&lTAILS"
+      - "&8&m━━━━━━━━━━━━━━━━"
+  
+  # Cancel/Back button
+  cancel:
+    slot: 13
+    material: 'BARRIER'
+    title: '&c&lCancel'
+    glowing: false
+    custom-model-data: 0
+    lore:
+      - "&7Click to cancel and go back"
+
+# DO NOT MODIFY config-version - It is used to track configuration updates
+config-version: 1
+

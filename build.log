@@ -1,0 +1,73 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.kstudio.ultracoinflip:CoinFlip >-----------------
+[INFO] Building CoinFlip 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+Downloading from spigot-repo: https://hub.spigotmc.org/nexus/content/repositories/snapshots/org/spigotmc/spigot-api/1.16.5-R0.1-SNAPSHOT/maven-metadata.xml
+Downloading from jitpack.io: https://jitpack.io/org/spigotmc/spigot-api/1.16.5-R0.1-SNAPSHOT/maven-metadata.xml
+Downloading from papermc-repo: https://repo.papermc.io/repository/maven-public/org/spigotmc/spigot-api/1.16.5-R0.1-SNAPSHOT/maven-metadata.xml
+Downloading from aikar-repo: https://repo.aikar.co/content/groups/aikar/org/spigotmc/spigot-api/1.16.5-R0.1-SNAPSHOT/maven-metadata.xml
+Progress (1): 1.5 kB                    Downloading from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/org/spigotmc/spigot-api/1.16.5-R0.1-SNAPSHOT/maven-metadata.xml
+Downloaded from spigot-repo: https://hub.spigotmc.org/nexus/content/repositories/snapshots/org/spigotmc/spigot-api/1.16.5-R0.1-SNAPSHOT/maven-metadata.xml (1.5 kB at 1.4 kB/s)
+Progress (1): 1.5 kB                    Downloaded from papermc-repo: https://repo.papermc.io/repository/maven-public/org/spigotmc/spigot-api/1.16.5-R0.1-SNAPSHOT/maven-metadata.xml (1.5 kB at 959 B/s)
+Progress (1): 1.5 kB                    Downloaded from aikar-repo: https://repo.aikar.co/content/groups/aikar/org/spigotmc/spigot-api/1.16.5-R0.1-SNAPSHOT/maven-metadata.xml (1.5 kB at 671 B/s)
+Downloading from spigot-repo: https://hub.spigotmc.org/nexus/content/repositories/snapshots/co/aikar/acf-paper/0.5.0-SNAPSHOT/maven-metadata.xml
+Downloading from aikar-repo: https://repo.aikar.co/content/groups/aikar/co/aikar/acf-paper/0.5.0-SNAPSHOT/maven-metadata.xml
+Downloading from papermc-repo: https://repo.papermc.io/repository/maven-public/co/aikar/acf-paper/0.5.0-SNAPSHOT/maven-metadata.xml
+Downloading from jitpack.io: https://jitpack.io/co/aikar/acf-paper/0.5.0-SNAPSHOT/maven-metadata.xml
+Downloading from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/co/aikar/acf-paper/0.5.0-SNAPSHOT/maven-metadata.xml
+Progress (1): 1.4 kBProgress (2): 1.4 kB | 1.4 kB                             Downloaded from papermc-repo: https://repo.papermc.io/repository/maven-public/co/aikar/acf-paper/0.5.0-SNAPSHOT/maven-metadata.xml (1.4 kB at 4.7 kB/s)
+Downloaded from aikar-repo: https://repo.aikar.co/content/groups/aikar/co/aikar/acf-paper/0.5.0-SNAPSHOT/maven-metadata.xml (1.4 kB at 2.9 kB/s)
+Downloading from spigot-repo: https://hub.spigotmc.org/nexus/content/repositories/snapshots/co/aikar/acf-parent/0.5.0-SNAPSHOT/maven-metadata.xml
+Downloading from aikar-repo: https://repo.aikar.co/content/groups/aikar/co/aikar/acf-parent/0.5.0-SNAPSHOT/maven-metadata.xml
+Downloading from jitpack.io: https://jitpack.io/co/aikar/acf-parent/0.5.0-SNAPSHOT/maven-metadata.xml
+Downloading from papermc-repo: https://repo.papermc.io/repository/maven-public/co/aikar/acf-parent/0.5.0-SNAPSHOT/maven-metadata.xml
+Downloading from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/co/aikar/acf-parent/0.5.0-SNAPSHOT/maven-metadata.xml
+Progress (1): 814 BProgress (2): 814 B | 814 B                           Downloaded from papermc-repo: https://repo.papermc.io/repository/maven-public/co/aikar/acf-parent/0.5.0-SNAPSHOT/maven-metadata.xml (814 B at 2.8 kB/s)
+Downloaded from aikar-repo: https://repo.aikar.co/content/groups/aikar/co/aikar/acf-parent/0.5.0-SNAPSHOT/maven-metadata.xml (814 B at 1.7 kB/s)
+Downloading from spigot-repo: https://hub.spigotmc.org/nexus/content/repositories/snapshots/net/wesjd/anvilgui/1.5.3-SNAPSHOT/maven-metadata.xml
+Downloading from papermc-repo: https://repo.papermc.io/repository/maven-public/net/wesjd/anvilgui/1.5.3-SNAPSHOT/maven-metadata.xml
+Downloading from aikar-repo: https://repo.aikar.co/content/groups/aikar/net/wesjd/anvilgui/1.5.3-SNAPSHOT/maven-metadata.xml
+Downloading from jitpack.io: https://jitpack.io/net/wesjd/anvilgui/1.5.3-SNAPSHOT/maven-metadata.xml
+Downloading from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/net/wesjd/anvilgui/1.5.3-SNAPSHOT/maven-metadata.xml
+Progress (1): 770 B                   Downloaded from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/net/wesjd/anvilgui/1.5.3-SNAPSHOT/maven-metadata.xml (770 B at 1.5 kB/s)
+Downloading from spigot-repo: https://hub.spigotmc.org/nexus/content/repositories/snapshots/net/wesjd/anvilgui/1.5.3-SNAPSHOT/anvilgui-1.5.3-20221127.215517-12.pom
+Downloading from papermc-repo: https://repo.papermc.io/repository/maven-public/net/wesjd/anvilgui/1.5.3-SNAPSHOT/anvilgui-1.5.3-20221127.215517-12.pom
+Downloading from jitpack.io: https://jitpack.io/net/wesjd/anvilgui/1.5.3-SNAPSHOT/anvilgui-1.5.3-20221127.215517-12.pom
+Downloading from aikar-repo: https://repo.aikar.co/content/groups/aikar/net/wesjd/anvilgui/1.5.3-SNAPSHOT/anvilgui-1.5.3-20221127.215517-12.pom
+Downloading from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/net/wesjd/anvilgui/1.5.3-SNAPSHOT/anvilgui-1.5.3-20221127.215517-12.pom
+Progress (1): 1.3 kB                    Downloaded from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/net/wesjd/anvilgui/1.5.3-SNAPSHOT/anvilgui-1.5.3-20221127.215517-12.pom (1.3 kB at 2.4 kB/s)
+Downloading from spigot-repo: https://hub.spigotmc.org/nexus/content/repositories/snapshots/net/wesjd/anvilgui-parent/1.5.3-SNAPSHOT/maven-metadata.xml
+Downloading from aikar-repo: https://repo.aikar.co/content/groups/aikar/net/wesjd/anvilgui-parent/1.5.3-SNAPSHOT/maven-metadata.xml
+Downloading from papermc-repo: https://repo.papermc.io/repository/maven-public/net/wesjd/anvilgui-parent/1.5.3-SNAPSHOT/maven-metadata.xml
+Downloading from jitpack.io: https://jitpack.io/net/wesjd/anvilgui-parent/1.5.3-SNAPSHOT/maven-metadata.xml
+Downloading from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/net/wesjd/anvilgui-parent/1.5.3-SNAPSHOT/maven-metadata.xml
+Progress (1): 603 B                   Downloaded from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/net/wesjd/anvilgui-parent/1.5.3-SNAPSHOT/maven-metadata.xml (603 B at 1.2 kB/s)
+Downloading from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/net/wesjd/anvilgui-parent/1.5.3-SNAPSHOT/anvilgui-parent-1.5.3-20221127.215335-17.pom
+Progress (1): 3.6/4.4 kBProgress (1): 4.4 kB                        Downloaded from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/net/wesjd/anvilgui-parent/1.5.3-SNAPSHOT/anvilgui-parent-1.5.3-20221127.215335-17.pom (4.4 kB at 8.7 kB/s)
+Downloading from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/net/wesjd/anvilgui/1.5.3-SNAPSHOT/anvilgui-1.5.3-20221127.215517-12.jar
+Progress (1): 3.6/97 kBProgress (1): 7.7/97 kBProgress (1): 12/97 kB Progress (1): 16/97 kBProgress (1): 20/97 kBProgress (1): 24/97 kBProgress (1): 28/97 kBProgress (1): 32/97 kBProgress (1): 36/97 kBProgress (1): 40/97 kBProgress (1): 45/97 kBProgress (1): 49/97 kBProgress (1): 53/97 kBProgress (1): 57/97 kBProgress (1): 61/97 kBProgress (1): 65/97 kBProgress (1): 69/97 kBProgress (1): 73/97 kBProgress (1): 77/97 kBProgress (1): 81/97 kBProgress (1): 94/97 kBProgress (1): 97 kB                      Downloaded from codemc-snapshots: https://repo.codemc.io/repository/maven-snapshots/net/wesjd/anvilgui/1.5.3-SNAPSHOT/anvilgui-1.5.3-20221127.215517-12.jar (97 kB at 77 kB/s)
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ CoinFlip ---
+[INFO] Deleting C:\Users\User\system\Documents\CoinFlip\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ CoinFlip ---
+[INFO] Copying 69 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.8.1:compile (default-compile) @ CoinFlip ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 78 source files to C:\Users\User\system\Documents\CoinFlip\target\classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  19.517 s
+[INFO] Finished at: 2026-02-01T12:20:41+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.1:compile (default-compile) on project CoinFlip: Fatal error compiling: java.lang.NoSuchFieldError: Class com.sun.tools.javac.tree.JCTree$JCImport does not have member field 'com.sun.tools.javac.tree.JCTree qualid' -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

@@ -1,0 +1,169 @@
+# ==========================================
+# Dutch Messages
+# ==========================================
+# Alle berichten ondersteunen kleurcodes (&a, &c, etc.) en MiniMessage-formaat
+# Gebruik "" (lege string) om een bericht uit te schakelen
+
+prefix: '&c&lUltra&e&lCoinFlip &f|| &r'
+no-perms: '&8[&c&l!&8] <##eb3434>Je hebt geen toestemming om deze actie uit te voeren!'
+
+# Help Command Messages
+help:
+  messages:
+    - "&6&l=== UltraCoinFlip Help ==="
+    - "&e/coinflip &7- Open het coinflip menu"
+    - "&e/coinflip create <currency> <amount> &7- Maak een nieuw coinflip spel"
+    - "&e/coinflip delete &7- Annuleer je actieve coinflip spel"
+    - "&e/coinflip history &7- Open coinflip history GUI"
+    - "&e/coinflip help &7- Toon dit helpbericht"
+
+# Command Messages
+command:
+  no-bet: '&fJe hebt geen weddenschap geplaatst!'
+  bet-cancelled: '&fJe weddenschap is geannuleerd!'
+  bet-cancelled-multiple: '&fAll of your coinflips were cancelled (&e<amount>&f)!'
+  usage: '&cGebruik: /cf create <money|playerpoints|tokenmanager|coinsengine:<id>|placeholder:<id>|<currency_id>> <bedrag>'
+  invalid-currency: '&cOngeldig valutatype! Gebruik &emoney&c, &eplayerpoints&c, &etokenmanager&c, &ecoinsengine:<id>&c, &eplaceholder:<id> &cof valuta-ID'
+  not-enough-playerpoints: '&cJe hebt niet genoeg PlayerPoints!'
+  not-enough-tokenmanager: '&cJe hebt niet genoeg Tokens!'
+  not-enough-beasttokens: '&cJe hebt niet genoeg BeastTokens!'
+  not-enough-coinsengine: '&cJe hebt niet genoeg valuta!'
+  not-enough-placeholder: '&cJe hebt niet genoeg valuta!'
+  bet-created-playerpoints: '&fJe hebt een weddenschap geplaatst van &e<amount><symbol>'
+  bet-created-tokenmanager: '&fJe hebt een weddenschap geplaatst van &e<amount><symbol>'
+  bet-created-beasttokens: '&fJe hebt een weddenschap geplaatst van &e<amount><symbol>'
+  bet-created-coinsengine: '&fJe hebt een weddenschap geplaatst van &e<amount><symbol>'
+  bet-created-placeholder: '&fJe hebt een weddenschap geplaatst van &e<amount><symbol>'
+  reload-success: '&aPluginconfiguratie succesvol herladen!'
+  reload-error: '&cKan pluginconfiguratie niet herladen! Controleer de console op gedetailleerde foutmeldingen. Sommige instellingen zijn mogelijk niet herladen.'
+  economy-not-ready: '&cHet economiesysteem is nog niet klaar. Wacht even en probeer het opnieuw. Als het probleem aanhoudt, controleer of je economieplugin correct is geïnstalleerd.'
+  invalid-amount: '&cOngeldig bedrag! Voer alstublieft een geldig getal groter dan 0 in.'
+  min-bid: '&cJe moet minimaal &e<amount>&c inzetten! Je huidige inzet is te laag.'
+  max-bid: '&cJe kunt niet meer dan &e<amount>&c inzetten! Je huidige inzet overschrijdt de maximale limiet.'
+  not-enough-money: '&cJe hebt niet genoeg geld! Je hebt &e<amount>&c nodig maar hebt alleen &e<balance>&c.'
+  not-enough-money-reserve: '&cJe kunt dit bedrag niet inzetten! Je moet een minimum reserve saldo van &e<reserve>&c behouden. Je hebt &e<balance>&c, dus je kunt maximaal &e<max_bet>&c inzetten.'
+  not-enough-playerpoints-reserve: '&cJe kunt dit bedrag niet inzetten! Je moet een minimum reserve saldo van &e<reserve>&c behouden. Je hebt &e<balance>&c, dus je kunt maximaal &e<max_bet>&c inzetten.'
+  not-enough-tokenmanager-reserve: '&cJe kunt dit bedrag niet inzetten! Je moet een minimum reserve saldo van &e<reserve>&c behouden. Je hebt &e<balance>&c, dus je kunt maximaal &e<max_bet>&c inzetten.'
+  not-enough-beasttokens-reserve: '&cJe kunt dit bedrag niet inzetten! Je moet een minimum reserve saldo van &e<reserve>&c behouden. Je hebt &e<balance>&c, dus je kunt maximaal &e<max_bet>&c inzetten.'
+  not-enough-coinsengine-reserve: '&cJe kunt dit bedrag niet inzetten! Je moet een minimum reserve saldo van &e<reserve>&c behouden. Je hebt &e<balance>&c, dus je kunt maximaal &e<max_bet>&c inzetten.'
+  not-enough-placeholder-reserve: '&cJe kunt dit bedrag niet inzetten! Je moet een minimum reserve saldo van &e<reserve>&c behouden. Je hebt &e<balance>&c, dus je kunt maximaal &e<max_bet>&c inzetten.'
+  # Wedlimiet berichten
+  betting-limit-daily-exceeded: '&cJe hebt je dagelijkse wedlimiet bereikt! Limiet: &e<limit>&c, Vandaag ingezet: &e<current>&c, Resterend: &e<remaining>&c. Probeer het morgen opnieuw!'
+  betting-limit-weekly-exceeded: '&cJe hebt je wekelijkse wedlimiet bereikt! Limiet: &e<limit>&c, Deze week ingezet: &e<current>&c, Resterend: &e<remaining>&c. Probeer het volgende week opnieuw!'
+  already-bet: '&fJe hebt al een weddenschap geplaatst!'
+  bet-limit-reached: '&cYou reached your maximum of <limit> active coinflips!'
+  rolling-active: '&cFinish your current coinflip before starting another one!'
+  bet-created-money: '&fJe hebt een weddenschap geplaatst van &e<amount>$'
+  broadcast-created: '&fSpeler &a<player> &fheeft een coinflip gemaakt met een inzetbedrag van &e<amount><symbol> &f! Wie accepteert de uitdaging? &7(/cf)'
+  no-permission: '&cJe hebt geen toestemming om deze actie uit te voeren!'
+  reload-busy: '&cKan niet herladen terwijl terugbetalingen bezig zijn. Even geduld.'
+  cooldown-wait: '&cWacht <seconds> seconden voordat je een ander spel annuleert.'
+  plugin-busy: '&cPlugin is bezig. Probeer het later opnieuw.'
+  refund-processing: '&eJe terugbetaling wordt verwerkt...'
+  transaction-in-progress: '&cTransactie al bezig. Even geduld.'
+  currency-disabled: '&cValutatype <type> is uitgeschakeld!'
+  currency-not-available: '&cValuta <id> is niet beschikbaar!'
+  currency-check-hint-1: '&7  1. De plugin is geïnstalleerd en geladen'
+  currency-check-hint-2: '&7  2. Valuta-ID <id> bestaat'
+  currency-check-hint-3: '&7  3. Probeer de plugin te herladen: /cf reload'
+  no-currency-available: '&cGeen valuta beschikbaar! Schakel ten minste één valuta in de configuratie in.'
+  currency-withdraw-failed: '&cKan valuta niet opnemen!'
+  invalid-currency-help: '&cOngeldig valutatype!'
+  available-currencies: '&7Beschikbare valuta: <list>'
+  no-currencies-enabled: '&cGeen valuta ingeschakeld!'
+  coinsengine-ids-available: '&7Beschikbare CoinsEngine IDs: &e<ids>'
+  coinsengine-none-enabled: '&7Geen CoinsEngine valuta ingeschakeld.'
+  placeholder-ids-available: '&7Beschikbare Placeholder IDs: &e<ids>'
+  placeholder-none-enabled: '&7Geen Placeholder valuta ingeschakeld.'
+  
+# Currency Restriction Messages
+restriction:
+  cannot-use-currency: '&cJe kunt deze valuta niet gebruiken! Controleer of je de vereiste rechten hebt of in de juiste wereld bent.'
+  cannot-join-game: '&cJe kunt niet deelnemen aan dit spel! De valuta die in dit spel wordt gebruikt, kan beperkt zijn in je huidige wereld of je mist mogelijk de vereiste rechten.'
+  host-cannot-use: '&cDe speler die het spel heeft gemaakt kan deze valuta niet gebruiken in zijn huidige wereld! Probeer een andere valuta of wereld.'
+  cannot-gamble-together: '&cJe kunt niet met deze speler spelen met deze valuta! Een van jullie bevindt zich mogelijk in een beperkte wereld of mist de vereiste rechten.'
+  world-blocked: '&7Deze valuta is geblokkeerd in de wereld &e<world>&7'
+  world-allowed-only: '&7Deze valuta is alleen toegestaan in de werelden: &e<worlds>'
+  permission-required-single: '&7Deze valuta vereist de toestemming: &e<permission>'
+  permission-required-multiple: '&7Deze valuta vereist een van deze toestemmingen: &e<permissions>'
+
+# Heads/Tails Messages
+heads-tails:
+  heads: 'Kop'
+  tails: 'Munt'
+  selected: '&fJe hebt &e<choice> &fgeselecteerd voor deze coinflip!'
+
+# Game Messages
+game:
+  cannot-play-self: '&cJe kunt niet tegen jezelf spelen!'
+  player-not-found: '&cSpeler niet gevonden!'
+  winner: '&fJe hebt gewonnen van &a<loser> &fin coinflip! &8(&a+<amount><symbol>&8, belasting afgetrokken <tax_rate>%: -<tax><symbol>&8)'
+  loser: '&fJe hebt verloren van &c<winner> &fin coinflip! &8(&c-<amount><symbol>&8)'
+  broadcast-result: '&fSpeler &a<winner> &fheeft gewonnen van &c<loser> &fin coinflip met een inzetbedrag van &e<amount><symbol> &f(na belasting ontvangen &a<taxed_amount><symbol>&f)'
+  refunded: '&fJe coinflip-spel is terugbetaald. Je hebt &a<amount><symbol> &fterug ontvangen.'
+  consecutive-win: '&e&lDit is je <count><ordinal> opeenvolgende overwinning tegen <opponent>!'
+
+# Play with Bot Messages
+house:
+  disabled: '&cSpelen met Bot is momenteel uitgeschakeld!'
+  no-permission: '&cJe hebt geen toestemming om Spelen met Bot te gebruiken!'
+  min-bet: '&cJe moet minimaal &e<amount> &cinzetten om met bot te spelen!'
+  max-bet: '&cJe kunt niet meer dan &e<amount> &cinzetten om met bot te spelen!'
+  delay-remaining: '&cWacht alstublieft nog &e<time> &cseconden voordat je weer met bot speelt!'
+  daily-limit-reached: '&cJe hebt je dagelijkse limiet van &e<limit> &cspellen met bot bereikt!'
+  win: '&a&lJE HEBT GEWONNEN! &r&fJe hebt gewonnen van de Bot! &8(&a+<amount><symbol>&8, belasting afgetrokken: -<tax><symbol>&8)'
+  lose: '&c&lJE HEBT VERLOREN! &r&fJe hebt verloren van de Bot! &8(&c-<amount><symbol>&8)'
+  game-type: 'Bot'
+  game-type-player: 'Speler'
+
+# Title settings
+titles:
+  game-win-title: '&a&lJE HEBT GEWONNEN!'
+  game-win-subtitle: '&fOntvangen &a<amount><symbol>'
+  game-lose-title: '&c&lJE HEBT VERLOREN!'
+  game-lose-subtitle: '&fVerloren &c<amount><symbol>'
+
+# ActionBar settings
+actionbar:
+  game-win: '&a&lJE HEBT GEWONNEN! &fOntvangen &a<amount><symbol>'
+  game-lose: '&c&lJE HEBT VERLOREN! &fVerloren &c<amount><symbol>'
+
+# BossBar settings
+bossbar:
+  game-win: '&a&lJE HEBT GEWONNEN! &fOntvangen &a<amount><symbol>'
+  game-lose: '&c&lJE HEBT VERLOREN! &fVerloren &c<amount><symbol>'
+
+# Admin Audit Berichten
+admin:
+  audit-header: '&6=== UltraCoinFlip Status ==='
+  audit-active-games: '&7Actieve Spellen: &e<count>'
+  audit-rolling-games: '&7Lopende Spellen: &e<count>'
+  audit-players-in-transaction: '&7Spelers in Transactie: &e<count>'
+  audit-refund-in-progress: '&7Terugbetaling Bezig: &e<status>'
+  audit-global-lock: '&7Globale Vergrendeling: <status>'
+  audit-reloading: '&7Herladen: <status>'
+  audit-active-refund-count: '&7Actieve Terugbetalingen: &e<count>'
+  audit-games-processing: '&7Spellen in Verwerking: &e<count>'
+  audit-pending-logs: '&7Wachtende Logs: &e<count>'
+  audit-footer: '&6========================='
+  audit-yes: '&cJa'
+  audit-no: '&aNee'
+
+# Update Checker Messages
+update:
+  latest-version: '&fJe gebruikt de nieuwste versie &a(v<version>)'
+  new-version-available: '&e⚠ &fEr is een nieuwe update beschikbaar!'
+  current-version: '&7Huidige versie: &c<version>'
+  latest-version-label: '&7Nieuwste versie:  &a<version>'
+  download-link: '&bDownload: &fhttps://www.spigotmc.org/resources/ultracoinflip-1-20-x-1-21-10-folia-support.130124/'
+  check-failed: '&cKan niet controleren op updates: <error>'
+  # Short in-game message (separate from console)
+  in-game-new-version: "<yellow>Er is een nieuwe versie van UltraCoinFlip beschikbaar <gray>(Huidige: <red><current> <gray>| Nieuwste: <green><latest><gray>). <aqua><click:open_url:'https://www.spigotmc.org/resources/ultracoinflip-1-20-x-1-21-10-folia-support.130124'><u>Download hier</u></click><gray>."
+
+# ==========================================
+# Configuration Version
+# ==========================================
+# DO NOT MODIFY THIS VALUE - It is used by the plugin to track configuration updates
+# Changing this value may cause configuration issues
+config-version: 13
+

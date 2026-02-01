@@ -1,0 +1,566 @@
+# ==========================================
+# Language Configuration
+# ==========================================
+# Options: vi (Vietnamese), en (English), fr (French), nl (Dutch), ru (Russian), zh_cn (Chinese Simplified), zh_tw (Chinese Traditional), es (Spanish), de (German), ar (Arabic), it (Italian)
+language: en
+
+# ==========================================
+# Command Configuration
+# ==========================================
+command_aliases:
+  - coinflip
+  - cf
+
+# ==========================================
+# Database Configuration
+# ==========================================
+database:
+  # Database type: SQLITE (default), MYSQL
+  # SQLITE: Simple file-based database (recommended for small servers)
+  # MYSQL: Remote database server (recommended for large servers or multiple servers)
+  type: SQLITE
+  
+  # MySQL Configuration (only used when type is MYSQL)
+  mysql:
+    # Basic connection settings
+    host: localhost  # MySQL server hostname or IP address (use 'localhost' for local MySQL)
+    port: 3306       # MySQL server port (default: 3306)
+    database: ultracoinflip  # Database name (plugin will try to create it if it doesn't exist)
+    username: root   # MySQL username
+    password: password  # MySQL password
+    ssl: false       # Enable SSL connection (set to true if your MySQL server requires SSL)
+    
+    # HikariCP Connection Pool Settings
+    # These settings control the connection pool behavior for optimal performance
+    pool-size: 10   # Maximum number of connections in the pool (default: 10)
+                    # Recommended: 10 for small servers, 20-30 for large servers
+    
+    # Advanced pool settings (optional - defaults are usually fine)
+    connection-timeout: 10000  # Maximum time (ms) to wait for a connection from the pool (default: 10000 = 10 seconds)
+    idle-timeout: 600000       # Maximum time (ms) a connection can sit idle in the pool (default: 600000 = 10 minutes)
+    max-lifetime: 1800000      # Maximum lifetime (ms) of a connection in the pool (default: 1800000 = 30 minutes)
+    leak-detection-threshold: 60000  # Time (ms) before a connection is considered leaked (default: 60000 = 60 seconds)
+                                     # Set to 0 to disable leak detection (not recommended)
+
+# ==========================================
+# Performance Configuration
+# ==========================================
+performance:
+  # Batch stats save optimization
+  # Reduces database overhead by batching multiple stat saves together
+  # Cache is always updated immediately, batch only optimizes database writes
+  batch-stats-save:
+    enabled: true  # Enable batch mode for better performance (recommended: true)
+                   # If disabled, stats are saved individually (slower but simpler)
+    # Note: Batch mode includes safety features:
+    # - Auto-flush every 5 seconds or when 10 items queued
+    # - Partial failure handling (each player saved independently)
+    # - Automatic fallback to individual saves if batch fails
+
+# ==========================================
+# Title Configuration
+# ==========================================
+# Enable/disable title notifications when game ends
+titles:
+  enabled: true  # Set to false to disable title notifications
+
+# ==========================================
+# ActionBar Configuration
+# ==========================================
+# Enable/disable actionbar notifications when game ends
+actionbar:
+  enabled: false  # Set to true to enable actionbar notifications
+
+# ==========================================
+# BossBar Configuration
+# ==========================================
+# Enable/disable bossbar notifications when game ends
+bossbar:
+  enabled: false  # Set to true to enable bossbar notifications
+  # BossBar color options: BLUE, GREEN, PINK, PURPLE, RED, WHITE, YELLOW
+  color: GREEN  # Color for winner bossbar
+  color-lose: RED  # Color for loser bossbar
+  # BossBar overlay/type options: NOTCHED_6, NOTCHED_10, NOTCHED_12, NOTCHED_20, PROGRESS
+  overlay: PROGRESS  # Overlay style for winner bossbar
+  overlay-lose: PROGRESS  # Overlay style for loser bossbar
+  # Progress value (0.0 to 1.0): 0.0 = empty, 1.0 = full
+  progress: 1.0  # Progress for winner bossbar (1.0 = full)
+  progress-lose: 0.0  # Progress for loser bossbar (0.0 = empty)
+  # Duration in seconds (0 = permanent until player leaves or server restarts)
+  duration: 5  # How long the bossbar should be displayed (in seconds)
+
+# ==========================================
+# Input Configuration
+# ==========================================
+input:
+  # Input method for custom amount: CHAT or ANVIL
+  # CHAT: Player types in chat
+  # ANVIL: Player types in anvil GUI (better for custom amount input)
+  method: CHAT  # Options: CHAT, ANVIL
+
+# ==========================================
+# Discord Webhook Configuration
+# ==========================================
+discord:
+  webhook:
+    # Enable/disable Discord webhook notifications
+    enabled: false
+    
+    # Discord webhook URL
+    # Get this URL from Discord: Server Settings -> Integrations -> Webhooks -> Create Webhook
+    # Example: https://discord.com/api/webhooks/123456789012345678/abcdefghijklmnopqrstuvwxyz1234567890
+    url: "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
+    
+    # Leave empty to use Discord's default webhook name
+    username: "UltraCoinFlip"
+    
+    # Leave empty to use Discord's default webhook avatar
+    avatar: ""
+    
+    # Minimum bet amount to send Discord webhook
+    # Only games with bet amounts >= this value will send webhook notifications
+    # Set to 0 to send webhook for all games
+    # Example: 100 means only games with 100 or more will send webhook
+    min-amount: 0
+  
+  # Message Configuration 
+  message:
+    # Leave empty to send only the embed (if embed is enabled)
+    # 
+    # Available placeholders:
+    #   %amount% - The bet amount (original amount, before tax)
+    #   %taxed_amount% - The amount winner received (after tax)
+    #   %winner% - The name of the winner
+    #   %loser% - The name of the loser
+    #   %currency% - The currency display name (e.g., "Money", "PlayerPoints")
+    #   %symbol% - The currency symbol (e.g., "$", "PP", "⛃")
+    # 
+    # Example: "Coin Flip Result: %winner% won %taxed_amount% %symbol%!"
+    content: ""
+    
+    # Embed Configuration
+    embed:
+      # Enable/disable embed message
+      enabled: true
+      
+      # Embed title
+      # 
+      # Available placeholders:
+      #   %amount% - The bet amount (original amount, before tax)
+      #   %taxed_amount% - The amount winner received (after tax)
+      #   %winner% - The name of the winner
+      #   %loser% - The name of the loser
+      #   %currency% - The currency display name
+      #   %symbol% - The currency symbol
+      # 
+      title: "Coin Flip Result"
+      
+      # Embed description
+      # Leave empty for a cleaner look, or add a short description
+      # 
+      # Available placeholders:
+      #   %amount% - The bet amount (original amount, before tax)
+      #   %taxed_amount% - The amount winner received (after tax)
+      #   %winner% - The name of the winner
+      #   %loser% - The name of the loser
+      #   %currency% - The currency display name
+      #   %symbol% - The currency symbol
+      description: ""
+      
+      # RGB color values for the embed border color
+      # Gold/Orange color (255, 165, 0) - vibrant and eye-catching
+      color:
+        r: 255
+        g: 165
+        b: 0
+      
+      # Embed thumbnail URL (optional)
+      # Leave empty to disable thumbnail
+      # Available placeholders: same as above
+      thumbnail: ""
+      
+      # Embed fields - structured information display
+      # Each field has: name, value, and inline (true/false)
+      # inline: true means fields will be displayed side by side (max 3 per row)
+      # inline: false means fields will be displayed on separate lines
+      fields:
+        - name: "Winner"
+          value: "**%winner%**"
+          inline: true
+        - name: "Loser"
+          value: "%loser%"
+          inline: true
+        - name: "Bet Amount"
+          value: "%amount% %symbol%"
+          inline: true
+        - name: "Winnings"
+          value: "**%taxed_amount% %symbol%**"
+          inline: false
+      
+      # Footer configuration
+      footer:
+        # Footer text (leave empty to disable footer)
+        text: "UltraCoinFlip"
+        # Footer icon URL (leave empty to disable icon)
+        icon: ""
+      
+      timestamp: true
+
+# ==========================================
+# Update Checker Configuration
+# ==========================================
+update-checker:
+  # Enable/disable automatic update checking on plugin startup
+  # When enabled, the plugin will check for updates from SpigotMC on startup
+  # Update notifications will be shown in both console and in-game (if enabled)
+  enabled: true
+  
+  # Show update notifications in-game to players with permission
+  # Set to false to only show update notifications in console
+  notify-in-game: true
+  
+  # Permission required to see in-game update notifications
+  # Default: ultracoinflip.admin (ops have this permission by default)
+  notify-permission: 'ultracoinflip.admin'
+
+# ==========================================
+# bStats Configuration
+# ==========================================
+# This helps us understand plugin usage patterns, server versions, and other useful data
+# All data is anonymous and cannot be used to identify individual servers or players
+bstats:
+  enabled: true
+
+# ==========================================
+# Heads/Tails Selection Configuration
+# ==========================================
+heads-tails:
+  # Enable/disable heads/tails selection feature
+  # When enabled, players must choose heads or tails before creating a coinflip game
+  enabled: false
+
+# ==========================================
+# Game Behavior Configuration
+# ==========================================
+game-behavior:
+  # Keep waiting coinflips when player disconnects:
+  # When false: Remove coinflip and refund player immediately on disconnect.
+  # When true:  Keep coinflip active, player can rejoin and continue when they reconnect.
+  # Note: This only affects waiting games (not yet started). Rolling games are handled separately.
+  keep-coinflip-on-disconnect: false
+  
+  # Refund timing when player disconnects:
+  # When false: Refund processed when player reconnects (recommended, safer).
+  # When true:  Refund processed immediately on disconnect.
+  # Warning: Setting to true may cause money loss if economy plugin doesn't save player data properly.
+  # This is NOT a bug of UltraCoinFlip, but a limitation of the economy plugin.
+  refund-on-disconnect: false
+  
+  # Defer refunds on server shutdown:
+  # When false: Refund all players immediately when server stops.
+  # When true:  Defer refunds until players reconnect (refunds processed on next join).
+  # Note: Requires refund-on-disconnect to be true to take effect.
+  refund-on-reconnect-after-shutdown: true
+  
+  # Cancel ongoing games when player disconnects:
+  # When false: Game continues, result announced when disconnected player reconnects (better UX).
+  # When true:  Cancel game immediately and refund both players (worse UX for online player).
+  cancel-game-on-disconnect: false
+  
+  # Allow players to close GUI during animation:
+  # When true:  Game continues running in background, players can close GUI freely (default behavior).
+  # When false: Closing GUI during animation will cancel the game and refund both players.
+  allow-close-during-animation: true
+  
+  # Allow players to create more than one active coinflip at the same time.
+  # When disabled, every player can only host one coinflip at a time (legacy behavior).
+  # When enabled, you can set a default limit and grant higher limits via permissions.
+  multiple-games:
+    enabled: false
+    # Default number of active coinflips per player when feature is enabled (minimum 1)
+    default-limit: 1
+    # Optional permission-based overrides (highest granted limit is used; -1 = unlimited)
+    permission-limits:
+      - permission: ultracoinflip.multigame.2
+        limit: 2
+      - permission: ultracoinflip.multigame.5
+        limit: 5
+
+# ==========================================
+# Number Formatting Configuration 
+
+# ==========================================
+number-format:
+  # Format type: COMPACT (K/M/B/T), COMMAS (1,000,000), FULL (1000000)
+  # COMPACT: Uses K/M/B/T suffixes for large numbers (e.g., 3.5M, 500K)
+  # COMMAS: Uses comma separators (e.g., 3,500,000, 1,000)
+  # FULL: No formatting, just plain numbers (e.g., 3500000, 1000)
+  type: COMPACT
+  
+  # Compact format settings (only used when type is COMPACT)
+  compact:
+    # Threshold for using K suffix (default: 10000)
+    # Numbers >= this value will use K/M/B/T suffixes
+    # Numbers < this value will use comma formatting or plain numbers
+    k-threshold: 10000
+    
+    # Thresholds for M/B/T suffixes (in millions)
+    m-threshold: 1.0      # Use M for numbers >= 1 million (1.0M = 1,000,000)
+    b-threshold: 1000.0   # Use B for numbers >= 1 billion (1.0B = 1,000,000,000)
+    t-threshold: 1000000.0  # Use T for numbers >= 1 trillion (1.0T = 1,000,000,000,000)
+  
+  # Common settings for all format types
+  remove-trailing-zeros: true  # Remove .00 if it's a whole number (e.g., 1000.00 -> 1000)
+  
+  # Per-currency format override (optional)
+  # You can set format type per currency if you want different formats for different currencies
+  # If not specified, the global type above will be used
+  # Example:
+  # per-currency:
+  #   money: COMPACT
+  #   playerpoints: COMMAS
+  per-currency: {}
+
+# ==========================================
+# Play with Bot Configuration
+# ==========================================
+# Play with Bot allows players to play coinflip against the server (bot) instead of other players
+house:
+  # Enable/disable Play with Bot feature
+  enabled: true
+  
+  # Bot name (displayed in messages and history)
+  name: "YourServer"
+  
+  # Subcommand name for creating bot coinflip games
+  # Default: "bot" (so command is: /coinflip create <currency> <amount> bot)
+  # You can change this to any word you want (e.g., "ken", "yourserver", "chatgpt")
+  subcommand: "bot"
+  
+  # Bot display configuration (used in all GUIs: animation, history, main menu, etc.)
+  display:
+    # Bot material for GUI items (PLAYER_HEAD recommended for custom bot head)
+    # For 1.13+: Use material names like "PLAYER_HEAD", "GOLD_INGOT", etc.
+    # For 1.8.8-1.12.2: Use "MATERIAL:DATA" format, e.g., "SKULL_ITEM:3" for player head
+    material: "PLAYER_HEAD"
+    
+    # Bot display name format (supports {BOT} placeholder for bot name)
+    # Example: "&e&l{BOT}" or "&6&lBot: {BOT}"
+    display-name: "&e&l{BOT}"
+    
+    # Bot head texture (Base64 encoded player skin texture)
+    # Only used when material is PLAYER_HEAD
+    # Default texture is a custom bot head, you can change this to any player head texture
+    # Get base64 textures from: https://minecraft-heads.com/ or https://mineskin.org/
+    texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjQ4ZDU1YjMzZWQ2ZmViNjE0ZTJjYTVkNGY1MGJiMzdmMTYxYWRhMzU4MmZjZmM2ZTQwMjg4YzZmYjA2ZjFmIn19fQ=="
+  
+  # Limits configuration
+  limits:
+    # Maximum number of bot games a player can play per day
+    # Set to -1 for unlimited
+    max-games-per-day: 50
+    
+    # Delay between bot games (in seconds)
+    # Players must wait this long between playing bot coinflip games
+    # Set to 0 to disable delay
+    delay-between-games: 10
+  
+  # Bet limits for bot games (separate from regular coinflip limits)
+  bet:
+    # Minimum bet amount for bot games
+    # Uses the same format as currency configs (e.g., "1k", "1000", "1M")
+    min: "100"
+    
+    # Maximum bet amount for bot games
+    # Uses the same format as currency configs (e.g., "10M", "10000000")
+    # Set to -1 for unlimited (uses currency's max bet)
+    max: "10M"
+  
+  # Tax configuration for bot games
+  tax:
+    # Enable/disable tax for bot games
+    enabled: true
+    
+    # Use dynamic tax from currency settings
+    # When true: Uses the tax rate configured in currency settings
+    # When false: Uses a fixed tax rate (not implemented yet, always uses currency tax)
+    use-dynamic-tax: true
+  
+  # History configuration
+  history:
+    # Enable/disable saving bot games to history
+    # When enabled, bot games will appear in /coinflip history
+    enabled: true
+  
+  # Notifications configuration
+  notifications:
+    # Enable/disable notifications for bot games
+    # When enabled, players will receive win/lose notifications for bot games
+    enabled: true
+
+# ==========================================
+# Leaderboard Configuration
+# ==========================================
+leaderboard:
+  # Enable/disable leaderboard filters
+  # When a filter is disabled, it will not appear in the cycle when clicking the filter button
+  # At least one filter must be enabled for leaderboard to work properly
+  filters:
+    # Number of Wins: Shows players with most wins
+    wins: true
+    
+    # Most Profit: Shows players with highest profit (total winnings - total losses)
+    profit: true
+    
+    # Largest Win: Shows players with the biggest single win
+    largest-win: true
+    
+    # Worst Profit: Shows players with the worst profit (most losses)
+    # This shows who lost the most money overall
+    worst-profit: true
+    
+    # Winstreak: Shows players with the highest consecutive wins
+    winstreak: true
+
+# ==========================================
+# Betting Limits Configuration
+# ==========================================
+# Control how much players can bet per day/week to protect your server economy
+# This helps prevent players from gambling away all their money too quickly
+#
+# How it works:
+# - Daily limit: Maximum total amount a player can bet in one day (resets at midnight)
+# - Weekly limit: Maximum total amount a player can bet in one week (resets on Monday)
+# - Set to -1 to disable that limit (unlimited betting)
+# - Players with permission "ultracoinflip.bypass.bettinglimit" bypass all limits
+#
+# Example: If daily-limit is 10000, a player can create multiple games
+# totaling up to $10,000 per day. After reaching the limit, they must wait
+# until the next day to bet more.
+betting-limits:
+  # Enable/disable betting limits feature
+  # When false, all players can bet unlimited amounts
+  enabled: false
+  
+  # Currency-specific limits
+  # Configure limits for each currency type separately
+  # Remove a currency section to have no limits for that currency
+  currencies:
+    # Vault/Economy money limits
+    money:
+      # Maximum amount a player can bet per day (-1 = unlimited)
+      daily-limit: 100000
+      # Maximum amount a player can bet per week (-1 = unlimited)
+      weekly-limit: 500000
+    
+    # PlayerPoints currency limits
+    playerpoints:
+      daily-limit: 50000
+      weekly-limit: 200000
+    
+    # TokenManager currency limits
+    tokenmanager:
+      daily-limit: 10000
+      weekly-limit: 50000
+    
+    # BeastTokens currency limits
+    beasttokens:
+      daily-limit: 10000
+      weekly-limit: 50000
+    
+    # CoinsEngine currencies - add each currency ID you want to limit
+    # Example: If you have a currency with ID "gems", add it like this:
+    # coinsengine:
+    #   gems:
+    #     daily-limit: 1000
+    #     weekly-limit: 5000
+    #   coins:
+    #     daily-limit: 50000
+    #     weekly-limit: 200000
+    
+    # Placeholder currencies - add each currency ID you want to limit
+    # Example: If you have a placeholder currency with ID "orbs", add it like this:
+    # placeholder:
+    #   orbs:
+    #     daily-limit: 500
+    #     weekly-limit: 2000
+
+# ==========================================
+# Configuration Version
+# ==========================================
+# DO NOT MODIFY THIS VALUE - It is used by the plugin to track configuration updates
+# Changing this value may cause configuration issues
+config-version: 15
+
+# ==========================================
+# Debug Configuration
+# ==========================================
+debug:
+  # Enable/disable debug logging globally
+  enabled: false
+  
+  # Debug level: VERBOSE, INFO, WARNING, ERROR
+  # VERBOSE: Logs everything (most detailed)
+  # INFO: Logs informational messages (default)
+  # WARNING: Logs warnings and errors only
+  # ERROR: Logs errors only
+  level: INFO
+  
+  # Enable/disable stack trace logging when exceptions occur
+  stack-trace: false
+  
+  # Enable/disable file logging (logs will be saved to debug-logs/ folder)
+  file-logging: false
+  
+  # Enable/disable performance tracking (tracks execution time of operations)
+  performance-tracking: false
+  
+  # Enable/disable specific debug categories
+  categories:
+    general: true      # General debug messages
+    config: true       # Configuration loading and validation
+    database: true     # Database operations (SQLite, MySQL)
+    currency: true     # Currency operations (Vault, PlayerPoints, etc.)
+    game: true         # Game creation, execution, and management
+    gui: true          # GUI operations and events
+    discord: true      # Discord webhook operations
+    command: true      # Command execution and processing
+    performance: true  # Performance tracking and statistics
+    event: true        # Event handling (player join, quit, etc.)
+
+# ==========================================
+# Transaction Logging Configuration
+# ==========================================
+transaction-logging:
+  # Enable/disable transaction logging to console
+  # When false: Transaction logs will only be saved to file (transactions.log) for audit purposes
+  # When true:  Transaction logs will be displayed in console AND saved to file
+  # Note: File logging is always enabled for audit purposes, this only controls console output
+  console: false  # Set to true to enable console transaction logs (default: false to reduce console spam)
+
+# ==========================================
+# Exploit Detection Configuration
+# ==========================================
+# Smart security system that detects and reports potential exploit attempts
+# Includes rate limiting to prevent console spam while catching suspicious activity
+exploit-detection:
+  # Enable/disable exploit detection system
+  # When enabled, the plugin will detect and log potential exploit attempts
+  enabled: true
+  
+  # Log exploit attempts to console
+  # Rate-limited to prevent spam (max 1 log per player per exploit type every 5 seconds)
+  # HIGH severity and suspicious patterns always logged, LOW severity only logged once
+  console-logging: true
+  
+  # Log exploit attempts to file (exploit-detection.log)
+  # Recommended: Keep enabled for security audit trail
+  file-logging: true
+  
+  # Notify online admins when suspicious activity is detected
+  # Admins will receive in-game alert messages for HIGH severity or suspicious patterns
+  # (3+ attempts of same exploit type within 30 seconds triggers suspicious alert)
+  admin-notify: true
+  
+  # Permission required to receive exploit notifications
+  admin-permission: 'ultracoinflip.admin'

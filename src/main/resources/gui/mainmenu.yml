@@ -1,0 +1,199 @@
+# Main Menu GUI Configuration
+#
+# =====================================================
+# MINECRAFT VERSION COMPATIBILITY NOTES
+# =====================================================
+# 
+# This config supports both modern Minecraft (1.13+) and legacy (1.8.8-1.12.2)
+#
+# MATERIAL NAMES:
+# ---------------
+# For 1.13+ (modern): Use material names like "BLACK_STAINED_GLASS_PANE", "NETHER_STAR", etc.
+# For 1.8.8-1.12.2 (legacy): Use "MATERIAL:DATA" format, e.g., "STAINED_GLASS_PANE:15" for black
+#
+# STAINED GLASS PANE DATA VALUES (for 1.8.8-1.12.2):
+# --------------------------------------------------
+#   STAINED_GLASS_PANE:0  = White       STAINED_GLASS_PANE:8  = Light Gray
+#   STAINED_GLASS_PANE:1  = Orange      STAINED_GLASS_PANE:9  = Cyan
+#   STAINED_GLASS_PANE:2  = Magenta     STAINED_GLASS_PANE:10 = Purple
+#   STAINED_GLASS_PANE:3  = Light Blue  STAINED_GLASS_PANE:11 = Blue
+#   STAINED_GLASS_PANE:4  = Yellow      STAINED_GLASS_PANE:12 = Brown
+#   STAINED_GLASS_PANE:5  = Lime        STAINED_GLASS_PANE:13 = Green
+#   STAINED_GLASS_PANE:6  = Pink        STAINED_GLASS_PANE:14 = Red
+#   STAINED_GLASS_PANE:7  = Gray        STAINED_GLASS_PANE:15 = Black
+#
+# DYE DATA VALUES (for 1.8.8-1.12.2):
+# -----------------------------------
+#   INK_SACK:1  = Red Dye (Rose Red)
+#   INK_SACK:10 = Lime Dye (Lime Green)
+#
+# OTHER COMMON MATERIALS (1.8.8):
+# -------------------------------
+#   SKULL_ITEM:3 = Player Head
+#   BOOK = Book
+#   NETHER_STAR = Nether Star
+#   HOPPER = Hopper
+#
+# =====================================================
+
+# List GUI - Main menu showing available coinflip games
+list-gui:
+  size: 45
+  items-per-page: 21
+  title: '&lUltraCoinFlip &8[Page <page>]'  # <page> - current page number
+  
+  filler:
+    # For 1.13+: 'BLACK_STAINED_GLASS_PANE'
+    # For 1.8.8: 'STAINED_GLASS_PANE:15'
+    material: 'BLACK_STAINED_GLASS_PANE'
+    display-name: ' '
+    glowing: false
+    custom-model-data: 0
+    # Supports range format: [0-3, 5-9, 17-18, 26-27, 35-38, 42-44]
+    slots: ["0-3", "5-9", "17-18", "26-27", "35-38", "42-44"]
+  
+  # Supports range format: [10-16, 19-25, 28-34]
+  game-slots: ["10-16", "19-25", "28-34"]
+  
+  stats:
+    slot: 4
+    material: 'PLAYER_HEAD'
+    title: '&6&lYour Statistics'
+    glowing: false
+    custom-model-data: 0
+    player-head:
+      type: 'Player'  # Options: Player, Base64, Default
+      texture: ''  # Base64 texture if type is Base64 (get from https://minecraft-heads.com/)
+    show-win-percentage: true
+    show-net-profit: true
+  
+  leaderboard:
+    slot: 38
+    material: 'GOLD_INGOT'
+    title: '&6&lLeaderboard'
+    glowing: false
+    custom-model-data: 0
+    lore:
+      - "&8&m━━━━━━━━━━━━━━━━"
+      - "&7Click to view top"
+      - "&7players leaderboard"
+      - "&8&m━━━━━━━━━━━━━━━━"
+  
+  history:
+    slot: 39
+    material: 'BOOK'
+    title: '&6&lYour CoinFlip History'
+    glowing: false
+    custom-model-data: 0
+    lore:
+      - "&8&m━━━━━━━━━━━━━━━━"
+      - "&7Click to view your"
+      - "&7coinflip history"
+      - "&8&m━━━━━━━━━━━━━━━━"
+  
+  create:
+    slot: 40
+    material: 'NETHER_STAR'
+    title: '&6&lCreate CoinFlip'
+    glowing: false
+    custom-model-data: 0
+    lore:
+      - "&8&m━━━━━━━━━━━━━━━━"
+      - "&7Click to create a"
+      - "&7new coinflip game"
+      - "&8&m━━━━━━━━━━━━━━━━"
+  
+  filter:
+    slot: 41
+    material: 'HOPPER'
+    title: '&6&lFilter Games'
+    glowing: false
+    custom-model-data: 0
+    lore:
+      - "&8&m━━━━━━━━━━━━━━━━"
+      - "&7Current filter: &e<filter>"  # <filter> - current filter type
+      - "&7Click to change filter"
+      - "&8&m━━━━━━━━━━━━━━━━"
+    filter-names:
+      none: 'None'
+      time-newest: 'Time (Newest)'
+      amount-ascending: 'Amount (Low to High)'
+      amount-descending: 'Amount (High to Low)'
+  
+  house:
+    slot: 42
+    material: 'PLAYER_HEAD'  # Use player head with bot texture
+    title: '&6&lCoinflip with Bot'
+    glowing: false
+    custom-model-data: 0
+    player-head:
+      type: 'Base64'  # Options: Player, Base64, Default
+      texture: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjQ4ZDU1YjMzZWQ2ZmViNjE0ZTJjYTVkNGY1MGJiMzdmMTYxYWRhMzU4MmZjZmM2ZTQwMjg4YzZmYjA2ZjFmIn19fQ=='  # Bot head texture from flipping.yml
+    lore:
+      - "&8&m━━━━━━━━━━━━━━━━"
+      - "&7Click to play against"
+      - "&7with Bot"
+      - "&8&m━━━━━━━━━━━━━━━━"
+      - "&fTotal Games: &e<bot_total_games>"
+      - "&fWin Rate: &a<bot_win_rate>%"
+      - "&fProfit: <bot_profit_color><bot_profit><bot_profit_symbol>"
+      - "&8&m━━━━━━━━━━━━━━━━"
+  
+  navigation:
+    previous:
+      slot: 18
+      material: 'PLAYER_HEAD'
+      base64-texture: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTE4YTJkZDViZWYwYjA3M2IxMzI3MWE3ZWViOWNmZWE3YWZlODU5M2M1N2E5MzgyMWU0MzE3NTU3MjQ2MTgxMiJ9fX0='
+      text: '&cPrevious &8(&e<page>&8)'  # <page> - target page number
+      glowing: false  # Default: false
+      custom-model-data: 0  # Default: 0
+    next:
+      slot: 26
+      material: 'PLAYER_HEAD'
+      base64-texture: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDk5ZjI4MzMyYmNjMzQ5ZjQyMDIzYzI5ZTZlNjQxZjRiMTBhNmIxZTQ4NzE4Y2FlNTU3NDY2ZDUxZWI5MjIifX19'
+      text: '&aNext Page &8(&e<page>&8)'  # <page> - target page number
+      glowing: false  # Default: false
+      custom-model-data: 0  # Default: 0
+  
+  auto-refresh: true
+  refresh-interval: 20  # Ticks (20 = 1 second, lower = faster but more server load)
+
+# Game Item - Items displayed in list GUI
+game-item:
+  material: 'PLAYER_HEAD'  # Any material or PLAYER_HEAD
+  glowing: false  # Default: false
+  custom-model-data: 0  # Default: 0
+  player-head:
+    type: 'Host'  # Options: Host, Base64, Default
+    texture: ''
+  display-name: '&6&l<player> &f- &e<amount><symbol>'  # <player>, <amount>, <symbol>
+  lore:
+    click-message: "Left-click to accept"
+    click-color: "&a&l» &a"
+    cancel-message: "Right-click to cancel"  # Message shown for own game (host only)
+    cancel-color: "&c&l» &c"  
+    lines:
+      - "&8&m━━━━━━━━━━━━━━━━"
+      - "&fType: &b<type>"  # <type>, <win_rate>, <click>, <taxed_amount>, <tax_rate>, <symbol>, <cancel>
+      - "&fWin Rate: &e<win_rate>%"
+      - "&fWin Reward: &a<taxed_amount><symbol>"
+      - "&8&m━━━━━━━━━━━━━━━━"
+      - "<click>"
+      - "&8&m━━━━━━━━━━━━━━━━"
+
+# Statistics Item - Statistics displayed in GUIs
+stats-item:
+  title: '&6&lYour Statistics'
+  lore:
+    lines:
+      - "&8&m━━━━━━━━━━━━━━━━"
+      - "&fWins: &a<wins> &8│ &fLosses: &c<defeats>"  # <wins>, <defeats>, <win_percentage>
+      - "&fWin Rate: &e<win_percentage>%"
+      - "&8&m━━━━━━━━━━━━━━━━"
+      - "&fProfit: &a<profit_money><money_unit>"  # <profit_money>, <loss_money>, <net_money>
+      - "&fLoss: &c<loss_money><money_unit>"  # <money_unit>, <playerpoints_unit>, <tokenmanager_unit>
+      - "&fNet: <net_money><money_unit>"
+      - "&8&m━━━━━━━━━━━━━━━━"
+
+# DO NOT MODIFY config-version - It is used to track configuration updates
+config-version: 4

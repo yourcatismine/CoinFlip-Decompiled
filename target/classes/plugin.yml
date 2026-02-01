@@ -1,0 +1,94 @@
+name: UltraCoinFlip
+version: 3.6.1
+main: com.kstudio.ultracoinflip.KStudio
+api-version: 1.13
+# Note: api-version: 1.13 tells Paper/Spigot we use modern API, but we still support 1.8.x - 1.21.11
+# Version compatibility is handled by code using VersionDetector, MaterialHelper, and fallbacks
+# Plugin is compiled with Paper 1.21.11 API for latest features while maintaining backward compatibility
+author: hiiamken
+description: Advanced coinflip gambling system
+folia-supported: true
+depend: [Vault]
+softdepend: [PlaceholderAPI, PlayerPoints, TokenManager, CoinsEngine, BeastTokens]
+loadbefore: []
+
+# External libraries - loaded automatically from Maven Central
+# This reduces JAR size significantly while maintaining full functionality
+# Paper/Spigot will automatically download these libraries on first load
+libraries:
+  # SQLite JDBC driver (required for SQLite database support)
+  - org.xerial:sqlite-jdbc:3.44.1.0
+  # MySQL Connector (required for MySQL database support)
+  - com.mysql:mysql-connector-j:8.2.0
+  # HikariCP connection pool (required for MySQL connection pooling)
+  - com.zaxxer:HikariCP:5.1.0
+
+commands:
+  coinflip:
+    description: Open coinflip menu or manage games
+    aliases: [cf]
+
+permissions:
+  ultracoinflip.use:
+    description: Allows using the coinflip command
+    default: true
+  ultracoinflip.admin:
+    description: Allows using admin commands (reload)
+    default: op
+  ultracoinflip.reload:
+    description: Allows reloading the plugin configuration
+    default: op
+  ultracoinflip.silent:
+    description: Disables coinflip broadcasts for players with this permission
+    default: false
+  ultracoinflip.bypass.tax:
+    description: Allows players to bypass tax and receive full winnings
+    default: false
+  ultracoinflip.house.use:
+    description: Allows players to use play with bot (play against server/bot)
+    default: true
+  ultracoinflip.house.bypass.limit:
+    description: Allows players to bypass daily game limit for play with bot
+    default: false
+  ultracoinflip.house.bypass.delay:
+    description: Allows players to bypass delay between play with bot games
+    default: false
+  ultracoinflip.bypass.bettinglimit:
+    description: Allows players to bypass daily/weekly betting limits
+    default: false
+  ultracoinflip.settings.bypass:
+    description: Allows players to bypass all message/notification settings (always receive all messages and notifications)
+    default: false
+  ultracoinflip.settings.bypass.message-game-created:
+    description: Allows players to bypass message-game-created setting
+    default: false
+  ultracoinflip.settings.bypass.message-game-joined:
+    description: Allows players to bypass message-game-joined setting
+    default: false
+  ultracoinflip.settings.bypass.message-game-won:
+    description: Allows players to bypass message-game-won setting
+    default: false
+  ultracoinflip.settings.bypass.message-game-lost:
+    description: Allows players to bypass message-game-lost setting
+    default: false
+  ultracoinflip.settings.bypass.message-game-cancelled:
+    description: Allows players to bypass message-game-cancelled setting
+    default: false
+  ultracoinflip.settings.bypass.message-broadcasts:
+    description: Allows players to bypass message-broadcasts setting
+    default: false
+  ultracoinflip.settings.bypass.message-bot-game:
+    description: Allows players to bypass message-bot-game setting
+    default: false
+  ultracoinflip.settings.bypass.notification-title:
+    description: Allows players to bypass notification-title setting
+    default: false
+  ultracoinflip.settings.bypass.notification-actionbar:
+    description: Allows players to bypass notification-actionbar setting
+    default: false
+  ultracoinflip.settings.bypass.notification-bossbar:
+    description: Allows players to bypass notification-bossbar setting
+    default: false
+  ultracoinflip.settings.bypass.notification-sound:
+    description: Allows players to bypass notification-sound setting
+    default: false

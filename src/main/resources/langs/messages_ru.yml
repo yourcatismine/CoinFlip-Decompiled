@@ -1,0 +1,169 @@
+# ==========================================
+# Russian Messages
+# ==========================================
+# Все сообщения поддерживают цветовые коды (&a, &c, и т.д.) и формат MiniMessage
+# Используйте "" (пустую строку) чтобы отключить сообщение
+
+prefix: '&c&lUltra&e&lCoinFlip &f|| &r'
+no-perms: '&8[&c&l!&8] <##eb3434>У вас нет разрешения на выполнение этого действия!'
+
+# Help Command Messages
+help:
+  messages:
+    - "&6&l=== UltraCoinFlip Справка ==="
+    - "&e/coinflip &7- Открыть меню coinflip"
+    - "&e/coinflip create <currency> <amount> &7- Создать новую игру coinflip"
+    - "&e/coinflip delete &7- Отменить активную игру coinflip"
+    - "&e/coinflip history &7- Open coinflip history GUI"
+    - "&e/coinflip help &7- Показать это сообщение справки"
+
+# Command Messages
+command:
+  no-bet: '&fВы не сделали ставку!'
+  bet-cancelled: '&fВаша ставка была отменена!'
+  bet-cancelled-multiple: '&fAll of your coinflips were cancelled (&e<amount>&f)!'
+  usage: '&cИспользование: /cf create <money|playerpoints|tokenmanager|coinsengine:<id>|placeholder:<id>|<currency_id>> <сумма>'
+  invalid-currency: '&cНеверный тип валюты! Используйте &emoney&c, &eplayerpoints&c, &etokenmanager&c, &ecoinsengine:<id>&c, &eplaceholder:<id> &cили ID валюты'
+  not-enough-playerpoints: '&cУ вас недостаточно PlayerPoints!'
+  not-enough-tokenmanager: '&cУ вас недостаточно токенов!'
+  not-enough-beasttokens: '&cУ вас недостаточно BeastTokens!'
+  not-enough-coinsengine: '&cУ вас недостаточно валюты!'
+  not-enough-placeholder: '&cУ вас недостаточно валюты!'
+  bet-created-playerpoints: '&fВы сделали ставку &e<amount><symbol>'
+  bet-created-tokenmanager: '&fВы сделали ставку &e<amount><symbol>'
+  bet-created-beasttokens: '&fВы сделали ставку &e<amount><symbol>'
+  bet-created-coinsengine: '&fВы сделали ставку &e<amount><symbol>'
+  bet-created-placeholder: '&fВы сделали ставку &e<amount><symbol>'
+  reload-success: '&aКонфигурация плагина успешно перезагружена!'
+  reload-error: '&cНе удалось перезагрузить конфигурацию плагина! Проверьте консоль на наличие подробных сообщений об ошибках. Некоторые настройки могут не быть перезагружены.'
+  economy-not-ready: '&cЭкономическая система еще не готова. Пожалуйста, подождите немного и попробуйте снова. Если проблема сохраняется, проверьте, правильно ли установлен ваш плагин экономики.'
+  invalid-amount: '&cНеверная сумма! Пожалуйста, введите действительное число больше 0.'
+  min-bid: '&cВам нужно поставить минимум &e<amount>&c! Ваша текущая ставка слишком низкая.'
+  max-bid: '&cВы не можете поставить больше &e<amount>&c! Ваша текущая ставка превышает максимальный лимит.'
+  not-enough-money: '&cУ вас недостаточно денег! Вам нужно &e<amount>&c, но у вас только &e<balance>&c.'
+  not-enough-money-reserve: '&cВы не можете сделать ставку на эту сумму! Вам нужно сохранить минимальный резервный баланс &e<reserve>&c. У вас &e<balance>&c, поэтому вы можете сделать ставку максимум &e<max_bet>&c.'
+  not-enough-playerpoints-reserve: '&cВы не можете сделать ставку на эту сумму! Вам нужно сохранить минимальный резервный баланс &e<reserve>&c. У вас &e<balance>&c, поэтому вы можете сделать ставку максимум &e<max_bet>&c.'
+  not-enough-tokenmanager-reserve: '&cВы не можете сделать ставку на эту сумму! Вам нужно сохранить минимальный резервный баланс &e<reserve>&c. У вас &e<balance>&c, поэтому вы можете сделать ставку максимум &e<max_bet>&c.'
+  not-enough-beasttokens-reserve: '&cВы не можете сделать ставку на эту сумму! Вам нужно сохранить минимальный резервный баланс &e<reserve>&c. У вас &e<balance>&c, поэтому вы можете сделать ставку максимум &e<max_bet>&c.'
+  not-enough-coinsengine-reserve: '&cВы не можете сделать ставку на эту сумму! Вам нужно сохранить минимальный резервный баланс &e<reserve>&c. У вас &e<balance>&c, поэтому вы можете сделать ставку максимум &e<max_bet>&c.'
+  not-enough-placeholder-reserve: '&cВы не можете сделать ставку на эту сумму! Вам нужно сохранить минимальный резервный баланс &e<reserve>&c. У вас &e<balance>&c, поэтому вы можете сделать ставку максимум &e<max_bet>&c.'
+  # Сообщения о лимите ставок
+  betting-limit-daily-exceeded: '&cВы достигли дневного лимита ставок! Лимит: &e<limit>&c, Сделано сегодня: &e<current>&c, Осталось: &e<remaining>&c. Попробуйте завтра!'
+  betting-limit-weekly-exceeded: '&cВы достигли недельного лимита ставок! Лимит: &e<limit>&c, Сделано за неделю: &e<current>&c, Осталось: &e<remaining>&c. Попробуйте на следующей неделе!'
+  already-bet: '&fВы уже сделали ставку!'
+  bet-limit-reached: '&cYou reached your maximum of <limit> active coinflips!'
+  rolling-active: '&cFinish your current coinflip before starting another one!'
+  bet-created-money: '&fВы сделали ставку &e<amount>$'
+  broadcast-created: '&fИгрок &a<player> &fсоздал монетный флип со ставкой &e<amount><symbol> &f! Кто примет вызов? &7(/cf)'
+  no-permission: '&cУ вас нет разрешения на выполнение этого действия!'
+  reload-busy: '&cНевозможно перезагрузить во время возвратов. Пожалуйста, подождите.'
+  cooldown-wait: '&cПожалуйста, подождите <seconds> секунд перед отменой другой игры.'
+  plugin-busy: '&cПлагин занят. Пожалуйста, попробуйте позже.'
+  refund-processing: '&eОбработка вашего возврата...'
+  transaction-in-progress: '&cТранзакция уже выполняется. Пожалуйста, подождите.'
+  currency-disabled: '&cТип валюты <type> отключен!'
+  currency-not-available: '&cВалюта <id> недоступна!'
+  currency-check-hint-1: '&7  1. Плагин установлен и загружен'
+  currency-check-hint-2: '&7  2. ID валюты <id> существует'
+  currency-check-hint-3: '&7  3. Попробуйте перезагрузить плагин: /cf reload'
+  no-currency-available: '&cНет доступной валюты! Пожалуйста, включите хотя бы одну валюту в конфигурации.'
+  currency-withdraw-failed: '&cНе удалось снять валюту!'
+  invalid-currency-help: '&cНеверный тип валюты!'
+  available-currencies: '&7Доступные валюты: <list>'
+  no-currencies-enabled: '&cНет включенных валют!'
+  coinsengine-ids-available: '&7Доступные ID CoinsEngine: &e<ids>'
+  coinsengine-none-enabled: '&7Нет включенных валют CoinsEngine.'
+  placeholder-ids-available: '&7Доступные ID Placeholder: &e<ids>'
+  placeholder-none-enabled: '&7Нет включенных валют Placeholder.'
+  
+# Currency Restriction Messages
+restriction:
+  cannot-use-currency: '&cВы не можете использовать эту валюту! Проверьте, есть ли у вас необходимые разрешения или вы находитесь в правильном мире.'
+  cannot-join-game: '&cВы не можете присоединиться к этой игре! Валюта, используемая в этой игре, может быть ограничена в вашем текущем мире, или вам могут не хватать необходимых разрешений.'
+  host-cannot-use: '&cСоздатель игры не может использовать эту валюту в своем текущем мире! Пожалуйста, попробуйте другую валюту или мир.'
+  cannot-gamble-together: '&cВы не можете играть с этим игроком, используя эту валюту! Один из вас может находиться в ограниченном мире или не иметь необходимых разрешений.'
+  world-blocked: '&7Эта валюта заблокирована в мире &e<world>&7'
+  world-allowed-only: '&7Эта валюта разрешена только в мирах: &e<worlds>'
+  permission-required-single: '&7Эта валюта требует разрешения: &e<permission>'
+  permission-required-multiple: '&7Эта валюта требует одно из следующих разрешений: &e<permissions>'
+
+# Heads/Tails Messages
+heads-tails:
+  heads: 'Орел'
+  tails: 'Решка'
+  selected: '&fВы выбрали &e<choice> &fдля этого монетного флипа!'
+
+# Game Messages
+game:
+  cannot-play-self: '&cВы не можете играть с самим собой!'
+  player-not-found: '&cИгрок не найден!'
+  winner: '&fВы выиграли против &a<loser> &fв монетном флипе! &8(&a+<amount><symbol>&8, вычтен налог <tax_rate>%: -<tax><symbol>&8)'
+  loser: '&fВы проиграли против &c<winner> &fв монетном флипе! &8(&c-<amount><symbol>&8)'
+  broadcast-result: '&fИгрок &a<winner> &fвыиграл против &c<loser> &fв монетном флипе со ставкой &e<amount><symbol> &f(после налога получено &a<taxed_amount><symbol>&f)'
+  refunded: '&fВаша игра в монетный флип была возвращена. Вы получили обратно &a<amount><symbol>&f.'
+  consecutive-win: '&e&lЭто ваша <count><ordinal> победа подряд против <opponent>!'
+
+# Play with Bot Messages
+house:
+  disabled: '&cИгра с Ботом в настоящее время отключена!'
+  no-permission: '&cУ вас нет разрешения на использование Игры с Ботом!'
+  min-bet: '&cВам нужно сделать ставку не менее &e<amount> &cдля игры с ботом!'
+  max-bet: '&cВы не можете сделать ставку более &e<amount> &cдля игры с ботом!'
+  delay-remaining: '&cПожалуйста, подождите еще &e<time> &cсекунд перед повторной игрой с ботом!'
+  daily-limit-reached: '&cВы достигли дневного лимита в &e<limit> &cигр с ботом!'
+  win: '&a&lВЫ ВЫИГРАЛИ! &r&fВы выиграли против Бота! &8(&a+<amount><symbol>&8, налог вычтен: -<tax><symbol>&8)'
+  lose: '&c&lВЫ ПРОИГРАЛИ! &r&fВы проиграли против Бота! &8(&c-<amount><symbol>&8)'
+  game-type: 'Бот'
+  game-type-player: 'Игрок'
+
+# Title settings
+titles:
+  game-win-title: '&a&lВЫ ВЫИГРАЛИ!'
+  game-win-subtitle: '&fПолучено &a<amount><symbol>'
+  game-lose-title: '&c&lВЫ ПРОИГРАЛИ!'
+  game-lose-subtitle: '&fПотеряно &c<amount><symbol>'
+
+# ActionBar settings
+actionbar:
+  game-win: '&a&lВЫ ВЫИГРАЛИ! &fПолучено &a<amount><symbol>'
+  game-lose: '&c&lВЫ ПРОИГРАЛИ! &fПотеряно &c<amount><symbol>'
+
+# BossBar settings
+bossbar:
+  game-win: '&a&lВЫ ВЫИГРАЛИ! &fПолучено &a<amount><symbol>'
+  game-lose: '&c&lВЫ ПРОИГРАЛИ! &fПотеряно &c<amount><symbol>'
+
+# Сообщения Аудита Администратора
+admin:
+  audit-header: '&6=== Статус UltraCoinFlip ==='
+  audit-active-games: '&7Активные игры: &e<count>'
+  audit-rolling-games: '&7Игры в процессе: &e<count>'
+  audit-players-in-transaction: '&7Игроки в транзакции: &e<count>'
+  audit-refund-in-progress: '&7Возврат в процессе: &e<status>'
+  audit-global-lock: '&7Глобальная блокировка: <status>'
+  audit-reloading: '&7Перезагрузка: <status>'
+  audit-active-refund-count: '&7Активные возвраты: &e<count>'
+  audit-games-processing: '&7Игры в обработке: &e<count>'
+  audit-pending-logs: '&7Ожидающие логи: &e<count>'
+  audit-footer: '&6========================='
+  audit-yes: '&cДа'
+  audit-no: '&aНет'
+
+# Update Checker Messages
+update:
+  latest-version: '&fВы используете последнюю версию &a(v<version>)'
+  new-version-available: '&e⚠ &fДоступно новое обновление!'
+  current-version: '&7Текущая версия: &c<version>'
+  latest-version-label: '&7Последняя версия:  &a<version>'
+  download-link: '&bСкачать: &fhttps://www.spigotmc.org/resources/ultracoinflip-1-20-x-1-21-10-folia-support.130124/'
+  check-failed: '&cНе удалось проверить обновления: <error>'
+  # Short in-game message (separate from console)
+  in-game-new-version: "<yellow>Доступна новая версия UltraCoinFlip <gray>(Текущая: <red><current> <gray>| Последняя: <green><latest><gray>). <aqua><click:open_url:'https://www.spigotmc.org/resources/ultracoinflip-1-20-x-1-21-10-folia-support.130124'><u>Скачать здесь</u></click><gray>."
+
+# ==========================================
+# Configuration Version
+# ==========================================
+# DO NOT MODIFY THIS VALUE - It is used by the plugin to track configuration updates
+# Changing this value may cause configuration issues
+config-version: 13
+
