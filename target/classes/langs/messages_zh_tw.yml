@@ -4,7 +4,7 @@
 # 所有訊息都支援顏色代碼 (&a, &c, 等) 和 MiniMessage 格式
 # 使用 "" (空字串) 來停用訊息
 
-prefix: '&c&lUltra&e&lCoinFlip &f|| &r'
+prefix: '&f&lᴄᴏɪɴꜰʟɪᴘ &8&l»&r '
 no-perms: '&8[&c&l!&8] <##eb3434>您沒有權限執行此操作!'
 
 # Help Command Messages

@@ -38,7 +38,7 @@
 # Create GUI - For creating new coinflip games
 create-gui:
   size: 27
-  title: "&lCreate CoinFlip"
+  title: "&f&lᴄᴏɪɴꜰʟɪᴘ &8[Create]"
   
   # Filler configuration
   filler:

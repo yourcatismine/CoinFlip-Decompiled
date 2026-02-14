@@ -64,7 +64,7 @@ public class TransactionLogger {
          while ((message = this.logQueue.poll()) != null) {
             this.writeToFile(message);
          }
-      }, "UltraCoinFlip-TransactionLogger");
+      }, "CoinFlip-TransactionLogger");
       this.writerThread.setDaemon(true);
       this.writerThread.start();
    }
@@ -87,28 +87,27 @@ public class TransactionLogger {
 
          writer.close();
       } catch (IOException var7) {
-         this.plugin.getLogger().log(Level.WARNING, "Failed to write to transaction log", (Throwable)var7);
+         this.plugin.getLogger().log(Level.WARNING, "Failed to write to transaction log", (Throwable) var7);
       }
    }
 
    public void logRefund(
-      String playerName, UUID playerUuid, UUID gameId, double amount, CoinFlipGame.CurrencyType currencyType, String currencyId, RefundResult result
-   ) {
+         String playerName, UUID playerUuid, UUID gameId, double amount, CoinFlipGame.CurrencyType currencyType,
+         String currencyId, RefundResult result) {
       String timestamp = this.dateFormat.format(new Date());
       String message = String.format(
-         "[%s] [TXN] %s | Player=%s | GameID=%s | Amount=%.2f | Currency=%s/%s",
-         timestamp,
-         result.getDisplayName(),
-         playerName,
-         gameId,
-         amount,
-         currencyType,
-         currencyId != null ? currencyId : "default"
-      );
+            "[%s] [TXN] %s | Player=%s | GameID=%s | Amount=%.2f | Currency=%s/%s",
+            timestamp,
+            result.getDisplayName(),
+            playerName,
+            gameId,
+            amount,
+            currencyType,
+            currencyId != null ? currencyId : "default");
       if (this.consoleLoggingEnabled) {
          String consoleMsg = String.format(
-            "[TXN] %s | %s | %.2f %s/%s | %s", result.getDisplayName(), playerName, amount, currencyType, currencyId != null ? currencyId : "default", gameId
-         );
+               "[TXN] %s | %s | %.2f %s/%s | %s", result.getDisplayName(), playerName, amount, currencyType,
+               currencyId != null ? currencyId : "default", gameId);
          if (result.isSuccess()) {
             this.plugin.getLogger().info(consoleMsg);
          } else if (result != RefundResult.ROLLBACK && result != RefundResult.FAILED) {
@@ -122,36 +121,33 @@ public class TransactionLogger {
    }
 
    public void logRollingRefund(
-      String player1Name,
-      UUID player1Uuid,
-      String player2Name,
-      UUID player2Uuid,
-      double amount,
-      CoinFlipGame.CurrencyType currencyType,
-      String currencyId,
-      RefundResult result
-   ) {
+         String player1Name,
+         UUID player1Uuid,
+         String player2Name,
+         UUID player2Uuid,
+         double amount,
+         CoinFlipGame.CurrencyType currencyType,
+         String currencyId,
+         RefundResult result) {
       String timestamp = this.dateFormat.format(new Date());
       String message = String.format(
-         "[%s] [TXN-ROLL] %s | Player1=%s | Player2=%s | Amount=%.2f | Currency=%s/%s",
-         timestamp,
-         result.getDisplayName(),
-         player1Name,
-         player2Name,
-         amount,
-         currencyType,
-         currencyId != null ? currencyId : "default"
-      );
-      if (this.consoleLoggingEnabled) {
-         String consoleMsg = String.format(
-            "[TXN-ROLL] %s | %s vs %s | %.2f %s/%s",
+            "[%s] [TXN-ROLL] %s | Player1=%s | Player2=%s | Amount=%.2f | Currency=%s/%s",
+            timestamp,
             result.getDisplayName(),
             player1Name,
             player2Name,
             amount,
             currencyType,
-            currencyId != null ? currencyId : "default"
-         );
+            currencyId != null ? currencyId : "default");
+      if (this.consoleLoggingEnabled) {
+         String consoleMsg = String.format(
+               "[TXN-ROLL] %s | %s vs %s | %.2f %s/%s",
+               result.getDisplayName(),
+               player1Name,
+               player2Name,
+               amount,
+               currencyType,
+               currencyId != null ? currencyId : "default");
          if (result.isSuccess()) {
             this.plugin.getLogger().info(consoleMsg);
          } else {
@@ -164,9 +160,11 @@ public class TransactionLogger {
 
    public void logBlocked(String playerName, RefundResult reason, String details) {
       String timestamp = this.dateFormat.format(new Date());
-      String message = String.format("[%s] [TXN-BLOCKED] %s | Player=%s | Details=%s", timestamp, reason.getDisplayName(), playerName, details);
+      String message = String.format("[%s] [TXN-BLOCKED] %s | Player=%s | Details=%s", timestamp,
+            reason.getDisplayName(), playerName, details);
       if (this.consoleLoggingEnabled) {
-         this.plugin.getLogger().info(String.format("[TXN-BLOCKED] %s | %s | %s", reason.getDisplayName(), playerName, details));
+         this.plugin.getLogger()
+               .info(String.format("[TXN-BLOCKED] %s | %s | %s", reason.getDisplayName(), playerName, details));
       }
 
       this.logQueue.offer(message);

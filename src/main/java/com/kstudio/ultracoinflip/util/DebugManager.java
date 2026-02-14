@@ -73,12 +73,13 @@ public class DebugManager {
             logsFolder.mkdirs();
          }
 
-         String fileName = "debug-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")) + ".log";
+         String fileName = "debug-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"))
+               + ".log";
          this.logFile = new File(logsFolder, fileName);
          this.fileWriter = new PrintWriter(new FileWriter(this.logFile, true));
          this.fileWriter.println("==========================================");
          this.fileWriter.println("Debug Log Started: " + LocalDateTime.now().format(this.dateTimeFormatter));
-         this.fileWriter.println("Plugin: UltraCoinFlip v" + this.plugin.getPluginVersion());
+         this.fileWriter.println("Plugin: CoinFlip v" + this.plugin.getPluginVersion());
          this.fileWriter.println("==========================================");
          this.fileWriter.flush();
          if (this.isEnabled()) {
@@ -115,7 +116,8 @@ public class DebugManager {
    public void debug(DebugManager.Category category, DebugManager.Level level, String message) {
       if (this.isCategoryEnabled(category) && this.shouldLog(level)) {
          String timestamp = LocalDateTime.now().format(this.dateTimeFormatter);
-         String formattedMessage = String.format("[DEBUG] [%s] [%s] %s", category.getDisplayName(), level.getDisplayName(), message);
+         String formattedMessage = String.format("[DEBUG] [%s] [%s] %s", category.getDisplayName(),
+               level.getDisplayName(), message);
          this.logToConsole(category, level, formattedMessage);
          if (this.fileLogging && this.fileWriter != null) {
             this.fileWriter.println("[" + timestamp + "] " + formattedMessage);
@@ -216,7 +218,8 @@ public class DebugManager {
             long duration = System.currentTimeMillis() - startTime;
             this.performanceMeasurements.computeIfAbsent(operation, k -> new ArrayList<>()).add(duration);
             if (this.isCategoryEnabled(DebugManager.Category.PERFORMANCE)) {
-               this.info(DebugManager.Category.PERFORMANCE, String.format("Performance: %s took %d ms", operation, duration));
+               this.info(DebugManager.Category.PERFORMANCE,
+                     String.format("Performance: %s took %d ms", operation, duration));
             }
          }
       }
@@ -252,9 +255,9 @@ public class DebugManager {
 
             for (DebugManager.PerformanceStats stat : stats.values()) {
                this.info(
-                  DebugManager.Category.PERFORMANCE,
-                  String.format("%s: min=%dms, max=%dms, avg=%dms, count=%d", stat.getOperation(), stat.getMin(), stat.getMax(), stat.getAvg(), stat.getCount())
-               );
+                     DebugManager.Category.PERFORMANCE,
+                     String.format("%s: min=%dms, max=%dms, avg=%dms, count=%d", stat.getOperation(), stat.getMin(),
+                           stat.getMax(), stat.getAvg(), stat.getCount()));
             }
 
             this.info(DebugManager.Category.PERFORMANCE, "==========================================");

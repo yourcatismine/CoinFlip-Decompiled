@@ -32,7 +32,7 @@ public class LeaderboardGUI extends InventoryGUI {
    private String currencyId = null;
    private volatile List<DatabaseManager.LeaderboardEntry> cachedEntries = new ArrayList<>();
    private volatile boolean isLoading = false;
-   private int[] PLAYER_HEAD_SLOTS = new int[]{13, 21, 22, 23, 29, 30, 31, 32, 33, 37, 38, 39, 40, 41, 42, 43};
+   private int[] PLAYER_HEAD_SLOTS = new int[] { 13, 21, 22, 23, 29, 30, 31, 32, 33, 37, 38, 39, 40, 41, 42, 43 };
    private int FILTER_SLOT = 10;
    private int CURRENCY_SLOT = 16;
    private int BACK_SLOT = 49;
@@ -63,7 +63,8 @@ public class LeaderboardGUI extends InventoryGUI {
       }
    }
 
-   public LeaderboardGUI(KStudio plugin, Player viewer, String filterType, CoinFlipGame.CurrencyType currencyType, String currencyId) {
+   public LeaderboardGUI(KStudio plugin, Player viewer, String filterType, CoinFlipGame.CurrencyType currencyType,
+         String currencyId) {
       this.plugin = plugin;
       this.viewer = viewer;
       this.filterType = filterType != null ? filterType : "WINS";
@@ -83,7 +84,7 @@ public class LeaderboardGUI extends InventoryGUI {
 
    @Override
    protected Inventory createInventory() {
-      String title = this.plugin.getGUIConfig().getString("leaderboard-gui.title", "&8UltraCoinFlip &8[&7Leaderboard&8]");
+      String title = this.plugin.getGUIConfig().getString("leaderboard-gui.title", "&f&lᴄᴏɪɴꜰʟɪᴘ &8[&7Leaderboard&8]");
       int size = this.plugin.getGUIConfig().getInt("leaderboard-gui.size", 54);
       return this.plugin.getGuiHelper().createInventory(null, size, title, new HashMap<>());
    }
@@ -96,15 +97,18 @@ public class LeaderboardGUI extends InventoryGUI {
             this.FILTER_SLOT = this.plugin.getGUIConfig().getInt("leaderboard-gui.filter.slot", 10);
             this.CURRENCY_SLOT = this.plugin.getGUIConfig().getInt("leaderboard-gui.currency.slot", 16);
             this.BACK_SLOT = this.plugin.getGUIConfig().getInt("leaderboard-gui.back.slot", 49);
-            List<Integer> playerHeadSlotsList = this.plugin.getGuiHelper().parseSlotList(this.plugin.getGUIConfig(), "leaderboard-gui.player-head-slots");
+            List<Integer> playerHeadSlotsList = this.plugin.getGuiHelper().parseSlotList(this.plugin.getGUIConfig(),
+                  "leaderboard-gui.player-head-slots");
             if (playerHeadSlotsList.isEmpty()) {
-               this.PLAYER_HEAD_SLOTS = new int[]{13, 21, 22, 23, 29, 30, 31, 32, 33, 37, 38, 39, 40, 41, 42, 43};
+               this.PLAYER_HEAD_SLOTS = new int[] { 13, 21, 22, 23, 29, 30, 31, 32, 33, 37, 38, 39, 40, 41, 42, 43 };
             } else {
-               this.PLAYER_HEAD_SLOTS = playerHeadSlotsList.stream().mapToInt(i -> i != null ? i : -1).filter(i -> i >= 0 && i < inventory.getSize()).toArray();
+               this.PLAYER_HEAD_SLOTS = playerHeadSlotsList.stream().mapToInt(i -> i != null ? i : -1)
+                     .filter(i -> i >= 0 && i < inventory.getSize()).toArray();
             }
 
             this.getButtonMap().clear();
-            String fillerMaterialName = this.plugin.getGUIConfig().getString("leaderboard-gui.filler.material", "GRAY_STAINED_GLASS_PANE");
+            String fillerMaterialName = this.plugin.getGUIConfig().getString("leaderboard-gui.filler.material",
+                  "GRAY_STAINED_GLASS_PANE");
             ItemStack filler = MaterialHelper.createItemStack(fillerMaterialName);
             if (filler == null) {
                filler = MaterialHelper.createItemStack("GRAY_STAINED_GLASS_PANE");
@@ -116,7 +120,8 @@ public class LeaderboardGUI extends InventoryGUI {
 
             ItemMeta fillerMeta = filler.getItemMeta();
             if (fillerMeta != null) {
-               String fillerDisplayName = this.plugin.getGUIConfig().getString("leaderboard-gui.filler.display-name", " ");
+               String fillerDisplayName = this.plugin.getGUIConfig().getString("leaderboard-gui.filler.display-name",
+                     " ");
                this.plugin.getGuiHelper().setDisplayName(fillerMeta, fillerDisplayName);
                filler.setItemMeta(fillerMeta);
             }
@@ -137,130 +142,135 @@ public class LeaderboardGUI extends InventoryGUI {
             }
 
             this.loadLeaderboardData();
-            this.addButton(this.FILTER_SLOT, new InventoryButton().creator(p -> this.createFilterButton()).consumer(event -> {
-               List<String> enabledFilters = this.getEnabledFilters();
-               if (enabledFilters.isEmpty()) {
-                  this.plugin.getLogger().warning("No leaderboard filters are enabled! Please enable at least one filter in config.yml");
-               } else {
-                  int currentIndex = enabledFilters.indexOf(this.filterType);
-                  if (currentIndex == -1) {
-                     this.filterType = enabledFilters.get(0);
-                  } else {
-                     int nextIndex = (currentIndex + 1) % enabledFilters.size();
-                     this.filterType = enabledFilters.get(nextIndex);
-                  }
-
-                  synchronized (this) {
-                     this.cachedEntries.clear();
-                     this.isLoading = false;
-                  }
-
-                  this.updateFilterButton();
-                  FoliaScheduler.runTask(this.plugin, this.viewer, () -> {
-                     if (this.viewer != null && this.viewer.isOnline()) {
-                        try {
-                           Inventory topInv = GUIHelper.getTopInventorySafely(this.viewer);
-                           if (topInv != null && topInv.equals(this.getInventory())) {
-                              this.displayPlayerHeads();
-                              this.updateFilterButton();
-                              this.updateCurrencyButton();
-                              super.decorate(this.viewer);
-                              this.plugin.getInventoryUpdateBatcher().scheduleUpdate(this.viewer);
-                           }
-                        } catch (Exception var2x) {
-                        }
-                     }
-                  });
-                  this.loadLeaderboardData();
-               }
-            }));
-            this.addButton(this.CURRENCY_SLOT, new InventoryButton().creator(p -> this.createCurrencyButton()).consumer(event -> {
-               List<LeaderboardGUI.CurrencyItem> enabledCurrencies = this.getEnabledCurrencies();
-               if (enabledCurrencies.isEmpty()) {
-                  this.plugin.getLogger().warning("No enabled currencies found for leaderboard!");
-               } else {
-                  int currentIndex = -1;
-
-                  for (int ix = 0; ix < enabledCurrencies.size(); ix++) {
-                     LeaderboardGUI.CurrencyItem item = enabledCurrencies.get(ix);
-                     boolean typeMatches = item.type == this.currencyType;
-                     boolean idMatches;
-                     if (this.currencyId == null && item.currencyId == null) {
-                        idMatches = true;
-                     } else if (this.currencyId != null && item.currencyId != null) {
-                        idMatches = this.currencyId.equals(item.currencyId);
+            this.addButton(this.FILTER_SLOT,
+                  new InventoryButton().creator(p -> this.createFilterButton()).consumer(event -> {
+                     List<String> enabledFilters = this.getEnabledFilters();
+                     if (enabledFilters.isEmpty()) {
+                        this.plugin.getLogger().warning(
+                              "No leaderboard filters are enabled! Please enable at least one filter in config.yml");
                      } else {
-                        idMatches = false;
-                     }
-
-                     if (typeMatches && idMatches) {
-                        currentIndex = ix;
-                        break;
-                     }
-                  }
-
-                  if (currentIndex == -1) {
-                     currentIndex = 0;
-                  }
-
-                  int nextIndex = (currentIndex + 1) % enabledCurrencies.size();
-                  LeaderboardGUI.CurrencyItem nextCurrency = enabledCurrencies.get(nextIndex);
-                  this.currencyType = nextCurrency.type;
-                  this.currencyId = nextCurrency.currencyId;
-                  synchronized (this) {
-                     this.cachedEntries.clear();
-                     this.isLoading = false;
-                  }
-
-                  FoliaScheduler.runTask(this.plugin, this.viewer, () -> {
-                     if (this.viewer != null && this.viewer.isOnline()) {
-                        try {
-                           Inventory topInv = GUIHelper.getTopInventorySafely(this.viewer);
-                           if (topInv != null && topInv.equals(this.getInventory())) {
-                              this.updateCurrencyButton();
-                              this.updateFilterButton();
-                              this.displayPlayerHeads();
-                              super.decorate(this.viewer);
-                              this.plugin.getInventoryUpdateBatcher().scheduleUpdate(this.viewer);
-                           }
-                        } catch (Exception var2x) {
+                        int currentIndex = enabledFilters.indexOf(this.filterType);
+                        if (currentIndex == -1) {
+                           this.filterType = enabledFilters.get(0);
+                        } else {
+                           int nextIndex = (currentIndex + 1) % enabledFilters.size();
+                           this.filterType = enabledFilters.get(nextIndex);
                         }
+
+                        synchronized (this) {
+                           this.cachedEntries.clear();
+                           this.isLoading = false;
+                        }
+
+                        this.updateFilterButton();
+                        FoliaScheduler.runTask(this.plugin, this.viewer, () -> {
+                           if (this.viewer != null && this.viewer.isOnline()) {
+                              try {
+                                 Inventory topInv = GUIHelper.getTopInventorySafely(this.viewer);
+                                 if (topInv != null && topInv.equals(this.getInventory())) {
+                                    this.displayPlayerHeads();
+                                    this.updateFilterButton();
+                                    this.updateCurrencyButton();
+                                    super.decorate(this.viewer);
+                                    this.plugin.getInventoryUpdateBatcher().scheduleUpdate(this.viewer);
+                                 }
+                              } catch (Exception var2x) {
+                              }
+                           }
+                        });
+                        this.loadLeaderboardData();
                      }
-                  });
-                  this.loadLeaderboardData();
-               }
-            }));
-            this.addButton(this.BACK_SLOT, new InventoryButton().creator(p -> this.createBackButton()).consumer(event -> {
-               Player clicker = (Player)event.getWhoClicked();
+                  }));
+            this.addButton(this.CURRENCY_SLOT,
+                  new InventoryButton().creator(p -> this.createCurrencyButton()).consumer(event -> {
+                     List<LeaderboardGUI.CurrencyItem> enabledCurrencies = this.getEnabledCurrencies();
+                     if (enabledCurrencies.isEmpty()) {
+                        this.plugin.getLogger().warning("No enabled currencies found for leaderboard!");
+                     } else {
+                        int currentIndex = -1;
 
-               try {
-                  GUIHelper.setCursorSafely(clicker, null);
-                  clicker.setItemOnCursor(null);
-               } catch (Exception var4x) {
-               }
+                        for (int ix = 0; ix < enabledCurrencies.size(); ix++) {
+                           LeaderboardGUI.CurrencyItem item = enabledCurrencies.get(ix);
+                           boolean typeMatches = item.type == this.currencyType;
+                           boolean idMatches;
+                           if (this.currencyId == null && item.currencyId == null) {
+                              idMatches = true;
+                           } else if (this.currencyId != null && item.currencyId != null) {
+                              idMatches = this.currencyId.equals(item.currencyId);
+                           } else {
+                              idMatches = false;
+                           }
 
-               FoliaScheduler.runTask(this.plugin, this.viewer, () -> {
-                  if (this.viewer != null && this.viewer.isOnline()) {
+                           if (typeMatches && idMatches) {
+                              currentIndex = ix;
+                              break;
+                           }
+                        }
+
+                        if (currentIndex == -1) {
+                           currentIndex = 0;
+                        }
+
+                        int nextIndex = (currentIndex + 1) % enabledCurrencies.size();
+                        LeaderboardGUI.CurrencyItem nextCurrency = enabledCurrencies.get(nextIndex);
+                        this.currencyType = nextCurrency.type;
+                        this.currencyId = nextCurrency.currencyId;
+                        synchronized (this) {
+                           this.cachedEntries.clear();
+                           this.isLoading = false;
+                        }
+
+                        FoliaScheduler.runTask(this.plugin, this.viewer, () -> {
+                           if (this.viewer != null && this.viewer.isOnline()) {
+                              try {
+                                 Inventory topInv = GUIHelper.getTopInventorySafely(this.viewer);
+                                 if (topInv != null && topInv.equals(this.getInventory())) {
+                                    this.updateCurrencyButton();
+                                    this.updateFilterButton();
+                                    this.displayPlayerHeads();
+                                    super.decorate(this.viewer);
+                                    this.plugin.getInventoryUpdateBatcher().scheduleUpdate(this.viewer);
+                                 }
+                              } catch (Exception var2x) {
+                              }
+                           }
+                        });
+                        this.loadLeaderboardData();
+                     }
+                  }));
+            this.addButton(this.BACK_SLOT,
+                  new InventoryButton().creator(p -> this.createBackButton()).consumer(event -> {
+                     Player clicker = (Player) event.getWhoClicked();
+
                      try {
-                        GUIHelper.setCursorSafely(this.viewer, null);
-                        this.viewer.setItemOnCursor(null);
-                        this.viewer.closeInventory();
-                     } catch (Exception var2x) {
+                        GUIHelper.setCursorSafely(clicker, null);
+                        clicker.setItemOnCursor(null);
+                     } catch (Exception var4x) {
                      }
 
-                     FoliaScheduler.runTaskLater(this.plugin, this.viewer, () -> {
+                     FoliaScheduler.runTask(this.plugin, this.viewer, () -> {
                         if (this.viewer != null && this.viewer.isOnline()) {
                            try {
+                              GUIHelper.setCursorSafely(this.viewer, null);
                               this.viewer.setItemOnCursor(null);
-                           } catch (Exception var2xx) {
+                              this.viewer.closeInventory();
+                           } catch (Exception var2x) {
                            }
 
-                           this.plugin.getGuiManager().openGUI(new CoinFlipListGUI(this.plugin, this.viewer, 1), this.viewer);
+                           FoliaScheduler.runTaskLater(this.plugin, this.viewer, () -> {
+                              if (this.viewer != null && this.viewer.isOnline()) {
+                                 try {
+                                    this.viewer.setItemOnCursor(null);
+                                 } catch (Exception var2xx) {
+                                 }
+
+                                 this.plugin.getGuiManager().openGUI(new CoinFlipListGUI(this.plugin, this.viewer, 1),
+                                       this.viewer);
+                              }
+                           }, 2L);
                         }
-                     }, 2L);
-                  }
-               });
-            }));
+                     });
+                  }));
             this.displayPlayerHeads();
             super.decorate(player);
          }
@@ -293,80 +303,84 @@ public class LeaderboardGUI extends InventoryGUI {
       String currentCurrencyId = this.currencyId;
       Player currentViewer = this.viewer;
       FoliaScheduler.runTaskAsynchronously(
-         this.plugin,
-         () -> {
-            try {
-               List<DatabaseManager.LeaderboardEntry> entries;
-               switch (currentFilter) {
-                  case "WINS":
-                     entries = this.plugin.getDatabaseManager().getTopPlayersByWins(15);
-                     break;
-                  case "PROFIT":
-                     entries = this.plugin.getDatabaseManager().getTopPlayersByProfit(currentCurrencyType, currentCurrencyId, 15);
-                     break;
-                  case "LARGEST_WIN":
-                     entries = this.plugin.getDatabaseManager().getTopPlayersByLargestWin(currentCurrencyType, currentCurrencyId, 15);
-                     break;
-                  case "WORST_PROFIT":
-                     entries = this.plugin.getDatabaseManager().getTopPlayersByWorstProfit(currentCurrencyType, currentCurrencyId, 15);
-                     break;
-                  case "WINSTREAK":
-                     entries = this.plugin.getDatabaseManager().getTopPlayersByWinstreak(15);
-                     break;
-                  default:
-                     entries = this.plugin.getDatabaseManager().getTopPlayersByWins(15);
-               }
-
-               synchronized (this) {
-                  if (currentFilter.equals(this.filterType)
-                     && currentCurrencyType == this.currencyType
-                     && (currentCurrencyId == null ? this.currencyId == null : currentCurrencyId.equals(this.currencyId))) {
-                     this.cachedEntries = entries != null ? new ArrayList<>(entries) : new ArrayList<>();
+            this.plugin,
+            () -> {
+               try {
+                  List<DatabaseManager.LeaderboardEntry> entries;
+                  switch (currentFilter) {
+                     case "WINS":
+                        entries = this.plugin.getDatabaseManager().getTopPlayersByWins(15);
+                        break;
+                     case "PROFIT":
+                        entries = this.plugin.getDatabaseManager().getTopPlayersByProfit(currentCurrencyType,
+                              currentCurrencyId, 15);
+                        break;
+                     case "LARGEST_WIN":
+                        entries = this.plugin.getDatabaseManager().getTopPlayersByLargestWin(currentCurrencyType,
+                              currentCurrencyId, 15);
+                        break;
+                     case "WORST_PROFIT":
+                        entries = this.plugin.getDatabaseManager().getTopPlayersByWorstProfit(currentCurrencyType,
+                              currentCurrencyId, 15);
+                        break;
+                     case "WINSTREAK":
+                        entries = this.plugin.getDatabaseManager().getTopPlayersByWinstreak(15);
+                        break;
+                     default:
+                        entries = this.plugin.getDatabaseManager().getTopPlayersByWins(15);
                   }
-               }
 
-               FoliaScheduler.runTask(
-                  this.plugin,
-                  currentViewer,
-                  () -> {
-                     if (currentViewer != null && currentViewer.isOnline()) {
-                        try {
-                           Inventory topInv = GUIHelper.getTopInventorySafely(currentViewer);
-                           if (topInv == null || !topInv.equals(this.getInventory())) {
-                              this.isLoading = false;
-                              return;
-                           }
-
-                           if (currentFilter.equals(this.filterType)
-                              && currentCurrencyType == this.currencyType
-                              && (currentCurrencyId == null ? this.currencyId == null : currentCurrencyId.equals(this.currencyId))) {
-                              this.displayPlayerHeads();
-                              super.decorate(currentViewer);
-                              this.plugin.getInventoryUpdateBatcher().scheduleUpdate(currentViewer);
-                              return;
-                           }
-
-                           this.isLoading = false;
-                        } catch (Exception var9) {
-                           return;
-                        } finally {
-                           this.isLoading = false;
-                        }
-                     } else {
-                        this.isLoading = false;
+                  synchronized (this) {
+                     if (currentFilter.equals(this.filterType)
+                           && currentCurrencyType == this.currencyType
+                           && (currentCurrencyId == null ? this.currencyId == null
+                                 : currentCurrencyId.equals(this.currencyId))) {
+                        this.cachedEntries = entries != null ? new ArrayList<>(entries) : new ArrayList<>();
                      }
                   }
-               );
-            } catch (Exception var10) {
-               this.plugin.getLogger().warning("Failed to load leaderboard data: " + var10.getMessage());
-               if (this.plugin.getDebugManager() != null && this.plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.GUI)) {
-                  var10.printStackTrace();
-               }
 
-               this.isLoading = false;
-            }
-         }
-      );
+                  FoliaScheduler.runTask(
+                        this.plugin,
+                        currentViewer,
+                        () -> {
+                           if (currentViewer != null && currentViewer.isOnline()) {
+                              try {
+                                 Inventory topInv = GUIHelper.getTopInventorySafely(currentViewer);
+                                 if (topInv == null || !topInv.equals(this.getInventory())) {
+                                    this.isLoading = false;
+                                    return;
+                                 }
+
+                                 if (currentFilter.equals(this.filterType)
+                                       && currentCurrencyType == this.currencyType
+                                       && (currentCurrencyId == null ? this.currencyId == null
+                                             : currentCurrencyId.equals(this.currencyId))) {
+                                    this.displayPlayerHeads();
+                                    super.decorate(currentViewer);
+                                    this.plugin.getInventoryUpdateBatcher().scheduleUpdate(currentViewer);
+                                    return;
+                                 }
+
+                                 this.isLoading = false;
+                              } catch (Exception var9) {
+                                 return;
+                              } finally {
+                                 this.isLoading = false;
+                              }
+                           } else {
+                              this.isLoading = false;
+                           }
+                        });
+               } catch (Exception var10) {
+                  this.plugin.getLogger().warning("Failed to load leaderboard data: " + var10.getMessage());
+                  if (this.plugin.getDebugManager() != null
+                        && this.plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.GUI)) {
+                     var10.printStackTrace();
+                  }
+
+                  this.isLoading = false;
+               }
+            });
    }
 
    private void displayPlayerHeads() {
@@ -395,16 +409,21 @@ public class LeaderboardGUI extends InventoryGUI {
                   if (hasData && i < entriesSnapshot.size()) {
                      DatabaseManager.LeaderboardEntry entry = entriesSnapshot.get(i);
                      int rank = i + 1;
-                     this.addButton(slotx, new InventoryButton().creator(p -> this.createPlayerHeadItem(entry, rank)).consumer(event -> {}));
+                     this.addButton(slotx, new InventoryButton().creator(p -> this.createPlayerHeadItem(entry, rank))
+                           .consumer(event -> {
+                           }));
                   } else if (showLoading && i == 0) {
                      Material loadingMaterial = MaterialHelper.getBarrierMaterial();
-                     String materialName = this.plugin.getGUIConfig().getString("leaderboard-gui.loading.material", "BARRIER");
+                     String materialName = this.plugin.getGUIConfig().getString("leaderboard-gui.loading.material",
+                           "BARRIER");
                      loadingMaterial = this.parseMaterial(materialName, loadingMaterial);
                      ItemStack loadingItem = new ItemStack(loadingMaterial);
                      ItemMeta meta = loadingItem.getItemMeta();
                      if (meta != null) {
-                        String loadingTitle = this.plugin.getGUIConfig().getString("leaderboard-gui.loading.title", "&7Loading...");
-                        List<String> loadingLore = this.plugin.getGUIConfig().getStringList("leaderboard-gui.loading.lore");
+                        String loadingTitle = this.plugin.getGUIConfig().getString("leaderboard-gui.loading.title",
+                              "&7Loading...");
+                        List<String> loadingLore = this.plugin.getGUIConfig()
+                              .getStringList("leaderboard-gui.loading.lore");
                         if (loadingLore == null || loadingLore.isEmpty()) {
                            loadingLore = new ArrayList<>();
                            loadingLore.add("&7Please wait while data loads");
@@ -416,9 +435,12 @@ public class LeaderboardGUI extends InventoryGUI {
                         loadingItem.setItemMeta(meta);
                      }
 
-                     this.addButton(slotx, new InventoryButton().creator(p -> loadingItem).consumer(event -> {}));
+                     this.addButton(slotx, new InventoryButton().creator(p -> loadingItem).consumer(event -> {
+                     }));
                   } else {
-                     this.addButton(slotx, new InventoryButton().creator(p -> this.createUnknownItem()).consumer(event -> {}));
+                     this.addButton(slotx,
+                           new InventoryButton().creator(p -> this.createUnknownItem()).consumer(event -> {
+                           }));
                   }
                }
             }
@@ -473,7 +495,7 @@ public class LeaderboardGUI extends InventoryGUI {
       switch (displayNameTemplate) {
          case "WINS":
             valueLabel = "Wins";
-            valueText = String.valueOf((int)value);
+            valueText = String.valueOf((int) value);
             unit = "";
             break;
          case "PROFIT":
@@ -493,7 +515,7 @@ public class LeaderboardGUI extends InventoryGUI {
             break;
          case "WINSTREAK":
             valueLabel = "Winstreak";
-            valueText = String.valueOf((int)value);
+            valueText = String.valueOf((int) value);
             unit = "";
             break;
          default:
@@ -502,9 +524,11 @@ public class LeaderboardGUI extends InventoryGUI {
             unit = "";
       }
 
-      displayNameTemplate = this.plugin.getGUIConfig().getString("leaderboard-gui.player-head.display-name", "&6&l#" + rank + " &e" + playerName);
+      displayNameTemplate = this.plugin.getGUIConfig().getString("leaderboard-gui.player-head.display-name",
+            "&6&l#" + rank + " &e" + playerName);
       String rankStr = String.valueOf(rank);
-      StringBuilder displayNameBuilder = new StringBuilder(displayNameTemplate.length() + playerName.length() + rankStr.length());
+      StringBuilder displayNameBuilder = new StringBuilder(
+            displayNameTemplate.length() + playerName.length() + rankStr.length());
       displayNameBuilder.append(displayNameTemplate);
 
       int index;
@@ -531,14 +555,17 @@ public class LeaderboardGUI extends InventoryGUI {
       placeholders.put("value", valueText);
       placeholders.put("unit", unit);
       placeholders.put("value_label", valueLabel);
-      List<?> lore = this.plugin.getGuiHelper().createLore(loreTemplate, placeholders, onlinePlayer != null ? onlinePlayer : this.viewer);
+      List<?> lore = this.plugin.getGuiHelper().createLore(loreTemplate, placeholders,
+            onlinePlayer != null ? onlinePlayer : this.viewer);
       Material playerHeadMaterial = MaterialHelper.getPlayerHeadMaterial();
       if (playerHeadMaterial == null) {
          this.plugin.getLogger().warning("Failed to parse PLAYER_HEAD material for leaderboard head!");
          Material barrierMaterial = MaterialHelper.getBarrierMaterial();
-         return new ItemStack(barrierMaterial != null ? barrierMaterial : MaterialHelper.parseMaterial("BARRIER", null));
+         return new ItemStack(
+               barrierMaterial != null ? barrierMaterial : MaterialHelper.parseMaterial("BARRIER", null));
       } else {
-         return this.plugin.getGuiHelper().createPlayerHead(playerHeadMaterial, onlinePlayer, null, onlinePlayer != null, displayName, lore, null, null);
+         return this.plugin.getGuiHelper().createPlayerHead(playerHeadMaterial, onlinePlayer, null,
+               onlinePlayer != null, displayName, lore, null, null);
       }
    }
 
@@ -555,62 +582,63 @@ public class LeaderboardGUI extends InventoryGUI {
    private void updateCurrencyButton() {
       Inventory inventory = this.getInventory();
       if (inventory != null) {
-         this.addButton(this.CURRENCY_SLOT, new InventoryButton().creator(p -> this.createCurrencyButton()).consumer(event -> {
-            List<LeaderboardGUI.CurrencyItem> enabledCurrencies = this.getEnabledCurrencies();
-            if (enabledCurrencies.isEmpty()) {
-               this.plugin.getLogger().warning("No enabled currencies found for leaderboard!");
-            } else {
-               int currentIndex = -1;
-
-               for (int i = 0; i < enabledCurrencies.size(); i++) {
-                  LeaderboardGUI.CurrencyItem item = enabledCurrencies.get(i);
-                  boolean typeMatches = item.type == this.currencyType;
-                  boolean idMatches;
-                  if (this.currencyId == null && item.currencyId == null) {
-                     idMatches = true;
-                  } else if (this.currencyId != null && item.currencyId != null) {
-                     idMatches = this.currencyId.equals(item.currencyId);
+         this.addButton(this.CURRENCY_SLOT,
+               new InventoryButton().creator(p -> this.createCurrencyButton()).consumer(event -> {
+                  List<LeaderboardGUI.CurrencyItem> enabledCurrencies = this.getEnabledCurrencies();
+                  if (enabledCurrencies.isEmpty()) {
+                     this.plugin.getLogger().warning("No enabled currencies found for leaderboard!");
                   } else {
-                     idMatches = false;
-                  }
+                     int currentIndex = -1;
 
-                  if (typeMatches && idMatches) {
-                     currentIndex = i;
-                     break;
-                  }
-               }
-
-               if (currentIndex == -1) {
-                  currentIndex = 0;
-               }
-
-               int nextIndex = (currentIndex + 1) % enabledCurrencies.size();
-               LeaderboardGUI.CurrencyItem nextCurrency = enabledCurrencies.get(nextIndex);
-               this.currencyType = nextCurrency.type;
-               this.currencyId = nextCurrency.currencyId;
-               synchronized (this) {
-                  this.cachedEntries.clear();
-                  this.isLoading = false;
-               }
-
-               FoliaScheduler.runTask(this.plugin, this.viewer, () -> {
-                  if (this.viewer != null && this.viewer.isOnline()) {
-                     try {
-                        Inventory topInv = GUIHelper.getTopInventorySafely(this.viewer);
-                        if (topInv != null && topInv.equals(this.getInventory())) {
-                           this.updateCurrencyButton();
-                           this.updateFilterButton();
-                           this.displayPlayerHeads();
-                           super.decorate(this.viewer);
-                           this.plugin.getInventoryUpdateBatcher().scheduleUpdate(this.viewer);
+                     for (int i = 0; i < enabledCurrencies.size(); i++) {
+                        LeaderboardGUI.CurrencyItem item = enabledCurrencies.get(i);
+                        boolean typeMatches = item.type == this.currencyType;
+                        boolean idMatches;
+                        if (this.currencyId == null && item.currencyId == null) {
+                           idMatches = true;
+                        } else if (this.currencyId != null && item.currencyId != null) {
+                           idMatches = this.currencyId.equals(item.currencyId);
+                        } else {
+                           idMatches = false;
                         }
-                     } catch (Exception var2x) {
+
+                        if (typeMatches && idMatches) {
+                           currentIndex = i;
+                           break;
+                        }
                      }
+
+                     if (currentIndex == -1) {
+                        currentIndex = 0;
+                     }
+
+                     int nextIndex = (currentIndex + 1) % enabledCurrencies.size();
+                     LeaderboardGUI.CurrencyItem nextCurrency = enabledCurrencies.get(nextIndex);
+                     this.currencyType = nextCurrency.type;
+                     this.currencyId = nextCurrency.currencyId;
+                     synchronized (this) {
+                        this.cachedEntries.clear();
+                        this.isLoading = false;
+                     }
+
+                     FoliaScheduler.runTask(this.plugin, this.viewer, () -> {
+                        if (this.viewer != null && this.viewer.isOnline()) {
+                           try {
+                              Inventory topInv = GUIHelper.getTopInventorySafely(this.viewer);
+                              if (topInv != null && topInv.equals(this.getInventory())) {
+                                 this.updateCurrencyButton();
+                                 this.updateFilterButton();
+                                 this.displayPlayerHeads();
+                                 super.decorate(this.viewer);
+                                 this.plugin.getInventoryUpdateBatcher().scheduleUpdate(this.viewer);
+                              }
+                           } catch (Exception var2x) {
+                           }
+                        }
+                     });
+                     this.loadLeaderboardData();
                   }
-               });
-               this.loadLeaderboardData();
-            }
-         }));
+               }));
          ItemStack currencyItem = this.createCurrencyButton();
          if (this.CURRENCY_SLOT >= 0 && this.CURRENCY_SLOT < inventory.getSize()) {
             inventory.setItem(this.CURRENCY_SLOT, currencyItem);
@@ -626,19 +654,24 @@ public class LeaderboardGUI extends InventoryGUI {
       String filterDisplayName;
       switch (filterTypeValue) {
          case "WINS":
-            filterDisplayName = this.plugin.getGUIConfig().getString("leaderboard-gui.filter.names.wins", "Number of Wins");
+            filterDisplayName = this.plugin.getGUIConfig().getString("leaderboard-gui.filter.names.wins",
+                  "Number of Wins");
             break;
          case "PROFIT":
-            filterDisplayName = this.plugin.getGUIConfig().getString("leaderboard-gui.filter.names.profit", "Most Profit");
+            filterDisplayName = this.plugin.getGUIConfig().getString("leaderboard-gui.filter.names.profit",
+                  "Most Profit");
             break;
          case "LARGEST_WIN":
-            filterDisplayName = this.plugin.getGUIConfig().getString("leaderboard-gui.filter.names.largest-win", "Largest Win");
+            filterDisplayName = this.plugin.getGUIConfig().getString("leaderboard-gui.filter.names.largest-win",
+                  "Largest Win");
             break;
          case "WORST_PROFIT":
-            filterDisplayName = this.plugin.getGUIConfig().getString("leaderboard-gui.filter.names.worst-profit", "Worst Profit");
+            filterDisplayName = this.plugin.getGUIConfig().getString("leaderboard-gui.filter.names.worst-profit",
+                  "Worst Profit");
             break;
          case "WINSTREAK":
-            filterDisplayName = this.plugin.getGUIConfig().getString("leaderboard-gui.filter.names.winstreak", "Winstreak");
+            filterDisplayName = this.plugin.getGUIConfig().getString("leaderboard-gui.filter.names.winstreak",
+                  "Winstreak");
             break;
          default:
             filterDisplayName = "Unknown";

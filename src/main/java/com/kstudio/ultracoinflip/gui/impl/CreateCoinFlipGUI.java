@@ -147,7 +147,7 @@ public class CreateCoinFlipGUI extends InventoryGUI {
                this.plugin
                      .getLogger()
                      .warning(
-                           "[UltraCoinFlip] Decrease button '"
+                           "[CoinFlip] Decrease button '"
                                  + buttonKeyxx
                                  + "' is missing slot configuration in create.yml. Skipping this button. Please add 'slot: <number>' to the button configuration.");
             } else {
@@ -157,7 +157,7 @@ public class CreateCoinFlipGUI extends InventoryGUI {
                      this.plugin
                            .getLogger()
                            .warning(
-                                 "[UltraCoinFlip] Slot conflict: Decrease button '"
+                                 "[CoinFlip] Slot conflict: Decrease button '"
                                        + buttonKeyxx
                                        + "' at slot "
                                        + slotx
@@ -171,7 +171,7 @@ public class CreateCoinFlipGUI extends InventoryGUI {
                      this.plugin
                            .getLogger()
                            .warning(
-                                 "[UltraCoinFlip] Invalid amount "
+                                 "[CoinFlip] Invalid amount "
                                        + amount
                                        + " for decrease button '"
                                        + buttonKeyxx
@@ -201,7 +201,7 @@ public class CreateCoinFlipGUI extends InventoryGUI {
                   this.plugin
                         .getLogger()
                         .warning(
-                              "[UltraCoinFlip] Invalid slot "
+                              "[CoinFlip] Invalid slot "
                                     + slotx
                                     + " for decrease button '"
                                     + buttonKeyxx
@@ -218,7 +218,7 @@ public class CreateCoinFlipGUI extends InventoryGUI {
                this.plugin
                      .getLogger()
                      .warning(
-                           "[UltraCoinFlip] Increase button '"
+                           "[CoinFlip] Increase button '"
                                  + buttonKeyxxx
                                  + "' is missing slot configuration in create.yml. Skipping this button. Please add 'slot: <number>' to the button configuration.");
             } else {
@@ -228,7 +228,7 @@ public class CreateCoinFlipGUI extends InventoryGUI {
                      this.plugin
                            .getLogger()
                            .warning(
-                                 "[UltraCoinFlip] Slot conflict: Increase button '"
+                                 "[CoinFlip] Slot conflict: Increase button '"
                                        + buttonKeyxxx
                                        + "' at slot "
                                        + slotx
@@ -242,7 +242,7 @@ public class CreateCoinFlipGUI extends InventoryGUI {
                      this.plugin
                            .getLogger()
                            .warning(
-                                 "[UltraCoinFlip] Invalid amount "
+                                 "[CoinFlip] Invalid amount "
                                        + amountx
                                        + " for increase button '"
                                        + buttonKeyxxx
@@ -272,7 +272,7 @@ public class CreateCoinFlipGUI extends InventoryGUI {
                   this.plugin
                         .getLogger()
                         .warning(
-                              "[UltraCoinFlip] Invalid slot "
+                              "[CoinFlip] Invalid slot "
                                     + slotx
                                     + " for increase button '"
                                     + buttonKeyxxx
@@ -290,7 +290,7 @@ public class CreateCoinFlipGUI extends InventoryGUI {
             this.plugin
                   .getLogger()
                   .warning(
-                        "[UltraCoinFlip] Slot conflict: Currency button at slot "
+                        "[CoinFlip] Slot conflict: Currency button at slot "
                               + currencySlot
                               + " conflicts with '"
                               + usedSlots.get(currencySlot)
@@ -301,7 +301,7 @@ public class CreateCoinFlipGUI extends InventoryGUI {
             this.plugin
                   .getLogger()
                   .warning(
-                        "[UltraCoinFlip] Slot conflict: Custom amount button at slot "
+                        "[CoinFlip] Slot conflict: Custom amount button at slot "
                               + customAmountSlot
                               + " conflicts with '"
                               + usedSlots.get(customAmountSlot)
@@ -312,7 +312,7 @@ public class CreateCoinFlipGUI extends InventoryGUI {
             this.plugin
                   .getLogger()
                   .warning(
-                        "[UltraCoinFlip] Slot conflict: Create button at slot "
+                        "[CoinFlip] Slot conflict: Create button at slot "
                               + createSlot
                               + " conflicts with '"
                               + usedSlots.get(createSlot)
@@ -330,7 +330,7 @@ public class CreateCoinFlipGUI extends InventoryGUI {
                                  this.plugin
                                        .getLogger()
                                        .warning(
-                                             "[UltraCoinFlip] No enabled currencies found! Players cannot create coinflip games. Please enable at least one currency in the currencies folder.");
+                                             "[CoinFlip] No enabled currencies found! Players cannot create coinflip games. Please enable at least one currency in the currencies folder.");
                               } else {
                                  int currentIndex = -1;
 

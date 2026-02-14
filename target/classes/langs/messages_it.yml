@@ -4,13 +4,13 @@
 # Tutti i messaggi supportano codici colore (&a, &c, ecc.) e formato MiniMessage
 # Usa "" (stringa vuota) per disabilitare un messaggio
 
-prefix: "&c&lUltra&e&lCoinFlip &f|| &r"
+prefix: '&f&lᴄᴏɪɴꜰʟɪᴘ &8&l»&r '
 no-perms: "&8[&c&l!&8] <##eb3434>Non hai il permesso per eseguire questa azione!"
 
 # Help Command Messages
 help:
   messages:
-    - "&6&l=== UltraCoinFlip Aiuto ==="
+    - "&f&lᴄᴏɪɴꜰʟɪᴘ &7&lAiuto"
     - "&e/coinflip &7- Apri il menu CoinFlip"
     - "&e/coinflip create <currency> <amount> &7- Crea una nuova partita CoinFlip"
     - "&e/coinflip delete &7- Elimina la tua partita CoinFlip attiva"
@@ -135,7 +135,7 @@ bossbar:
 
 # Messaggi di Audit Admin
 admin:
-  audit-header: '&6=== Stato UltraCoinFlip ==='
+  audit-header: '&f&lᴄᴏɪɴꜰʟɪᴘ &8│ &6Stato'
   audit-active-games: '&7Partite Attive: &e<count>'
   audit-rolling-games: '&7Partite in Corso: &e<count>'
   audit-players-in-transaction: '&7Giocatori in Transazione: &e<count>'
@@ -151,13 +151,13 @@ admin:
 
 # Update Checker Messages
 update:
-  latest-version: "&fStai usando la versione piu recente di UltraCoinFlip &a(v<version>)."
-  new-version-available: "&e⚠ &fÈ disponibile un nuovo aggiornamento per UltraCoinFlip."
+  latest-version: "&fStai usando la versione piu recente di &f&lᴄᴏɪɴꜰʟɪᴘ &a(v<version>)."
+  new-version-available: "&e⚠ &fÈ disponibile un nuovo aggiornamento per &f&lᴄᴏɪɴꜰʟɪᴘ."
   current-version: "&7Versione attuale: &c<version>"
   latest-version-label: "&7Ultima versione disponibile: &a<version>"
   download-link: "&bDownload: &fhttps://www.spigotmc.org/resources/ultracoinflip-1-20-x-1-21-10-folia-support.130124/"
   check-failed: "&cImpossibile verificare la presenza di aggiornamenti: <error>"
-  in-game-new-version: "<yellow>È disponibile una nuova versione di UltraCoinFlip <gray>(Attuale: <red><current> <gray>| Ultima: <green><latest><gray>). <aqua><click:open_url:https://www.spigotmc.org/resources/ultracoinflip-1-20-x-1-21-10-folia-support.130124><u>Scarica qui</u></click><gray>."
+  in-game-new-version: "<yellow>È disponibile una nuova versione di &f&lᴄᴏɪɴꜰʟɪᴘ <gray>(Attuale: <red><current> <gray>| Ultima: <green><latest><gray>). <aqua><click:open_url:https://www.spigotmc.org/resources/ultracoinflip.130124><u>Scarica qui</u></click><gray>."
 
 # ==========================================
 # Configuration Version

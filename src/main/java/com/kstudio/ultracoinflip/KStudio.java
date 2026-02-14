@@ -201,7 +201,7 @@ public class KStudio extends JavaPlugin {
                this.colorLogger.brightPurple("Folia detected!") + this.colorLogger.gray(" Using Folia schedulers."));
       }
 
-      this.checkForUpdates();
+      // this.checkForUpdates();
       this.metrics = new UltraCoinFlipMetrics(this);
       this.metrics.initialize();
       this.printCompletionMessage();
@@ -216,7 +216,7 @@ public class KStudio extends JavaPlugin {
                   : "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
             this.colorLogger.warning(separator);
             this.colorLogger
-                  .warning("  " + this.colorLogger.bold("UltraCoinFlip v" + this.pluginVersion) + " "
+                  .warning("  " + this.colorLogger.bold("CoinFlip v" + this.pluginVersion) + " "
                         + this.colorLogger.brightYellow("is shutting down..."));
             this.colorLogger.warning(separator);
          }
@@ -265,51 +265,15 @@ public class KStudio extends JavaPlugin {
          ErrorHandler.handleDisableError(this, var21);
       } finally {
          if (this.colorLogger == null) {
-            this.getLogger().info("UltraCoinFlip has been disabled!");
+            this.getLogger().info("CoinFlip has been disabled!");
          }
       }
    }
 
    private void printStartupBanner() {
-      String[] ultraLines = new String[] {
-            "",
-            "              /$$   /$$ /$$    /$$$$$$$$ /$$$$$$$   /$$$$$$ ",
-            "             | $$  | $$| $$   |__  $$__/| $$__  $$ /$$__  $$",
-            "             | $$  | $$| $$      | $$   | $$  \\ $$| $$  \\ $$",
-            "             | $$  | $$| $$      | $$   | $$$$$$$/| $$$$$$$$",
-            "             | $$  | $$| $$      | $$   | $$__  $$| $$__  $$",
-            "             | $$  | $$| $$      | $$   | $$  \\ $$| $$  | $$",
-            "             |  $$$$$$/| $$$$$$$$| $$   | $$  | $$| $$  | $$",
-            "              \\______/ |________/|__/   |__/  |__/|__/  |__/",
-            ""
-      };
-      String[] coinflipLines = new String[] {
-            "  /$$$$$$   /$$$$$$  /$$$$$$ /$$   /$$ /$$$$$$$$ /$$       /$$$$$$ /$$$$$$$ ",
-            " /$$__  $$ /$$__  $$|_  $$_/| $$$ | $$| $$_____/| $$      |_  $$_/| $$__  $$",
-            "| $$  \\__/| $$  \\ $$  | $$  | $$$$| $$| $$      | $$        | $$  | $$  \\ $$",
-            "| $$      | $$  | $$  | $$  | $$ $$ $$| $$$$$   | $$        | $$  | $$$$$$$/",
-            "| $$      | $$  | $$  | $$  | $$  $$$$| $$__/   | $$        | $$  | $$____/ ",
-            "| $$    $$| $$  | $$  | $$  | $$\\  $$$| $$      | $$        | $$  | $$      ",
-            "|  $$$$$$/|  $$$$$$/ /$$$$$$| $$ \\  $$| $$      | $$$$$$$$ /$$$$$$| $$      ",
-            " \\______/  \\______/ |______/|__/  \\__/|__/      |________/|______/|__/      ",
-            ""
-      };
-
-      for (String line : ultraLines) {
-         if (line.isEmpty()) {
-            this.colorLogger.info("");
-         } else {
-            this.colorLogger.info(this.colorLogger.bold(this.colorLogger.brightRed(line)));
-         }
-      }
-
-      for (String linex : coinflipLines) {
-         if (linex.isEmpty()) {
-            this.colorLogger.info("");
-         } else {
-            this.colorLogger.info(this.colorLogger.bold(this.colorLogger.brightYellow(linex)));
-         }
-      }
+      this.colorLogger.info(this.colorLogger.brightYellow(""));
+      this.colorLogger.info(this.colorLogger.brightYellow("  ᴄᴏɪɴꜰʟɪᴘ " + this.pluginVersion));
+      this.colorLogger.info(this.colorLogger.brightYellow(""));
    }
 
    public void cacheUpdateCheckerConfig() {
@@ -403,7 +367,7 @@ public class KStudio extends JavaPlugin {
       String chatIcon = isLegacy ? "[!]" : "\ud83d\udcac";
       String starIcon = isLegacy ? "[*]" : "⭐";
       this.colorLogger.success(separator);
-      this.colorLogger.success("  " + this.colorLogger.bold("UltraCoinFlip v" + version) + " "
+      this.colorLogger.success("  " + this.colorLogger.bold("CoinFlip v" + version) + " "
             + this.colorLogger.brightGreen("enabled successfully!"));
       this.colorLogger.success(separator);
       this.colorLogger

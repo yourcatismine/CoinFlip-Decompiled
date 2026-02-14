@@ -24,14 +24,19 @@ public class DiscordWebhookHandler {
       this.plugin = plugin;
    }
 
-   public void sendGameResult(String winner, String loser, double amount, double taxedAmount, String currencyDisplayName, String currencySymbol) {
+   public void sendGameResult(String winner, String loser, double amount, double taxedAmount,
+         String currencyDisplayName, String currencySymbol) {
       FileConfiguration config = this.plugin.getConfig();
       if (config.getBoolean("discord.webhook.enabled", false)) {
          String webhookUrl = config.getString("discord.webhook.url", "");
-         if (webhookUrl == null || webhookUrl.isEmpty() || webhookUrl.equals("https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN")) {
-            this.plugin.getLogger().warning("Discord webhook URL is not configured! Please set a valid webhook URL in config.yml");
-         } else if (!webhookUrl.startsWith("https://discord.com/api/webhooks/") && !webhookUrl.startsWith("https://discordapp.com/api/webhooks/")) {
-            this.plugin.getLogger().warning("Invalid Discord webhook URL format! URL must start with https://discord.com/api/webhooks/");
+         if (webhookUrl == null || webhookUrl.isEmpty()
+               || webhookUrl.equals("https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN")) {
+            this.plugin.getLogger()
+                  .warning("Discord webhook URL is not configured! Please set a valid webhook URL in config.yml");
+         } else if (!webhookUrl.startsWith("https://discord.com/api/webhooks/")
+               && !webhookUrl.startsWith("https://discordapp.com/api/webhooks/")) {
+            this.plugin.getLogger()
+                  .warning("Invalid Discord webhook URL format! URL must start with https://discord.com/api/webhooks/");
          } else {
             double minAmount = config.getDouble("discord.webhook.min-amount", 0.0);
             if (!(amount < minAmount)) {
@@ -39,7 +44,8 @@ public class DiscordWebhookHandler {
                String avatar = config.getString("discord.webhook.avatar", "");
                String content = config.getString("discord.message.content", "");
                boolean embedEnabled = config.getBoolean("discord.message.embed.enabled", true);
-               content = this.replacePlaceholders(content, winner, loser, amount, taxedAmount, currencyDisplayName, currencySymbol);
+               content = this.replacePlaceholders(content, winner, loser, amount, taxedAmount, currencyDisplayName,
+                     currencySymbol);
                JsonObject json = new JsonObject();
                if (username != null && !username.isEmpty()) {
                   json.addProperty("username", username);
@@ -57,13 +63,15 @@ public class DiscordWebhookHandler {
                   JsonObject embed = new JsonObject();
                   String title = config.getString("discord.message.embed.title", "");
                   if (title != null && !title.isEmpty()) {
-                     title = this.replacePlaceholders(title, winner, loser, amount, taxedAmount, currencyDisplayName, currencySymbol);
+                     title = this.replacePlaceholders(title, winner, loser, amount, taxedAmount, currencyDisplayName,
+                           currencySymbol);
                      embed.addProperty("title", title);
                   }
 
                   String description = config.getString("discord.message.embed.description", "");
                   if (description != null && !description.isEmpty()) {
-                     description = this.replacePlaceholders(description, winner, loser, amount, taxedAmount, currencyDisplayName, currencySymbol);
+                     description = this.replacePlaceholders(description, winner, loser, amount, taxedAmount,
+                           currencyDisplayName, currencySymbol);
                      embed.addProperty("description", description);
                   }
 
@@ -75,32 +83,35 @@ public class DiscordWebhookHandler {
                   b = Math.max(0, Math.min(255, b));
                   int color = (r << 16) + (g << 8) + b;
                   embed.addProperty("color", color);
-                  if (config.contains("discord.message.embed.fields") && config.isList("discord.message.embed.fields")) {
+                  if (config.contains("discord.message.embed.fields")
+                        && config.isList("discord.message.embed.fields")) {
                      JsonArray fieldsArray = new JsonArray();
 
                      for (Object fieldObj : config.getList("discord.message.embed.fields")) {
                         if (fieldObj instanceof Map) {
-                           Map<String, Object> fieldMap = (Map<String, Object>)fieldObj;
+                           Map<String, Object> fieldMap = (Map<String, Object>) fieldObj;
                            String fieldName = String.valueOf(fieldMap.get("name"));
                            String fieldValue = String.valueOf(fieldMap.get("value"));
                            boolean inline = false;
                            if (fieldMap.containsKey("inline")) {
                               Object inlineObj = fieldMap.get("inline");
                               if (inlineObj instanceof Boolean) {
-                                 inline = (Boolean)inlineObj;
+                                 inline = (Boolean) inlineObj;
                               } else if (inlineObj instanceof String) {
-                                 inline = Boolean.parseBoolean((String)inlineObj);
+                                 inline = Boolean.parseBoolean((String) inlineObj);
                               }
                            }
 
                            if (fieldName != null
-                              && !fieldName.isEmpty()
-                              && !fieldName.equals("null")
-                              && fieldValue != null
-                              && !fieldValue.isEmpty()
-                              && !fieldValue.equals("null")) {
-                              fieldName = this.replacePlaceholders(fieldName, winner, loser, amount, taxedAmount, currencyDisplayName, currencySymbol);
-                              fieldValue = this.replacePlaceholders(fieldValue, winner, loser, amount, taxedAmount, currencyDisplayName, currencySymbol);
+                                 && !fieldName.isEmpty()
+                                 && !fieldName.equals("null")
+                                 && fieldValue != null
+                                 && !fieldValue.isEmpty()
+                                 && !fieldValue.equals("null")) {
+                              fieldName = this.replacePlaceholders(fieldName, winner, loser, amount, taxedAmount,
+                                    currencyDisplayName, currencySymbol);
+                              fieldValue = this.replacePlaceholders(fieldValue, winner, loser, amount, taxedAmount,
+                                    currencyDisplayName, currencySymbol);
                               JsonObject field = new JsonObject();
                               field.addProperty("name", fieldName);
                               field.addProperty("value", fieldValue);
@@ -117,7 +128,8 @@ public class DiscordWebhookHandler {
 
                   String footerText = config.getString("discord.message.embed.footer.text", "");
                   if (footerText != null && !footerText.isEmpty()) {
-                     footerText = this.replacePlaceholders(footerText, winner, loser, amount, taxedAmount, currencyDisplayName, currencySymbol);
+                     footerText = this.replacePlaceholders(footerText, winner, loser, amount, taxedAmount,
+                           currencyDisplayName, currencySymbol);
                      JsonObject footer = new JsonObject();
                      footer.addProperty("text", footerText);
                      String footerIcon = config.getString("discord.message.embed.footer.icon", "");
@@ -130,7 +142,8 @@ public class DiscordWebhookHandler {
 
                   String thumbnailUrl = config.getString("discord.message.embed.thumbnail", "");
                   if (thumbnailUrl != null && !thumbnailUrl.isEmpty()) {
-                     thumbnailUrl = this.replacePlaceholders(thumbnailUrl, winner, loser, amount, taxedAmount, currencyDisplayName, currencySymbol);
+                     thumbnailUrl = this.replacePlaceholders(thumbnailUrl, winner, loser, amount, taxedAmount,
+                           currencyDisplayName, currencySymbol);
                      JsonObject thumbnail = new JsonObject();
                      thumbnail.addProperty("url", thumbnailUrl);
                      embed.add("thumbnail", thumbnail);
@@ -159,8 +172,8 @@ public class DiscordWebhookHandler {
    }
 
    private String replacePlaceholders(
-      String text, String winner, String loser, double amount, double taxedAmount, String currencyDisplayName, String currencySymbol
-   ) {
+         String text, String winner, String loser, double amount, double taxedAmount, String currencyDisplayName,
+         String currencySymbol) {
       if (text == null) {
          return "";
       } else {
@@ -200,12 +213,12 @@ public class DiscordWebhookHandler {
 
    private void sendWebhook(String webhookUrl, String json) throws Exception {
       URL url = new URL(webhookUrl);
-      HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
       try {
          connection.setRequestMethod("POST");
          connection.setRequestProperty("Content-Type", "application/json");
-         connection.setRequestProperty("User-Agent", "UltraCoinFlip-Plugin");
+         connection.setRequestProperty("User-Agent", "CoinFlip-Plugin");
          connection.setDoOutput(true);
          connection.setConnectTimeout(15000);
          connection.setReadTimeout(30000);
@@ -238,7 +251,8 @@ public class DiscordWebhookHandler {
          } catch (SocketTimeoutException var30) {
             throw new Exception("Discord webhook connection timeout - check your internet connection and webhook URL");
          } catch (IOException var31) {
-            if (var31.getMessage() == null || !var31.getMessage().contains("timed out") && !var31.getMessage().contains("Read timed out")) {
+            if (var31.getMessage() == null
+                  || !var31.getMessage().contains("timed out") && !var31.getMessage().contains("Read timed out")) {
                throw new Exception("Discord webhook connection error: " + var31.getMessage());
             }
 
@@ -250,7 +264,8 @@ public class DiscordWebhookHandler {
             try {
                InputStream errorStream = connection.getErrorStream();
                if (errorStream != null) {
-                  BufferedReader reader = new BufferedReader(new InputStreamReader(errorStream, StandardCharsets.UTF_8));
+                  BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(errorStream, StandardCharsets.UTF_8));
 
                   try {
                      StringBuilder errorResponse = new StringBuilder();
@@ -265,13 +280,13 @@ public class DiscordWebhookHandler {
 
                      if (errorResponse.length() > 0) {
                         this.plugin
-                           .getLogger()
-                           .warning(
-                              "Discord webhook error (HTTP "
-                                 + responseCode
-                                 + "): "
-                                 + errorResponse.toString().substring(0, Math.min(500, errorResponse.length()))
-                           );
+                              .getLogger()
+                              .warning(
+                                    "Discord webhook error (HTTP "
+                                          + responseCode
+                                          + "): "
+                                          + errorResponse.toString().substring(0,
+                                                Math.min(500, errorResponse.length())));
                      }
                   } catch (Throwable var33) {
                      try {
@@ -286,9 +301,11 @@ public class DiscordWebhookHandler {
                   reader.close();
                }
             } catch (SocketTimeoutException var34) {
-               this.plugin.getLogger().warning("Discord webhook failed (HTTP " + responseCode + "), timeout reading error response");
+               this.plugin.getLogger()
+                     .warning("Discord webhook failed (HTTP " + responseCode + "), timeout reading error response");
             } catch (Exception var35) {
-               this.plugin.getLogger().warning("Discord webhook failed (HTTP " + responseCode + "), could not read error details: " + var35.getMessage());
+               this.plugin.getLogger().warning("Discord webhook failed (HTTP " + responseCode
+                     + "), could not read error details: " + var35.getMessage());
             }
 
             throw new Exception("Discord webhook request failed with HTTP " + responseCode);

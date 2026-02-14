@@ -82,7 +82,7 @@ public class CoinFlipListGUI extends InventoryGUI {
    @Override
    protected Inventory createInventory() {
       String titleTemplate = this.plugin.getGUIConfig().getString("list-gui.title",
-            "&8UltraCoinFlip &8[&7Page <page>&8]");
+            "&f&lᴄᴏɪɴꜰʟɪᴘ &8[&7Page <page>&8]");
       int size = this.plugin.getGUIConfig().getInt("list-gui.size", 45);
       Map<String, String> placeholders = Collections.singletonMap("page", String.valueOf(this.page));
       return this.plugin.getGuiHelper().createInventory(null, size, titleTemplate, placeholders);

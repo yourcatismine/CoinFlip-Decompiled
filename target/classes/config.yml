@@ -112,7 +112,7 @@ discord:
     url: "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
     
     # Leave empty to use Discord's default webhook name
-    username: "UltraCoinFlip"
+    username: "CoinFlip"
     
     # Leave empty to use Discord's default webhook avatar
     avatar: ""
@@ -200,7 +200,7 @@ discord:
       # Footer configuration
       footer:
         # Footer text (leave empty to disable footer)
-        text: "UltraCoinFlip"
+        text: "CoinFlip"
         # Footer icon URL (leave empty to disable icon)
         icon: ""
       
@@ -213,11 +213,11 @@ update-checker:
   # Enable/disable automatic update checking on plugin startup
   # When enabled, the plugin will check for updates from SpigotMC on startup
   # Update notifications will be shown in both console and in-game (if enabled)
-  enabled: true
+  enabled: false
   
   # Show update notifications in-game to players with permission
   # Set to false to only show update notifications in console
-  notify-in-game: true
+  notify-in-game: false
   
   # Permission required to see in-game update notifications
   # Default: ultracoinflip.admin (ops have this permission by default)

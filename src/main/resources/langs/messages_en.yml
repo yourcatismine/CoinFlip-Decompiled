@@ -4,13 +4,13 @@
 # All messages support color codes (&a, &c, etc.) and MiniMessage format
 # Use "" (empty string) to disable a message
 
-prefix: '&c&lUltra&e&lCoinFlip &f|| &r'
+prefix: '&f&lᴄᴏɪɴꜰʟɪᴘ &8&l»&r '
 no-perms: '&8[&c&l!&8] <##eb3434>You do not have permission to perform this action!'
 
 # Help Command Messages
 help:
   messages:
-    - "&6&l=== UltraCoinFlip Help ==="
+    - "&f&lᴄᴏɪɴꜰʟɪᴘ &7&lHelp"
     - "&e/coinflip &7- Open the coinflip menu"
     - "&e/coinflip create <currency> <amount> &7- Create a new coinflip game"
     - "&e/coinflip delete &7- Cancel your active coinflip game"
@@ -138,7 +138,7 @@ bossbar:
 
 # Admin Audit Messages
 admin:
-  audit-header: '&6=== UltraCoinFlip Status ==='
+  audit-header: '&f&lᴄᴏɪɴꜰʟɪᴘ &8│ &6Status'
   audit-active-games: '&7Active Games: &e<count>'
   audit-rolling-games: '&7Rolling Games: &e<count>'
   audit-players-in-transaction: '&7Players in Transaction: &e<count>'
@@ -154,14 +154,14 @@ admin:
 
 # Update Checker Messages
 update:
-  latest-version: '&fYou are running the latest version &a(v<version>)'
-  new-version-available: '&e⚠ &fA new update is available!'
-  current-version: '&7Current version: &c<version>'
-  latest-version-label: '&7Latest version:  &a<version>'
-  download-link: '&bDownload: &fhttps://www.spigotmc.org/resources/ultracoinflip-1-20-x-1-21-10-folia-support.130124/'
-  check-failed: '&cUnable to check for updates: <error>'
+  latest-version: ""
+  new-version-available: ""
+  current-version: ""
+  latest-version-label: ""
+  download-link: ""
+  check-failed: ""
   # Short in-game message (separate from console)
-  in-game-new-version: "<yellow>A new version of UltraCoinFlip is available <gray>(Current: <red><current> <gray>| Latest: <green><latest><gray>). <aqua><click:open_url:'https://www.spigotmc.org/resources/ultracoinflip-1-20-x-1-21-10-folia-support.130124'><u>Download here</u></click><gray>."
+  in-game-new-version: ""
 
 # ==========================================
 # Configuration Version

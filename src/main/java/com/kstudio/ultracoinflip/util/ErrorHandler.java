@@ -36,19 +36,19 @@ public class ErrorHandler {
                if (major == 1 && minor < 8) {
                   hasIssues = true;
                   issueMessage.append("  ")
-                     .append(warningIcon)
-                     .append(" Detected version ")
-                     .append(detectedVersion)
-                     .append(" - Minimum supported version is 1.8.8\n");
+                        .append(warningIcon)
+                        .append(" Detected version ")
+                        .append(detectedVersion)
+                        .append(" - Minimum supported version is 1.8.8\n");
                }
 
                if (major == 1 && minor > 21) {
                   hasIssues = true;
                   issueMessage.append("  ")
-                     .append(warningIcon)
-                     .append(" Detected version ")
-                     .append(detectedVersion)
-                     .append(" - This version may not be fully tested. Latest tested: 1.21.11\n");
+                        .append(warningIcon)
+                        .append(" Detected version ")
+                        .append(detectedVersion)
+                        .append(" - This version may not be fully tested. Latest tested: 1.21.11\n");
                } else if (major == 1 && minor == 21) {
                   try {
                      if (parts.length >= 3) {
@@ -56,10 +56,10 @@ public class ErrorHandler {
                         if (patch > 11) {
                            hasIssues = true;
                            issueMessage.append("  ")
-                              .append(warningIcon)
-                              .append(" Detected version ")
-                              .append(detectedVersion)
-                              .append(" - This version may not be fully tested. Latest tested: 1.21.11\n");
+                                 .append(warningIcon)
+                                 .append(" Detected version ")
+                                 .append(detectedVersion)
+                                 .append(" - This version may not be fully tested. Latest tested: 1.21.11\n");
                         }
                      }
                   } catch (Exception var19) {
@@ -77,8 +77,8 @@ public class ErrorHandler {
       logger.info("  Java Version: " + VersionDetector.getJavaVersion());
       if (hasIssues) {
          String separator = isLegacy
-            ? "==============================================================="
-            : "═══════════════════════════════════════════════════════════";
+               ? "==============================================================="
+               : "═══════════════════════════════════════════════════════════";
          logger.warning(separator);
          logger.warning(warningIcon + " COMPATIBILITY WARNING DETECTED " + warningIcon);
          logger.warning(separator);
@@ -99,8 +99,8 @@ public class ErrorHandler {
       Logger logger = plugin.getLogger();
       boolean isLegacy = VersionDetector.isLegacy();
       String separator = isLegacy
-         ? "==============================================================="
-         : "═══════════════════════════════════════════════════════════";
+            ? "==============================================================="
+            : "═══════════════════════════════════════════════════════════";
       String warningIcon = isLegacy ? "[!]" : "⚠";
       logger.severe(separator);
       logger.severe(warningIcon + " UNEXPECTED ERROR DETECTED " + warningIcon);
@@ -156,8 +156,8 @@ public class ErrorHandler {
       Logger logger = plugin.getLogger();
       boolean isLegacy = VersionDetector.isLegacy();
       String separator = isLegacy
-         ? "==============================================================="
-         : "═══════════════════════════════════════════════════════════";
+            ? "==============================================================="
+            : "═══════════════════════════════════════════════════════════";
       String warningIcon = isLegacy ? "[!]" : "⚠";
       String bullet = isLegacy ? "-" : "•";
       logger.severe(separator);
@@ -181,8 +181,8 @@ public class ErrorHandler {
       Logger logger = plugin.getLogger();
       boolean isLegacy = VersionDetector.isLegacy();
       String separator = isLegacy
-         ? "==============================================================="
-         : "═══════════════════════════════════════════════════════════";
+            ? "==============================================================="
+            : "═══════════════════════════════════════════════════════════";
       String warningIcon = isLegacy ? "[!]" : "⚠";
       logger.warning(separator);
       logger.warning(warningIcon + " CONFIGURATION ERROR " + warningIcon);
@@ -201,7 +201,7 @@ public class ErrorHandler {
    public static void setupGlobalExceptionHandler(KStudio plugin) {
       Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
          if (throwable instanceof Exception) {
-            handleUnexpectedError(plugin, (Exception)throwable, "Uncaught Exception in thread: " + thread.getName());
+            handleUnexpectedError(plugin, (Exception) throwable, "Uncaught Exception in thread: " + thread.getName());
          }
       });
    }

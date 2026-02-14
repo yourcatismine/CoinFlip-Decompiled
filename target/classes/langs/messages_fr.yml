@@ -4,7 +4,7 @@
 # Tous les messages prennent en charge les codes couleur (&a, &c, etc.) et le format MiniMessage
 # Utilisez "" (chaîne vide) pour désactiver un message
 
-prefix: '&c&lUltra&e&lCoinFlip &f|| &r'
+prefix: '&f&lᴄᴏɪɴꜰʟɪᴘ &8&l»&r '
 no-perms: '&8[&c&l!&8] <##eb3434>Vous n''avez pas la permission d''effectuer cette action!'
 
 # Help Command Messages

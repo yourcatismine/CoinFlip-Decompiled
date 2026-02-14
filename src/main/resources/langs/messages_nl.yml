@@ -4,7 +4,7 @@
 # Alle berichten ondersteunen kleurcodes (&a, &c, etc.) en MiniMessage-formaat
 # Gebruik "" (lege string) om een bericht uit te schakelen
 
-prefix: '&c&lUltra&e&lCoinFlip &f|| &r'
+prefix: '&f&lᴄᴏɪɴꜰʟɪᴘ &8&l»&r '
 no-perms: '&8[&c&l!&8] <##eb3434>Je hebt geen toestemming om deze actie uit te voeren!'
 
 # Help Command Messages

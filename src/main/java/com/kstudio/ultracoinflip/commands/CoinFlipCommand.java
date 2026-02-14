@@ -130,11 +130,11 @@ public class CoinFlipCommand extends BaseCommand {
             }
 
             this.plugin.getLogger()
-                  .severe("[UltraCoinFlip] Failed to reload plugin configuration: " + var9.getMessage());
+                  .severe("[CoinFlip] Failed to reload plugin configuration: " + var9.getMessage());
             this.plugin
                   .getLogger()
                   .severe(
-                        "[UltraCoinFlip] Please check your configuration files for syntax errors. The plugin will continue using previous settings.");
+                        "[CoinFlip] Please check your configuration files for syntax errors. The plugin will continue using previous settings.");
             var9.printStackTrace();
          } finally {
             if (limiter != null) {

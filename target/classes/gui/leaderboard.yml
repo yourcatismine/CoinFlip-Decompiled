@@ -29,7 +29,7 @@
 # Leaderboard GUI - Shows top 15 players
 leaderboard-gui:
   size: 54
-  title: '&lUltraCoinFlip &8[Leaderboard]'
+  title: '&f&lᴄᴏɪɴꜰʟɪᴘ &8[Leaderboard]'
   
   filler:
     # For 1.13+: 'GRAY_STAINED_GLASS_PANE'

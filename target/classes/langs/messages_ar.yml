@@ -4,7 +4,7 @@
 # جميع الرسائل تدعم رموز الألوان (&a, &c, إلخ) وتنسيق MiniMessage
 # استخدم "" (سلسلة فارغة) لتعطيل رسالة
 
-prefix: '&c&lUltra&e&lCoinFlip &f|| &r'
+prefix: '&f&lᴄᴏɪɴꜰʟɪᴘ &8&l»&r '
 no-perms: '&8[&c&l!&8] <##eb3434>ليس لديك إذن لتنفيذ هذا الإجراء!'
 
 # Help Command Messages

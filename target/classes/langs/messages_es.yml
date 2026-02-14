@@ -4,13 +4,13 @@
 # Todos los mensajes admiten códigos de color (&a, &c, etc.) y formato MiniMessage
 # Use "" (cadena vacía) para desactivar un mensaje
 
-prefix: '&c&lUltra&e&lCoinFlip &f|| &r'
+prefix: '&f&lᴄᴏɪɴꜰʟɪᴘ &8&l»&r '
 no-perms: '&8[&c&l!&8] <##eb3434>¡No tienes permiso para realizar esta acción!'
 
 # Help Command Messages
 help:
   messages:
-    - "&6&l=== UltraCoinFlip Ayuda ==="
+    - "&f&lᴄᴏɪɴꜰʟɪᴘ &7&lAyuda"
     - "&e/coinflip &7- Abrir el menú de coinflip"
     - "&e/coinflip create <currency> <amount> &7- Crear un nuevo juego de coinflip"
     - "&e/coinflip delete &7- Cancelar tu juego de coinflip activo"
@@ -135,7 +135,7 @@ bossbar:
 
 # Mensajes de Auditoría Admin
 admin:
-  audit-header: '&6=== Estado de UltraCoinFlip ==='
+  audit-header: '&f&lᴄᴏɪɴꜰʟɪᴘ &8│ &6Estado'
   audit-active-games: '&7Juegos Activos: &e<count>'
   audit-rolling-games: '&7Juegos en Progreso: &e<count>'
   audit-players-in-transaction: '&7Jugadores en Transacción: &e<count>'
@@ -158,7 +158,7 @@ update:
   download-link: '&bDescargar: &fhttps://www.spigotmc.org/resources/ultracoinflip-1-20-x-1-21-10-folia-support.130124/'
   check-failed: '&cNo se pudo verificar actualizaciones: <error>'
   # Short in-game message (separate from console)
-  in-game-new-version: "<yellow>Hay una nueva versión de UltraCoinFlip disponible <gray>(Actual: <red><current> <gray>| Última: <green><latest><gray>). <aqua><click:open_url:'https://www.spigotmc.org/resources/ultracoinflip-1-20-x-1-21-10-folia-support.130124'><u>Descargar aquí</u></click><gray>."
+  in-game-new-version: "<yellow>Hay una nueva versión de &f&lᴄᴏɪɴꜰʟɪᴘ disponible <gray>(Actual: <red><current> <gray>| Última: <green><latest><gray>). <aqua><click:open_url:'https://www.spigotmc.org/resources/ultracoinflip.130124'><u>Descargar aquí</u></click><gray>."
 
 # ==========================================
 # Configuration Version

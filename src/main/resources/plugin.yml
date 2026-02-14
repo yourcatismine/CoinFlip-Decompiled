@@ -6,7 +6,7 @@ api-version: 1.13
 # Version compatibility is handled by code using VersionDetector, MaterialHelper, and fallbacks
 # Plugin is compiled with Paper 1.21.11 API for latest features while maintaining backward compatibility
 author: hiiamken
-description: Advanced coinflip gambling system
+description: Advanced &f&lᴄᴏɪɴꜰʟɪᴘ gambling system
 folia-supported: true
 depend: [Vault]
 softdepend: [PlaceholderAPI, PlayerPoints, TokenManager, CoinsEngine, BeastTokens]

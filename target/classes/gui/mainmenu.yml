@@ -40,7 +40,7 @@
 list-gui:
   size: 45
   items-per-page: 21
-  title: '&lUltraCoinFlip &8[Page <page>]'  # <page> - current page number
+  title: '&f&lᴄᴏɪɴꜰʟɪᴘ &8[Page <page>]'  # <page> - current page number
   
   filler:
     # For 1.13+: 'BLACK_STAINED_GLASS_PANE'

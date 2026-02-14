@@ -470,7 +470,7 @@ public class CoinFlipRollGUI extends InventoryGUI {
          this.plugin
                .getLogger()
                .severe(
-                     "[UltraCoinFlip] Invalid animation slot count: "
+                     "[CoinFlip] Invalid animation slot count: "
                            + animationSlotCount
                            + ". Cannot start animation. This is likely a configuration error in flipping.yml. Refunding players...");
          this.plugin.getCoinFlipManager().refundRollingGame(this.player1.getUniqueId());
@@ -515,8 +515,8 @@ public class CoinFlipRollGUI extends InventoryGUI {
             this.plugin
                   .getLogger()
                   .severe(
-                        "[UltraCoinFlip] Failed to open inventory for players. This may be caused by server issues or player disconnection. Refunding players...");
-            this.plugin.getLogger().severe("[UltraCoinFlip] Error details: " + var10.getMessage());
+                        "[CoinFlip] Failed to open inventory for players. This may be caused by server issues or player disconnection. Refunding players...");
+            this.plugin.getLogger().severe("[CoinFlip] Error details: " + var10.getMessage());
             if (this.plugin.getDebugManager() != null
                   && this.plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.GUI)) {
                var10.printStackTrace();
@@ -546,7 +546,7 @@ public class CoinFlipRollGUI extends InventoryGUI {
          this.plugin
                .getLogger()
                .severe(
-                     "[UltraCoinFlip] Animation pool is empty! Cannot start animation. This may be caused by missing animation items in flipping.yml. Refunding players...");
+                     "[CoinFlip] Animation pool is empty! Cannot start animation. This may be caused by missing animation items in flipping.yml. Refunding players...");
          this.plugin.getCoinFlipManager().refundRollingGame(this.player1.getUniqueId());
       }
    }
@@ -3065,16 +3065,18 @@ public class CoinFlipRollGUI extends InventoryGUI {
                            Map<String, String> consecutiveWinsPlaceholders = new HashMap<>();
                            consecutiveWinsPlaceholders.put("prefix", this.plugin.getMessage("prefix"));
                            consecutiveWinsPlaceholders.put("count", String.valueOf(newConsecutiveWins));
-                           String opponentName = (this.player1UUID != null && this.player1UUID.equals(winner.getUniqueId()) ? this.player2Name : this.player1Name);
-/*
-                           if (loser != null) {
-                              try {
-                                 String name = loser.getName();
-                                 opponentName = name != null && !name.trim().isEmpty() ? name : "Unknown";
-                              } catch (Exception var65) {
-                                 opponentName = "Unknown";
-                              }
-                         */
+                           String opponentName = (this.player1UUID != null
+                                 && this.player1UUID.equals(winner.getUniqueId()) ? this.player2Name
+                                       : this.player1Name);
+                           /*
+                            * if (loser != null) {
+                            * try {
+                            * String name = loser.getName();
+                            * opponentName = name != null && !name.trim().isEmpty() ? name : "Unknown";
+                            * } catch (Exception var65) {
+                            * opponentName = "Unknown";
+                            * }
+                            */
 
                            consecutiveWinsPlaceholders.put("opponent", opponentName);
                            String ordinalSuffix = this.getOrdinalSuffix(newConsecutiveWins);
