@@ -50,7 +50,8 @@ public class CurrencySelectionGUI extends InventoryGUI {
 
    @Override
    public void decorate(Player player) {
-      String fillerMaterialName = this.plugin.getGUIConfig().getString("currency-selection-gui.filler.material", "BLACK_STAINED_GLASS_PANE");
+      String fillerMaterialName = this.plugin.getGUIConfig().getString("currency-selection-gui.filler.material",
+            "BLACK_STAINED_GLASS_PANE");
       ItemStack filler = MaterialHelper.createItemStack(fillerMaterialName);
       if (filler == null) {
          filler = MaterialHelper.createItemStack("BLACK_STAINED_GLASS_PANE");
@@ -62,21 +63,26 @@ public class CurrencySelectionGUI extends InventoryGUI {
 
       ItemMeta fillerMeta = filler.getItemMeta();
       if (fillerMeta != null) {
-         String fillerDisplayName = this.plugin.getGUIConfig().getString("currency-selection-gui.filler.display-name", " ");
+         String fillerDisplayName = this.plugin.getGUIConfig().getString("currency-selection-gui.filler.display-name",
+               " ");
          this.plugin.getGuiHelper().setDisplayName(fillerMeta, fillerDisplayName);
-         this.plugin.getGuiHelper().applyItemProperties(fillerMeta, "currency-selection-gui.filler", this.plugin.getGUIConfig());
+         this.plugin.getGuiHelper().applyItemProperties(fillerMeta, "currency-selection-gui.filler",
+               this.plugin.getGUIConfig());
          filler.setItemMeta(fillerMeta);
       }
 
-      for (int slot : this.plugin.getGuiHelper().parseSlotList(this.plugin.getGUIConfig(), "currency-selection-gui.filler.slots")) {
+      for (int slot : this.plugin.getGuiHelper().parseSlotList(this.plugin.getGUIConfig(),
+            "currency-selection-gui.filler.slots")) {
          if (slot >= 0 && slot < this.getInventory().getSize()) {
             this.getInventory().setItem(slot, filler);
          }
       }
 
       List<Integer> currencySlots = new ArrayList<>();
-      List<Integer> row1 = this.plugin.getGuiHelper().parseSlotList(this.plugin.getGUIConfig(), "currency-selection-gui.currency-slots.row1");
-      List<Integer> row2 = this.plugin.getGuiHelper().parseSlotList(this.plugin.getGUIConfig(), "currency-selection-gui.currency-slots.row2");
+      List<Integer> row1 = this.plugin.getGuiHelper().parseSlotList(this.plugin.getGUIConfig(),
+            "currency-selection-gui.currency-slots.row1");
+      List<Integer> row2 = this.plugin.getGuiHelper().parseSlotList(this.plugin.getGUIConfig(),
+            "currency-selection-gui.currency-slots.row2");
       currencySlots.addAll(row1);
       currencySlots.addAll(row2);
       List<CurrencySelectionGUI.CurrencyItem> currencies = this.getAllCurrencies();
@@ -90,15 +96,16 @@ public class CurrencySelectionGUI extends InventoryGUI {
          int slotx = currencySlots.get(slotIndex);
          CoinFlipGame.CurrencyType type = currency.type;
          String currencyId = currency.currencyId;
-         this.addButton(slotx, new InventoryButton().creator(p -> this.createCurrencyItem(type, currencyId)).consumer(event -> {
-            if (this.plugin.getCurrencyManager().isCurrencyEnabled(type, currencyId)) {
-               this.parentGUI.setSelectedCurrency(type, currencyId);
-               CreateCoinFlipGUI newGUI = new CreateCoinFlipGUI(this.plugin, this.viewer);
-               newGUI.setSelectedCurrency(type, currencyId);
-               newGUI.setCurrentAmount(this.parentGUI.getCurrentAmount());
-               this.plugin.getGuiManager().openGUI(newGUI, this.viewer);
-            }
-         }));
+         this.addButton(slotx,
+               new InventoryButton().creator(p -> this.createCurrencyItem(type, currencyId)).consumer(event -> {
+                  if (this.plugin.getCurrencyManager().isCurrencyEnabled(type, currencyId)) {
+                     this.parentGUI.setSelectedCurrency(type, currencyId);
+                     CreateCoinFlipGUI newGUI = new CreateCoinFlipGUI(this.plugin, this.viewer);
+                     newGUI.setSelectedCurrency(type, currencyId);
+                     newGUI.setCurrentAmount(this.parentGUI.getCurrentAmount());
+                     this.plugin.getGuiManager().openGUI(newGUI, this.viewer);
+                  }
+               }));
          slotIndex++;
       }
 
@@ -123,11 +130,11 @@ public class CurrencySelectionGUI extends InventoryGUI {
 
       List<String> finalBackLore = backLore;
       this.addButton(
-         backSlot,
-         new InventoryButton()
-            .creator(p -> this.createBackButton(finalBackMaterial, backTitle, finalBackLore))
-            .consumer(event -> this.plugin.getGuiManager().openGUI(new CreateCoinFlipGUI(this.plugin, this.viewer), this.viewer))
-      );
+            backSlot,
+            new InventoryButton()
+                  .creator(p -> this.createBackButton(finalBackMaterial, backTitle, finalBackLore))
+                  .consumer(event -> this.plugin.getGuiManager()
+                        .openGUI(new CreateCoinFlipGUI(this.plugin, this.viewer), this.viewer)));
       super.decorate(player);
    }
 
@@ -145,7 +152,8 @@ public class CurrencySelectionGUI extends InventoryGUI {
             if (currenciesSection != null) {
                for (String currencyId : currenciesSection.getKeys(false)) {
                   if (currencyId != null && !currencyId.isEmpty()) {
-                     currencies.add(new CurrencySelectionGUI.CurrencyItem(CoinFlipGame.CurrencyType.COINSENGINE, currencyId));
+                     currencies.add(
+                           new CurrencySelectionGUI.CurrencyItem(CoinFlipGame.CurrencyType.COINSENGINE, currencyId));
                   }
                }
             }
@@ -160,7 +168,8 @@ public class CurrencySelectionGUI extends InventoryGUI {
             if (currenciesSection != null) {
                for (String currencyIdx : currenciesSection.getKeys(false)) {
                   if (currencyIdx != null && !currencyIdx.isEmpty()) {
-                     currencies.add(new CurrencySelectionGUI.CurrencyItem(CoinFlipGame.CurrencyType.PLACEHOLDER, currencyIdx));
+                     currencies.add(
+                           new CurrencySelectionGUI.CurrencyItem(CoinFlipGame.CurrencyType.PLACEHOLDER, currencyIdx));
                   }
                }
             }
@@ -173,15 +182,17 @@ public class CurrencySelectionGUI extends InventoryGUI {
    private ItemStack createCurrencyItem(CoinFlipGame.CurrencyType type, String currencyId) {
       boolean isEnabled = this.plugin.getCurrencyManager().isCurrencyEnabled(type, currencyId);
       boolean isSelected = this.parentGUI.getSelectedCurrencyType() == type
-         && (currencyId == null ? this.parentGUI.getSelectedCurrencyId() == null : currencyId.equals(this.parentGUI.getSelectedCurrencyId()));
+            && (currencyId == null ? this.parentGUI.getSelectedCurrencyId() == null
+                  : currencyId.equals(this.parentGUI.getSelectedCurrencyId()));
       String configKey = this.getCurrencyConfigKey(type, currencyId);
       String basePath = "currency-selection-gui.currencies." + configKey;
       String defaultPath = "currency-selection-gui.currency-default";
       Material material;
       if (isEnabled) {
          String materialName = this.plugin
-            .getGUIConfig()
-            .getString(basePath + ".material", this.plugin.getGUIConfig().getString(defaultPath + ".material", "GOLD_INGOT"));
+               .getGUIConfig()
+               .getString(basePath + ".material",
+                     this.plugin.getGUIConfig().getString(defaultPath + ".material", "GOLD_INGOT"));
 
          try {
             material = Material.valueOf(materialName.toUpperCase());
@@ -189,7 +200,8 @@ public class CurrencySelectionGUI extends InventoryGUI {
             material = Material.GOLD_INGOT;
          }
       } else {
-         String disabledMaterialName = this.plugin.getGUIConfig().getString(defaultPath + ".disabled-material", "BARRIER");
+         String disabledMaterialName = this.plugin.getGUIConfig().getString(defaultPath + ".disabled-material",
+               "BARRIER");
          Material barrierFallback = MaterialHelper.getBarrierMaterial();
          material = MaterialHelper.parseMaterial(disabledMaterialName, barrierFallback);
          if (material == null) {
@@ -198,23 +210,25 @@ public class CurrencySelectionGUI extends InventoryGUI {
       }
 
       String displayName = isEnabled
-         ? this.plugin.getCurrencyManager().getDisplayName(type, currencyId)
-         : type.name() + (currencyId != null ? ":" + currencyId : "");
+            ? this.plugin.getCurrencyManager().getDisplayName(type, currencyId)
+            : type.name() + (currencyId != null ? ":" + currencyId : "");
       String titleTemplate;
       if (isEnabled) {
          if (isSelected) {
             titleTemplate = this.plugin
-               .getGUIConfig()
-               .getString(
-                  basePath + ".selected-title", this.plugin.getGUIConfig().getString(defaultPath + ".selected-title", "&r&6&l<displayName> &a&l(Selected)")
-               );
+                  .getGUIConfig()
+                  .getString(
+                        basePath + ".selected-title", this.plugin.getGUIConfig()
+                              .getString(defaultPath + ".selected-title", "&r&6&l<displayName> &a&l(Selected)"));
          } else {
             titleTemplate = this.plugin
-               .getGUIConfig()
-               .getString(basePath + ".title", this.plugin.getGUIConfig().getString(defaultPath + ".title", "&r&6&l<displayName>"));
+                  .getGUIConfig()
+                  .getString(basePath + ".title",
+                        this.plugin.getGUIConfig().getString(defaultPath + ".title", "&r&6&l<displayName>"));
          }
       } else {
-         titleTemplate = this.plugin.getGUIConfig().getString(defaultPath + ".disabled-title", "&r&c&l<displayName> &7(Not Loaded)");
+         titleTemplate = this.plugin.getGUIConfig().getString(defaultPath + ".disabled-title",
+               "&r&c&l<displayName> &7(Not Loaded)");
       }
 
       Map<String, String> placeholders = new HashMap<>();
@@ -245,7 +259,7 @@ public class CurrencySelectionGUI extends InventoryGUI {
 
          for (Object obj : loreList) {
             if (obj instanceof String) {
-               lore.add((String)obj);
+               lore.add((String) obj);
             }
          }
       } else {
@@ -263,7 +277,7 @@ public class CurrencySelectionGUI extends InventoryGUI {
 
          for (Object objx : loreList) {
             if (objx instanceof String) {
-               lore.add((String)objx);
+               lore.add((String) objx);
             }
          }
       }
@@ -273,10 +287,12 @@ public class CurrencySelectionGUI extends InventoryGUI {
       if (meta != null) {
          this.plugin.getGuiHelper().setDisplayName(meta, title);
          this.plugin.getGuiHelper().setLore(meta, lore);
-         boolean glowing = this.plugin.getGUIConfig().getBoolean(basePath + ".glowing", this.plugin.getGUIConfig().getBoolean(defaultPath + ".glowing", false));
+         boolean glowing = this.plugin.getGUIConfig().getBoolean(basePath + ".glowing",
+               this.plugin.getGUIConfig().getBoolean(defaultPath + ".glowing", false));
          int customModelData = this.plugin
-            .getGUIConfig()
-            .getInt(basePath + ".custom-model-data", this.plugin.getGUIConfig().getInt(defaultPath + ".custom-model-data", 0));
+               .getGUIConfig()
+               .getInt(basePath + ".custom-model-data",
+                     this.plugin.getGUIConfig().getInt(defaultPath + ".custom-model-data", 0));
          this.plugin.getGuiHelper().applyItemProperties(meta, glowing, customModelData);
          item.setItemMeta(meta);
       }
@@ -299,12 +315,11 @@ public class CurrencySelectionGUI extends InventoryGUI {
          }
 
          this.plugin
-            .getGuiHelper()
-            .applyItemProperties(
-               meta,
-               this.plugin.getGUIConfig().getBoolean("currency-selection-gui.back.glowing", false),
-               this.plugin.getGUIConfig().getInt("currency-selection-gui.back.custom-model-data", 0)
-            );
+               .getGuiHelper()
+               .applyItemProperties(
+                     meta,
+                     this.plugin.getGUIConfig().getBoolean("currency-selection-gui.back.glowing", false),
+                     this.plugin.getGUIConfig().getInt("currency-selection-gui.back.custom-model-data", 0));
          item.setItemMeta(meta);
       }
 

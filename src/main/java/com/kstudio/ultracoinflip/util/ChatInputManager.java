@@ -43,7 +43,7 @@ public class ChatInputManager implements Listener {
          Consumer<String> callback = this.pendingInputs.remove(uuid);
          String rawMessage = event.getMessage();
          String cleanedMessage = this.stripColorCodes(rawMessage);
-         this.plugin.getServer().getScheduler().runTask(this.plugin, () -> {
+         FoliaScheduler.runTask(this.plugin, () -> {
             if (callback != null) {
                callback.accept(cleanedMessage);
             }
@@ -61,7 +61,7 @@ public class ChatInputManager implements Listener {
          String commandMessage = event.getMessage();
          String rawMessage = commandMessage.startsWith("/") ? commandMessage.substring(1) : commandMessage;
          String cleanedMessage = this.stripColorCodes(rawMessage);
-         this.plugin.getServer().getScheduler().runTask(this.plugin, () -> {
+         FoliaScheduler.runTask(this.plugin, () -> {
             if (callback != null) {
                this.plugin.getSoundHelper().playSound(player, "input.amount-submit");
                callback.accept(cleanedMessage);

@@ -39,6 +39,7 @@ public class CoinFlipManager {
    private final Map<UUID, Set<UUID>> hostGameIndex = new ConcurrentHashMap<>();
    private final Map<UUID, PlayerStats> playerStatsCache = new ConcurrentHashMap<>();
    private final Map<UUID, UUID> activeRollingGames = new ConcurrentHashMap<>();
+   private final Map<UUID, Long> rollingGameStartTimes = new ConcurrentHashMap<>();
    private final Map<UUID, Map<UUID, DatabaseManager.WaitingGameBackup>> pendingWaitingRefunds = new ConcurrentHashMap<>();
    private final Object statsLock = new Object();
    private final Object rollingGamesLock = new Object();
@@ -68,7 +69,8 @@ public class CoinFlipManager {
       this.cacheConfigValues();
 
       try {
-         boolean enabled = plugin.getConfigManager().getConfig().getBoolean("performance.batch-stats-save.enabled", true);
+         boolean enabled = plugin.getConfigManager().getConfig().getBoolean("performance.batch-stats-save.enabled",
+               true);
          this.batchModeEnabled = enabled;
          if (this.batchModeEnabled) {
             this.statsBatchQueue = new StatsBatchQueue(plugin, databaseManager);
@@ -77,8 +79,10 @@ public class CoinFlipManager {
                   this.statsBatchQueue.checkAutoFlush();
                }
             }, 40L, 40L);
-            if (plugin.getDebugManager() != null && plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.DATABASE)) {
-               plugin.getDebugManager().info(DebugManager.Category.DATABASE, "Stats batch queue enabled for optimized database performance");
+            if (plugin.getDebugManager() != null
+                  && plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.DATABASE)) {
+               plugin.getDebugManager().info(DebugManager.Category.DATABASE,
+                     "Stats batch queue enabled for optimized database performance");
             }
          }
       } catch (Exception var4) {
@@ -88,7 +92,8 @@ public class CoinFlipManager {
 
       FoliaScheduler.runTaskTimer(plugin, () -> {
          int removed = 0;
-         Iterator<Entry<UUID, Map<UUID, DatabaseManager.WaitingGameBackup>>> it = this.pendingWaitingRefunds.entrySet().iterator();
+         Iterator<Entry<UUID, Map<UUID, DatabaseManager.WaitingGameBackup>>> it = this.pendingWaitingRefunds.entrySet()
+               .iterator();
 
          while (it.hasNext()) {
             Entry<UUID, Map<UUID, DatabaseManager.WaitingGameBackup>> entry = it.next();
@@ -98,22 +103,60 @@ public class CoinFlipManager {
             }
          }
 
-         if (removed > 0 && plugin.getDebugManager() != null && plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.DATABASE)) {
-            plugin.getDebugManager().info(DebugManager.Category.DATABASE, "Cleaned up " + removed + " empty pending refund entries");
+         if (removed > 0 && plugin.getDebugManager() != null
+               && plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.DATABASE)) {
+            plugin.getDebugManager().info(DebugManager.Category.DATABASE,
+                  "Cleaned up " + removed + " empty pending refund entries");
          }
 
          long cutoffTime = System.currentTimeMillis() - 600000L;
          this.refundCooldowns.entrySet().removeIf(entry -> entry.getValue() < cutoffTime);
          this.refundLocks.entrySet().removeIf(entry -> !entry.getValue().isLocked());
       }, 36000L, 36000L);
+
+      // Stale rolling games cleanup task (every 5 minutes)
+      FoliaScheduler.runTaskTimer(plugin, () -> {
+         long now = System.currentTimeMillis();
+         long staleCutoff = now - 300000L; // 5 minutes
+         int cleaned = 0;
+
+         synchronized (this.rollingGamesLock) {
+            Iterator<Entry<UUID, Long>> it = this.rollingGameStartTimes.entrySet().iterator();
+            while (it.hasNext()) {
+               Entry<UUID, Long> entry = it.next();
+               if (entry.getValue() < staleCutoff) {
+                  UUID playerUUID = entry.getKey();
+                  UUID partnerUUID = this.activeRollingGames.get(playerUUID);
+
+                  this.activeRollingGames.remove(playerUUID);
+                  if (partnerUUID != null) {
+                     this.activeRollingGames.remove(partnerUUID);
+                     this.rollingGameStartTimes.remove(partnerUUID);
+                  }
+                  it.remove();
+                  cleaned++;
+               }
+            }
+         }
+
+         if (cleaned > 0 && plugin.getDebugManager() != null
+               && plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.GAME)) {
+            plugin.getDebugManager().info(DebugManager.Category.GAME,
+                  "Cleaned up " + cleaned + " stale rolling games (active for >5m)");
+         }
+      }, 6000L, 6000L);
    }
 
    private void cacheConfigValues() {
       this.cachedRefundOnDisconnect = this.plugin.getConfig().getBoolean("game-behavior.refund-on-disconnect", false);
-      this.cachedRefundOnReconnectAfterShutdown = this.plugin.getConfig().getBoolean("game-behavior.refund-on-reconnect-after-shutdown", true);
-      this.cachedCancelGameOnDisconnect = this.plugin.getConfig().getBoolean("game-behavior.cancel-game-on-disconnect", false);
-      this.cachedKeepCoinflipOnDisconnect = this.plugin.getConfig().getBoolean("game-behavior.keep-coinflip-on-disconnect", false);
-      this.cachedAllowCloseDuringAnimation = this.plugin.getConfig().getBoolean("game-behavior.allow-close-during-animation", true);
+      this.cachedRefundOnReconnectAfterShutdown = this.plugin.getConfig()
+            .getBoolean("game-behavior.refund-on-reconnect-after-shutdown", true);
+      this.cachedCancelGameOnDisconnect = this.plugin.getConfig().getBoolean("game-behavior.cancel-game-on-disconnect",
+            false);
+      this.cachedKeepCoinflipOnDisconnect = this.plugin.getConfig()
+            .getBoolean("game-behavior.keep-coinflip-on-disconnect", false);
+      this.cachedAllowCloseDuringAnimation = this.plugin.getConfig()
+            .getBoolean("game-behavior.allow-close-during-animation", true);
    }
 
    public void reloadConfigCache() {
@@ -144,67 +187,28 @@ public class CoinFlipManager {
       this.createGame(player, type, currencyId, amount, null);
    }
 
-   public void createGame(Player player, CoinFlipGame.CurrencyType type, String currencyId, double amount, Boolean headsChoice) {
-      CoinFlipGame game = new CoinFlipGame(UUID.randomUUID(), player, type, currencyId, amount, System.currentTimeMillis(), headsChoice);
+   public void createGame(Player player, CoinFlipGame.CurrencyType type, String currencyId, double amount,
+         Boolean headsChoice) {
+      CoinFlipGame game = new CoinFlipGame(UUID.randomUUID(), player, type, currencyId, amount,
+            System.currentTimeMillis(), headsChoice);
       this.addActiveGame(game);
-      if (this.plugin.getDebugManager() != null && this.plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.GAME)) {
+      if (this.plugin.getDebugManager() != null
+            && this.plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.GAME)) {
          String currencyInfo = currencyId != null ? currencyId : type.name();
          String headsTailsInfo = headsChoice != null ? (headsChoice ? "Heads" : "Tails") : "None";
          this.plugin
-            .getDebugManager()
-            .info(
-               DebugManager.Category.GAME,
-               String.format("Game created: Player=%s, Currency=%s, Amount=%.2f, Choice=%s", player.getName(), currencyInfo, amount, headsTailsInfo)
-            );
+               .getDebugManager()
+               .info(
+                     DebugManager.Category.GAME,
+                     String.format("Game created: Player=%s, Currency=%s, Amount=%.2f, Choice=%s", player.getName(),
+                           currencyInfo, amount, headsTailsInfo));
       }
 
       CoinFlipListGUI.refreshAllViewers(this.plugin);
    }
 
-   public void createHouseGame(Player player, CoinFlipGame.CurrencyType currencyType, String currencyId, double amount) {
-      HouseCoinFlipManager houseManager = this.plugin.getHouseCoinFlipManager();
-      if (houseManager == null) {
-         this.plugin.getSoundHelper().playSound(player, "error.general");
-         String message = this.plugin.getMessage("prefix") + " &cPlay with Bot is not available!";
-         this.plugin.getAdventureHelper().sendMessage(player, message);
-      } else {
-         String validationError = houseManager.validateHouseGame(player, currencyType, currencyId, amount);
-         if (validationError != null) {
-            this.plugin.getSoundHelper().playSound(player, "error.general");
-            this.plugin.getAdventureHelper().sendMessage(player, validationError);
-         } else {
-            BettingLimitManager.LimitCheckResult limitResult = this.plugin.getBettingLimitManager().canPlayerBet(player, currencyType, currencyId, amount);
-            if (limitResult != null) {
-               this.plugin.getSoundHelper().playSound(player, "error.general");
-               Map<String, String> placeholders = new HashMap<>();
-               placeholders.put("limit", this.plugin.getGuiHelper().formatAmount(limitResult.getLimit(), currencyId));
-               placeholders.put("current", this.plugin.getGuiHelper().formatAmount(limitResult.getCurrentTotal(), currencyId));
-               placeholders.put("remaining", this.plugin.getGuiHelper().formatAmount(limitResult.getRemaining(), currencyId));
-               String message = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("command." + limitResult.getMessageKey());
-               this.plugin.getAdventureHelper().sendMessage(player, message, placeholders);
-            } else if (!this.plugin.getCurrencyManager().withdraw(player, currencyType, currencyId, amount)) {
-               this.plugin.getSoundHelper().playSound(player, "error.general");
-               String message = this.plugin.getMessage("prefix") + " &cFailed to withdraw currency!";
-               this.plugin.getAdventureHelper().sendMessage(player, message);
-            } else {
-               houseManager.addPendingGame(player.getUniqueId(), currencyType, currencyId, amount);
-               houseManager.recordHouseGamePlay(player.getUniqueId());
-               this.plugin.getBettingLimitManager().recordBet(player, currencyType, currencyId, amount);
-               this.registerRollingGame(player.getUniqueId(), UUID.fromString("00000000-0000-0000-0000-000000000000"), amount, currencyType, currencyId);
-               FoliaScheduler.runTaskLater(this.plugin, player, () -> {
-                  if (player != null && player.isOnline()) {
-                     CoinFlipRollGUI rollGUI = new CoinFlipRollGUI(this.plugin, player, amount, currencyType, currencyId, true);
-                     rollGUI.startAnimation();
-                  }
-               }, 3L);
-               if (this.plugin.getConfig().getBoolean("house.notifications.enabled", true)) {
-               }
-            }
-         }
-      }
-   }
-
-   private void updateStatsForCurrency(PlayerStats stats, CoinFlipGame.CurrencyType currencyType, String currencyId, boolean isWin, double amount) {
+   private void updateStatsForCurrency(PlayerStats stats, CoinFlipGame.CurrencyType currencyType, String currencyId,
+         boolean isWin, double amount) {
       if (currencyType == CoinFlipGame.CurrencyType.MONEY) {
          if (isWin) {
             stats.setProfitMoney(stats.getProfitMoney() + Math.max(0.0, amount));
@@ -287,7 +291,8 @@ public class CoinFlipManager {
          }
 
          this.invalidateGamesCache();
-         if (this.plugin.getDebugManager() != null && this.plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.GAME)) {
+         if (this.plugin.getDebugManager() != null
+               && this.plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.GAME)) {
             String playerName;
             if (game.getHost() != null) {
                playerName = game.getHost().getName();
@@ -297,7 +302,8 @@ public class CoinFlipManager {
                playerName = gameId.toString();
             }
 
-            this.plugin.getDebugManager().verbose(DebugManager.Category.GAME, String.format("Game removed: Player=%s", playerName));
+            this.plugin.getDebugManager().verbose(DebugManager.Category.GAME,
+                  String.format("Game removed: Player=%s", playerName));
          }
 
          CoinFlipListGUI.refreshAllViewers(this.plugin);
@@ -318,24 +324,22 @@ public class CoinFlipManager {
       if (game != null) {
          this.addActiveGame(game);
          this.plugin
-            .getLogger()
-            .info(
-               String.format(
-                  "[JOIN ROLLBACK] Restored game %s after failed join. Host: %s, Amount: %.2f",
-                  game.getGameId(),
-                  game.getHost() != null ? game.getHost().getName() : game.getHostUuid(),
-                  game.getAmount()
-               )
-            );
-         if (this.plugin.getDebugManager() != null && this.plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.GAME)) {
-            this.plugin
-               .getDebugManager()
+               .getLogger()
                .info(
-                  DebugManager.Category.GAME,
-                  String.format(
-                     "Game restored after failed join: GameId=%s, Host=%s", game.getGameId(), game.getHost() != null ? game.getHost().getName() : "unknown"
-                  )
-               );
+                     String.format(
+                           "[JOIN ROLLBACK] Restored game %s after failed join. Host: %s, Amount: %.2f",
+                           game.getGameId(),
+                           game.getHost() != null ? game.getHost().getName() : game.getHostUuid(),
+                           game.getAmount()));
+         if (this.plugin.getDebugManager() != null
+               && this.plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.GAME)) {
+            this.plugin
+                  .getDebugManager()
+                  .info(
+                        DebugManager.Category.GAME,
+                        String.format(
+                              "Game restored after failed join: GameId=%s, Host=%s", game.getGameId(),
+                              game.getHost() != null ? game.getHost().getName() : "unknown"));
          }
       }
    }
@@ -357,7 +361,8 @@ public class CoinFlipManager {
       } catch (Exception var2) {
          this.plugin.getLogger().severe("Failed to initialize database: " + var2.getMessage());
          if (this.plugin.getDebugManager() != null) {
-            this.plugin.getDebugManager().error(DebugManager.Category.DATABASE, "Failed to initialize database: " + var2.getMessage(), var2);
+            this.plugin.getDebugManager().error(DebugManager.Category.DATABASE,
+                  "Failed to initialize database: " + var2.getMessage(), var2);
          } else {
             var2.printStackTrace();
          }
@@ -486,12 +491,14 @@ public class CoinFlipManager {
          this.playerStatsCache.put(uuid, cached);
       }
 
-      if (this.plugin.getDebugManager() != null && this.plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.DATABASE)) {
+      if (this.plugin.getDebugManager() != null
+            && this.plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.DATABASE)) {
          this.plugin
-            .getDebugManager()
-            .verbose(
-               DebugManager.Category.DATABASE, String.format("Saving stats for player: %s (Wins: %d, Defeats: %d)", uuid, stats.getWins(), stats.getDefeats())
-            );
+               .getDebugManager()
+               .verbose(
+                     DebugManager.Category.DATABASE,
+                     String.format("Saving stats for player: %s (Wins: %d, Defeats: %d)", uuid, stats.getWins(),
+                           stats.getDefeats()));
       }
 
       if (this.batchModeEnabled && this.statsBatchQueue != null) {
@@ -510,7 +517,8 @@ public class CoinFlipManager {
             } catch (Exception var4) {
                this.plugin.getLogger().severe("Failed to save stats for " + uuid + ": " + var4.getMessage());
                if (this.plugin.getDebugManager() != null) {
-                  this.plugin.getDebugManager().error(DebugManager.Category.DATABASE, "Failed to save stats for " + uuid + ": " + var4.getMessage(), var4);
+                  this.plugin.getDebugManager().error(DebugManager.Category.DATABASE,
+                        "Failed to save stats for " + uuid + ": " + var4.getMessage(), var4);
                } else {
                   var4.printStackTrace();
                }
@@ -551,15 +559,15 @@ public class CoinFlipManager {
                   if (entry != null) {
                      Object permObj = entry.get("permission");
                      if (permObj instanceof String) {
-                        String permission = ((String)permObj).trim();
+                        String permission = ((String) permObj).trim();
                         if (!permission.isEmpty() && player.hasPermission(permission)) {
                            int permLimit = resolvedLimit;
                            Object limitObj = entry.get("limit");
                            if (limitObj instanceof Number) {
-                              permLimit = ((Number)limitObj).intValue();
+                              permLimit = ((Number) limitObj).intValue();
                            } else if (limitObj instanceof String) {
                               try {
-                                 permLimit = Integer.parseInt(((String)limitObj).trim());
+                                 permLimit = Integer.parseInt(((String) limitObj).trim());
                               } catch (NumberFormatException var14) {
                               }
                            }
@@ -598,7 +606,7 @@ public class CoinFlipManager {
             return 0;
          } else {
             long remaining = 3000L - (System.currentTimeMillis() - lastRefund);
-            return remaining > 0L ? (int)Math.ceil(remaining / 1000.0) : 0;
+            return remaining > 0L ? (int) Math.ceil(remaining / 1000.0) : 0;
          }
       }
    }
@@ -615,7 +623,8 @@ public class CoinFlipManager {
             ReentrantLock lock = this.getRefundLock(gameId);
             if (!lock.tryLock()) {
                if (txLogger != null) {
-                  txLogger.logBlocked(player.getName(), RefundResult.BLOCKED, "Game " + gameId + " already being processed");
+                  txLogger.logBlocked(player.getName(), RefundResult.BLOCKED,
+                        "Game " + gameId + " already being processed");
                }
 
                return false;
@@ -627,7 +636,8 @@ public class CoinFlipManager {
                try {
                   if (!this.gamesBeingRefunded.add(gameId)) {
                      if (txLogger != null) {
-                        txLogger.logBlocked(player.getName(), RefundResult.BLOCKED, "Duplicate refund attempt for game " + gameId);
+                        txLogger.logBlocked(player.getName(), RefundResult.BLOCKED,
+                              "Duplicate refund attempt for game " + gameId);
                      }
 
                      return false;
@@ -636,7 +646,8 @@ public class CoinFlipManager {
                   if (limiter != null && !limiter.tryLockGame(gameId)) {
                      this.gamesBeingRefunded.remove(gameId);
                      if (txLogger != null) {
-                        txLogger.logBlocked(player.getName(), RefundResult.BLOCKED, "Limiter lock failed for game " + gameId);
+                        txLogger.logBlocked(player.getName(), RefundResult.BLOCKED,
+                              "Limiter lock failed for game " + gameId);
                      }
 
                      return false;
@@ -647,8 +658,8 @@ public class CoinFlipManager {
                      if (game == null) {
                         if (txLogger != null) {
                            txLogger.logRefund(
-                              player.getName(), player.getUniqueId(), gameId, 0.0, CoinFlipGame.CurrencyType.MONEY, null, RefundResult.NOT_FOUND
-                           );
+                                 player.getName(), player.getUniqueId(), gameId, 0.0, CoinFlipGame.CurrencyType.MONEY,
+                                 null, RefundResult.NOT_FOUND);
                         }
 
                         return false;
@@ -666,23 +677,25 @@ public class CoinFlipManager {
                      }
 
                      this.invalidateGamesCache();
-                     if (this.plugin.getDebugManager() != null && this.plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.GAME)) {
+                     if (this.plugin.getDebugManager() != null
+                           && this.plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.GAME)) {
                         this.plugin
-                           .getDebugManager()
-                           .info(
-                              DebugManager.Category.GAME,
-                              String.format(
-                                 "[REFUND] Player=%s, GameID=%s, Amount=%.2f, Currency=%s", player.getName(), gameId, game.getAmount(), game.getCurrencyType()
-                              )
-                           );
+                              .getDebugManager()
+                              .info(
+                                    DebugManager.Category.GAME,
+                                    String.format(
+                                          "[REFUND] Player=%s, GameID=%s, Amount=%.2f, Currency=%s", player.getName(),
+                                          gameId, game.getAmount(), game.getCurrencyType()));
                      }
 
                      boolean depositSuccess = false;
 
                      try {
-                        depositSuccess = this.plugin.getCurrencyManager().deposit(player, game.getCurrencyType(), game.getCurrencyId(), game.getAmount());
+                        depositSuccess = this.plugin.getCurrencyManager().deposit(player, game.getCurrencyType(),
+                              game.getCurrencyId(), game.getAmount());
                      } catch (Exception var21) {
-                        this.plugin.getLogger().severe("[REFUND ERROR] Deposit failed for player " + player.getName() + ": " + var21.getMessage());
+                        this.plugin.getLogger().severe("[REFUND ERROR] Deposit failed for player " + player.getName()
+                              + ": " + var21.getMessage());
                         depositSuccess = false;
                      }
 
@@ -696,14 +709,13 @@ public class CoinFlipManager {
 
                         if (txLogger != null) {
                            txLogger.logRefund(
-                              player.getName(),
-                              player.getUniqueId(),
-                              gameId,
-                              game.getAmount(),
-                              game.getCurrencyType(),
-                              game.getCurrencyId(),
-                              RefundResult.SUCCESS
-                           );
+                                 player.getName(),
+                                 player.getUniqueId(),
+                                 gameId,
+                                 game.getAmount(),
+                                 game.getCurrencyType(),
+                                 game.getCurrencyId(),
+                                 RefundResult.SUCCESS);
                         }
 
                         return true;
@@ -719,19 +731,19 @@ public class CoinFlipManager {
                      try {
                         this.persistWaitingGame(game);
                      } catch (Exception var20) {
-                        this.plugin.getLogger().severe("[REFUND ROLLBACK] Failed to persist backup: " + var20.getMessage());
+                        this.plugin.getLogger()
+                              .severe("[REFUND ROLLBACK] Failed to persist backup: " + var20.getMessage());
                      }
 
                      if (txLogger != null) {
                         txLogger.logRefund(
-                           player.getName(),
-                           player.getUniqueId(),
-                           gameId,
-                           game.getAmount(),
-                           game.getCurrencyType(),
-                           game.getCurrencyId(),
-                           RefundResult.ROLLBACK
-                        );
+                              player.getName(),
+                              player.getUniqueId(),
+                              gameId,
+                              game.getAmount(),
+                              game.getCurrencyType(),
+                              game.getCurrencyId(),
+                              RefundResult.ROLLBACK);
                      }
 
                      e = false;
@@ -770,9 +782,11 @@ public class CoinFlipManager {
          if (limiter == null || !limiter.isGlobalLocked() && !limiter.isReloading()) {
             boolean onCooldown = limiter != null ? limiter.isOnCooldown(uuid) : this.isOnRefundCooldown(uuid);
             if (onCooldown) {
-               int remaining = limiter != null ? limiter.getRemainingCooldownSeconds(uuid) : this.getRemainingCooldown(uuid);
+               int remaining = limiter != null ? limiter.getRemainingCooldownSeconds(uuid)
+                     : this.getRemainingCooldown(uuid);
                if (txLogger != null) {
-                  txLogger.logBlocked(player.getName(), RefundResult.COOLDOWN, "Cooldown: " + remaining + "s remaining");
+                  txLogger.logBlocked(player.getName(), RefundResult.COOLDOWN,
+                        "Cooldown: " + remaining + "s remaining");
                }
 
                return -1;
@@ -781,7 +795,8 @@ public class CoinFlipManager {
                if (limiter != null) {
                   if (!limiter.tryStartTransaction(uuid)) {
                      if (txLogger != null) {
-                        txLogger.logBlocked(player.getName(), RefundResult.BLOCKED, "Concurrent transaction in progress");
+                        txLogger.logBlocked(player.getName(), RefundResult.BLOCKED,
+                              "Concurrent transaction in progress");
                      }
 
                      return -2;
@@ -846,7 +861,8 @@ public class CoinFlipManager {
 
    public boolean isRefundInProgress() {
       RefundLimiter limiter = this.plugin.getRefundLimiter();
-      return limiter != null ? limiter.isRefundInProgress() : !this.playersInRefundTransaction.isEmpty() || !this.gamesBeingRefunded.isEmpty();
+      return limiter != null ? limiter.isRefundInProgress()
+            : !this.playersInRefundTransaction.isEmpty() || !this.gamesBeingRefunded.isEmpty();
    }
 
    public void cancelGameWithoutRefund(Player player) {
@@ -854,10 +870,12 @@ public class CoinFlipManager {
          UUID uuid = player.getUniqueId();
          Set<UUID> games = this.hostGameIndex.get(uuid);
          if (games != null && !games.isEmpty()) {
-            if (this.plugin.getDebugManager() != null && this.plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.GAME)) {
+            if (this.plugin.getDebugManager() != null
+                  && this.plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.GAME)) {
                this.plugin
-                  .getDebugManager()
-                  .info(DebugManager.Category.GAME, String.format("Cancelling %d game(s) without refund for player %s", games.size(), player.getName()));
+                     .getDebugManager()
+                     .info(DebugManager.Category.GAME, String.format(
+                           "Cancelling %d game(s) without refund for player %s", games.size(), player.getName()));
             }
 
             for (UUID gameId : new ArrayList<>(games)) {
@@ -871,7 +889,8 @@ public class CoinFlipManager {
       }
    }
 
-   public void registerRollingGame(UUID player1UUID, UUID player2UUID, double amount, CoinFlipGame.CurrencyType currencyType, String currencyId) {
+   public void registerRollingGame(UUID player1UUID, UUID player2UUID, double amount,
+         CoinFlipGame.CurrencyType currencyType, String currencyId) {
       synchronized (this.rollingGamesLock) {
          this.saveBackup(player1UUID, currencyType, currencyId, amount);
          UUID botUUID = UUID.fromString("00000000-0000-0000-0000-000000000000");
@@ -880,8 +899,10 @@ public class CoinFlipManager {
          }
 
          this.activeRollingGames.put(player1UUID, player2UUID);
+         this.rollingGameStartTimes.put(player1UUID, System.currentTimeMillis());
          if (!botUUID.equals(player2UUID)) {
             this.activeRollingGames.put(player2UUID, player1UUID);
+            this.rollingGameStartTimes.put(player2UUID, System.currentTimeMillis());
          }
       }
    }
@@ -893,6 +914,8 @@ public class CoinFlipManager {
          if (player1InGame || player2InGame) {
             this.activeRollingGames.remove(player1UUID);
             this.activeRollingGames.remove(player2UUID);
+            this.rollingGameStartTimes.remove(player1UUID);
+            this.rollingGameStartTimes.remove(player2UUID);
          }
       }
    }
@@ -911,7 +934,8 @@ public class CoinFlipManager {
 
    public void refundRollingGame(UUID disconnectedPlayerUUID) {
       if (!this.rollingGamesBeingRefunded.add(disconnectedPlayerUUID)) {
-         this.plugin.getLogger().info("[ANTI-DUPE] Rolling game refund already in progress for " + disconnectedPlayerUUID);
+         this.plugin.getLogger()
+               .info("[ANTI-DUPE] Rolling game refund already in progress for " + disconnectedPlayerUUID);
       } else {
          UUID partnerUUID = null;
          UUID botUUID = UUID.fromString("00000000-0000-0000-0000-000000000000");
@@ -924,13 +948,16 @@ public class CoinFlipManager {
                }
 
                if (!botUUID.equals(partnerUUID) && !this.rollingGamesBeingRefunded.add(partnerUUID)) {
-                  this.plugin.getLogger().info("[ANTI-DUPE] Rolling game already being refunded by partner " + partnerUUID);
+                  this.plugin.getLogger()
+                        .info("[ANTI-DUPE] Rolling game already being refunded by partner " + partnerUUID);
                   return;
                }
 
                this.activeRollingGames.remove(disconnectedPlayerUUID);
+               this.rollingGameStartTimes.remove(disconnectedPlayerUUID);
                if (!botUUID.equals(partnerUUID)) {
                   this.activeRollingGames.remove(partnerUUID);
+                  this.rollingGameStartTimes.remove(partnerUUID);
                }
             }
 
@@ -940,12 +967,11 @@ public class CoinFlipManager {
                DatabaseManager.BackupData backup1 = this.databaseManager.loadBackup(disconnectedPlayerUUID);
                DatabaseManager.BackupData backup2 = this.databaseManager.loadBackup(partnerUUID);
                this.plugin
-                  .getLogger()
-                  .info(
-                     String.format(
-                        "[Rolling Game Refund] Player1=%s, Player2=%s, RefundOnDisconnect=%s", disconnectedPlayerUUID, partnerUUID, refundOnDisconnect
-                     )
-                  );
+                     .getLogger()
+                     .info(
+                           String.format(
+                                 "[Rolling Game Refund] Player1=%s, Player2=%s, RefundOnDisconnect=%s",
+                                 disconnectedPlayerUUID, partnerUUID, refundOnDisconnect));
                if (backup1 != null) {
                   Player player1 = Bukkit.getPlayer(disconnectedPlayerUUID);
                   if (player1 != null && player1.isOnline() && refundOnDisconnect) {
@@ -965,15 +991,18 @@ public class CoinFlipManager {
                      }
                   } else {
                      this.removeBackup(partnerUUID);
-                     this.plugin.getLogger().info("[Rolling Game Refund] Removed bot backup (no refund needed): " + partnerUUID);
+                     this.plugin.getLogger()
+                           .info("[Rolling Game Refund] Removed bot backup (no refund needed): " + partnerUUID);
                   }
                }
 
                this.plugin
-                  .getLogger()
-                  .info("Refunded rolling game for players " + disconnectedPlayerUUID + " and " + partnerUUID + " due to player disconnect");
+                     .getLogger()
+                     .info("Refunded rolling game for players " + disconnectedPlayerUUID + " and " + partnerUUID
+                           + " due to player disconnect");
             } catch (Exception var12) {
-               this.plugin.getLogger().severe("Failed to refund rolling game for " + disconnectedPlayerUUID + ": " + var12.getMessage());
+               this.plugin.getLogger()
+                     .severe("Failed to refund rolling game for " + disconnectedPlayerUUID + ": " + var12.getMessage());
                var12.printStackTrace();
             }
          } finally {
@@ -1055,13 +1084,15 @@ public class CoinFlipManager {
                      cleanedCount++;
                   } catch (Exception var17) {
                      this.plugin
-                        .getLogger()
-                        .warning("Failed to cleanup rolling game for players " + player1UUID + " and " + player2UUID + ": " + var17.getMessage());
+                           .getLogger()
+                           .warning("Failed to cleanup rolling game for players " + player1UUID + " and " + player2UUID
+                                 + ": " + var17.getMessage());
                      this.activeRollingGames.remove(player1UUID);
                      this.activeRollingGames.remove(player2UUID);
                   }
                } else {
-                  this.plugin.getLogger().warning("Skipping cleanup for game with null UUID(s): player1=" + player1UUID + ", player2=" + player2UUID);
+                  this.plugin.getLogger().warning("Skipping cleanup for game with null UUID(s): player1=" + player1UUID
+                        + ", player2=" + player2UUID);
                }
             }
 
@@ -1086,7 +1117,8 @@ public class CoinFlipManager {
          }
       } catch (IllegalArgumentException var9) {
          if (!currencyTypeString.equals("ORBS") && !currencyTypeString.startsWith("ORBS:")) {
-            this.plugin.getLogger().warning("Unknown currency type in backup for " + player.getUniqueId() + ": " + currencyTypeString);
+            this.plugin.getLogger()
+                  .warning("Unknown currency type in backup for " + player.getUniqueId() + ": " + currencyTypeString);
             return;
          }
 
@@ -1099,10 +1131,10 @@ public class CoinFlipManager {
 
          if (!this.plugin.getCurrencyManager().isPlaceholderCurrencyEnabled(currencyId)) {
             this.plugin
-               .getLogger()
-               .warning(
-                  "Legacy ORBS backup found for " + player.getUniqueId() + " but placeholder currency '" + currencyId + "' is not enabled. Skipping refund..."
-               );
+                  .getLogger()
+                  .warning(
+                        "Legacy ORBS backup found for " + player.getUniqueId() + " but placeholder currency '"
+                              + currencyId + "' is not enabled. Skipping refund...");
             return;
          }
 
@@ -1123,7 +1155,8 @@ public class CoinFlipManager {
       boolean refundOnReconnectAfterShutdown = this.cachedRefundOnReconnectAfterShutdown;
       boolean skipRefundOnStop = refundOnReconnectAfterShutdown && refundOnDisconnect;
       if (skipRefundOnStop) {
-         this.plugin.getLogger().info("Refunds will be processed when players reconnect (refund-on-reconnect-after-shutdown is enabled)...");
+         this.plugin.getLogger().info(
+               "Refunds will be processed when players reconnect (refund-on-reconnect-after-shutdown is enabled)...");
       } else {
          this.plugin.getLogger().info("Refunding all active coinflip games due to server shutdown...");
       }
@@ -1139,17 +1172,21 @@ public class CoinFlipManager {
                UUID hostUuid = host != null ? host.getUniqueId() : null;
                Player onlinePlayer = hostUuid != null ? Bukkit.getPlayer(hostUuid) : null;
                if (onlinePlayer != null && onlinePlayer.isOnline() && !skipRefundOnStop) {
-                  this.plugin.getCurrencyManager().deposit(onlinePlayer, game.getCurrencyType(), game.getCurrencyId(), game.getAmount());
+                  this.plugin.getCurrencyManager().deposit(onlinePlayer, game.getCurrencyType(), game.getCurrencyId(),
+                        game.getAmount());
                   refundedOnline++;
                   this.deleteWaitingBackup(game.getGameId());
-                  this.plugin.getLogger().info("Refunded active game for online player: " + onlinePlayer.getName() + " (" + hostUuid + ")");
+                  this.plugin.getLogger().info(
+                        "Refunded active game for online player: " + onlinePlayer.getName() + " (" + hostUuid + ")");
                } else {
                   refundedOffline++;
                   this.queueWaitingRefund(game);
                   if (skipRefundOnStop) {
-                     this.plugin.getLogger().info("Active game for player will be restored on rejoin: " + (hostUuid != null ? hostUuid : "unknown"));
+                     this.plugin.getLogger().info("Active game for player will be restored on rejoin: "
+                           + (hostUuid != null ? hostUuid : "unknown"));
                   } else {
-                     this.plugin.getLogger().info("Active game for offline player will be restored on rejoin: " + (hostUuid != null ? hostUuid : "unknown"));
+                     this.plugin.getLogger().info("Active game for offline player will be restored on rejoin: "
+                           + (hostUuid != null ? hostUuid : "unknown"));
                   }
                }
 
@@ -1176,13 +1213,16 @@ public class CoinFlipManager {
                            this.refundPlayerFromBackup(player1, backup1);
                            this.removeBackup(player1UUID);
                            refundedOnline++;
-                           this.plugin.getLogger().info("Refunded rolling game for online player: " + player1.getName() + " (" + player1UUID + ")");
+                           this.plugin.getLogger().info("Refunded rolling game for online player: " + player1.getName()
+                                 + " (" + player1UUID + ")");
                         } else {
                            refundedOffline++;
                            if (skipRefundOnStop) {
-                              this.plugin.getLogger().info("Rolling game for player will be restored on rejoin: " + player1UUID);
+                              this.plugin.getLogger()
+                                    .info("Rolling game for player will be restored on rejoin: " + player1UUID);
                            } else {
-                              this.plugin.getLogger().info("Rolling game for offline player will be restored on rejoin: " + player1UUID);
+                              this.plugin.getLogger()
+                                    .info("Rolling game for offline player will be restored on rejoin: " + player1UUID);
                            }
                         }
                      }
@@ -1193,20 +1233,24 @@ public class CoinFlipManager {
                            this.refundPlayerFromBackup(player2, backup2);
                            this.removeBackup(player2UUID);
                            refundedOnline++;
-                           this.plugin.getLogger().info("Refunded rolling game for online player: " + player2.getName() + " (" + player2UUID + ")");
+                           this.plugin.getLogger().info("Refunded rolling game for online player: " + player2.getName()
+                                 + " (" + player2UUID + ")");
                         } else {
                            refundedOffline++;
                            if (skipRefundOnStop) {
-                              this.plugin.getLogger().info("Rolling game for player will be restored on rejoin: " + player2UUID);
+                              this.plugin.getLogger()
+                                    .info("Rolling game for player will be restored on rejoin: " + player2UUID);
                            } else {
-                              this.plugin.getLogger().info("Rolling game for offline player will be restored on rejoin: " + player2UUID);
+                              this.plugin.getLogger()
+                                    .info("Rolling game for offline player will be restored on rejoin: " + player2UUID);
                            }
                         }
                      }
                   } catch (Exception var18) {
                      this.plugin
-                        .getLogger()
-                        .warning("Failed to refund rolling game for players " + player1UUID + " and " + player2UUID + ": " + var18.getMessage());
+                           .getLogger()
+                           .warning("Failed to refund rolling game for players " + player1UUID + " and " + player2UUID
+                                 + ": " + var18.getMessage());
                   }
                }
             }
@@ -1227,7 +1271,8 @@ public class CoinFlipManager {
                      this.refundPlayerFromBackup(player, backup);
                      this.removeBackup(uuid);
                      refundedOnline++;
-                     this.plugin.getLogger().info("Refunded backup for online player: " + player.getName() + " (" + uuid + ")");
+                     this.plugin.getLogger()
+                           .info("Refunded backup for online player: " + player.getName() + " (" + uuid + ")");
                   } else {
                      refundedOffline++;
                   }
@@ -1241,15 +1286,14 @@ public class CoinFlipManager {
          this.hostGameIndex.clear();
          this.invalidateGamesCache();
          this.plugin
-            .getLogger()
-            .info(
-               "Refund process completed. Online players refunded: "
-                  + refundedOnline
-                  + ", Offline players (will be restored on rejoin): "
-                  + refundedOffline
-                  + ", Total backups: "
-                  + totalBackups
-            );
+               .getLogger()
+               .info(
+                     "Refund process completed. Online players refunded: "
+                           + refundedOnline
+                           + ", Offline players (will be restored on rejoin): "
+                           + refundedOffline
+                           + ", Total backups: "
+                           + totalBackups);
       } catch (Exception var20) {
          this.plugin.getLogger().severe("Failed to refund all games: " + var20.getMessage());
          var20.printStackTrace();
@@ -1260,9 +1304,11 @@ public class CoinFlipManager {
       if (game != null && game.getHostUuid() != null) {
          Runnable task = () -> {
             try {
-               this.databaseManager.saveWaitingGameBackup(game.getGameId(), game.getHostUuid(), game.getCurrencyType(), game.getCurrencyId(), game.getAmount());
+               this.databaseManager.saveWaitingGameBackup(game.getGameId(), game.getHostUuid(), game.getCurrencyType(),
+                     game.getCurrencyId(), game.getAmount());
             } catch (Exception var3) {
-               this.plugin.getLogger().warning("Failed to save waiting game backup for " + game.getHostUuid() + ": " + var3.getMessage());
+               this.plugin.getLogger().warning(
+                     "Failed to save waiting game backup for " + game.getHostUuid() + ": " + var3.getMessage());
             }
          };
          if (!LegacyCompatibility.isServerStopping() && this.plugin.getServer().isPrimaryThread()) {
@@ -1279,7 +1325,8 @@ public class CoinFlipManager {
             try {
                this.databaseManager.removeWaitingGameBackup(gameId);
             } catch (Exception var3) {
-               this.plugin.getLogger().warning("Failed to remove waiting game backup for " + gameId + ": " + var3.getMessage());
+               this.plugin.getLogger()
+                     .warning("Failed to remove waiting game backup for " + gameId + ": " + var3.getMessage());
             }
          };
          if (!LegacyCompatibility.isServerStopping() && this.plugin.getServer().isPrimaryThread()) {
@@ -1293,9 +1340,10 @@ public class CoinFlipManager {
    private void queueWaitingRefund(CoinFlipGame game) {
       if (game != null && game.getHostUuid() != null) {
          DatabaseManager.WaitingGameBackup backup = new DatabaseManager.WaitingGameBackup(
-            game.getGameId(), game.getHostUuid(), game.getCurrencyType(), game.getCurrencyId(), game.getAmount(), System.currentTimeMillis()
-         );
-         this.pendingWaitingRefunds.computeIfAbsent(game.getHostUuid(), id -> new ConcurrentHashMap<>()).put(game.getGameId(), backup);
+               game.getGameId(), game.getHostUuid(), game.getCurrencyType(), game.getCurrencyId(), game.getAmount(),
+               System.currentTimeMillis());
+         this.pendingWaitingRefunds.computeIfAbsent(game.getHostUuid(), id -> new ConcurrentHashMap<>())
+               .put(game.getGameId(), backup);
       }
    }
 
@@ -1314,7 +1362,8 @@ public class CoinFlipManager {
    private void loadWaitingGameBackups() {
       try {
          for (DatabaseManager.WaitingGameBackup backup : this.databaseManager.loadAllWaitingGameBackups()) {
-            this.pendingWaitingRefunds.computeIfAbsent(backup.getOwnerUuid(), id -> new ConcurrentHashMap<>()).put(backup.getGameId(), backup);
+            this.pendingWaitingRefunds.computeIfAbsent(backup.getOwnerUuid(), id -> new ConcurrentHashMap<>())
+                  .put(backup.getGameId(), backup);
          }
 
          for (Player online : Bukkit.getOnlinePlayers()) {
@@ -1336,16 +1385,19 @@ public class CoinFlipManager {
                FoliaScheduler.runTask(this.plugin, player, () -> {
                   if (!player.isOnline()) {
                      for (DatabaseManager.WaitingGameBackup backup : backups) {
-                        this.pendingWaitingRefunds.computeIfAbsent(uuid, id -> new ConcurrentHashMap<>()).put(backup.getGameId(), backup);
+                        this.pendingWaitingRefunds.computeIfAbsent(uuid, id -> new ConcurrentHashMap<>())
+                              .put(backup.getGameId(), backup);
                      }
                   } else {
                      for (DatabaseManager.WaitingGameBackup backup : backups) {
-                        this.plugin.getCurrencyManager().deposit(player, backup.getCurrencyType(), backup.getCurrencyId(), backup.getAmount());
+                        this.plugin.getCurrencyManager().deposit(player, backup.getCurrencyType(),
+                              backup.getCurrencyId(), backup.getAmount());
                         this.deleteWaitingBackup(backup.getGameId());
                      }
 
                      this.pendingWaitingRefunds.remove(uuid);
-                     this.plugin.getLogger().info("Restored " + backups.size() + " waiting coinflip(s) for " + player.getName());
+                     this.plugin.getLogger()
+                           .info("Restored " + backups.size() + " waiting coinflip(s) for " + player.getName());
                   }
                });
             }
@@ -1364,7 +1416,8 @@ public class CoinFlipManager {
          try {
             backups.addAll(this.databaseManager.loadWaitingGameBackups(ownerUuid));
          } catch (Exception var5) {
-            this.plugin.getLogger().warning("Failed to load waiting backups for " + ownerUuid + ": " + var5.getMessage());
+            this.plugin.getLogger()
+                  .warning("Failed to load waiting backups for " + ownerUuid + ": " + var5.getMessage());
          }
       }
 
@@ -1376,7 +1429,8 @@ public class CoinFlipManager {
          FoliaScheduler.runTaskAsynchronously(this.plugin, () -> {
             try {
                String currencyTypeString = type.name();
-               if (currencyId != null && (type == CoinFlipGame.CurrencyType.COINSENGINE || type == CoinFlipGame.CurrencyType.PLACEHOLDER)) {
+               if (currencyId != null && (type == CoinFlipGame.CurrencyType.COINSENGINE
+                     || type == CoinFlipGame.CurrencyType.PLACEHOLDER)) {
                   currencyTypeString = type.name() + ":" + currencyId;
                }
 
@@ -1389,7 +1443,8 @@ public class CoinFlipManager {
       } else {
          try {
             String currencyTypeString = type.name();
-            if (currencyId != null && (type == CoinFlipGame.CurrencyType.COINSENGINE || type == CoinFlipGame.CurrencyType.PLACEHOLDER)) {
+            if (currencyId != null
+                  && (type == CoinFlipGame.CurrencyType.COINSENGINE || type == CoinFlipGame.CurrencyType.PLACEHOLDER)) {
                currencyTypeString = type.name() + ":" + currencyId;
             }
 
@@ -1436,103 +1491,112 @@ public class CoinFlipManager {
       if (player != null && player.isOnline()) {
          UUID uuid = player.getUniqueId();
          FoliaScheduler.runTaskAsynchronously(
-            this.plugin,
-            () -> {
-               try {
-                  DatabaseManager.BackupData backup = this.databaseManager.loadBackup(uuid);
-                  if (backup == null) {
-                     return;
-                  }
-
-                  FoliaScheduler.runTask(
-                     this.plugin,
-                     () -> {
-                        Player onlinePlayer = Bukkit.getPlayer(uuid);
-                        if (onlinePlayer != null && onlinePlayer.isOnline()) {
-                           FoliaScheduler.runTask(
-                              this.plugin,
-                              onlinePlayer,
-                              () -> {
-                                 if (onlinePlayer.isOnline()) {
-                                    String currencyTypeString = backup.getCurrencyType();
-                                    String currencyId = null;
-                                    CoinFlipGame.CurrencyType type;
-                                    if (currencyTypeString.contains(":")) {
-                                       String[] parts = currencyTypeString.split(":", 2);
-
-                                       try {
-                                          type = CoinFlipGame.CurrencyType.valueOf(parts[0]);
-                                          currencyId = parts[1];
-                                       } catch (IllegalArgumentException var10) {
-                                          if (!parts[0].equals("ORBS")) {
-                                             this.plugin.getLogger().warning("Unknown currency type in backup: " + parts[0]);
-                                             this.removeBackup(uuid);
-                                             return;
-                                          }
-
-                                          if (!this.plugin.getCurrencyManager().isPlaceholderCurrencyEnabled("orbs")) {
-                                             this.plugin
-                                                .getLogger()
-                                                .warning("Legacy ORBS backup found for " + uuid + " but no placeholder currency 'orbs' is enabled. Skipping...");
-                                             this.removeBackup(uuid);
-                                             return;
-                                          }
-
-                                          type = CoinFlipGame.CurrencyType.PLACEHOLDER;
-                                          currencyId = "orbs";
-                                       }
-                                    } else {
-                                       try {
-                                          type = CoinFlipGame.CurrencyType.valueOf(currencyTypeString);
-                                       } catch (IllegalArgumentException var11) {
-                                          if (!currencyTypeString.equals("ORBS")) {
-                                             this.plugin.getLogger().warning("Unknown currency type in backup: " + currencyTypeString);
-                                             this.removeBackup(uuid);
-                                             return;
-                                          }
-
-                                          if (!this.plugin.getCurrencyManager().isPlaceholderCurrencyEnabled("orbs")) {
-                                             this.plugin
-                                                .getLogger()
-                                                .warning("Legacy ORBS backup found for " + uuid + " but no placeholder currency 'orbs' is enabled. Skipping...");
-                                             this.removeBackup(uuid);
-                                             return;
-                                          }
-
-                                          type = CoinFlipGame.CurrencyType.PLACEHOLDER;
-                                          currencyId = "orbs";
-                                       }
-                                    }
-
-                                    this.plugin.getCurrencyManager().deposit(onlinePlayer, type, currencyId, backup.getAmount());
-                                    String unit = this.plugin.getCurrencyManager().getUnit(type, currencyId);
-                                    String message = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("game.refunded");
-                                    Map<String, String> placeholders = new HashMap<>();
-                                    placeholders.put("amount", this.plugin.getGuiHelper().formatAmount(backup.getAmount()));
-                                    placeholders.put("symbol", unit);
-                                    this.plugin.getAdventureHelper().sendMessage(onlinePlayer, message, placeholders);
-                                    this.removeBackup(uuid);
-                                 }
-                              }
-                           );
-                        } else {
-                           this.plugin
-                              .getLogger()
-                              .info("Player " + uuid + " went offline before backup could be restored. Backup will be restored on next join.");
-                        }
+               this.plugin,
+               () -> {
+                  try {
+                     DatabaseManager.BackupData backup = this.databaseManager.loadBackup(uuid);
+                     if (backup == null) {
+                        return;
                      }
-                  );
-               } catch (Exception var4) {
-                  this.plugin.getLogger().severe("Failed to restore backup for " + uuid + ": " + var4.getMessage());
-                  var4.printStackTrace();
-               }
-            }
-         );
+
+                     FoliaScheduler.runTask(
+                           this.plugin,
+                           () -> {
+                              Player onlinePlayer = Bukkit.getPlayer(uuid);
+                              if (onlinePlayer != null && onlinePlayer.isOnline()) {
+                                 FoliaScheduler.runTask(
+                                       this.plugin,
+                                       onlinePlayer,
+                                       () -> {
+                                          if (onlinePlayer.isOnline()) {
+                                             String currencyTypeString = backup.getCurrencyType();
+                                             String currencyId = null;
+                                             CoinFlipGame.CurrencyType type;
+                                             if (currencyTypeString.contains(":")) {
+                                                String[] parts = currencyTypeString.split(":", 2);
+
+                                                try {
+                                                   type = CoinFlipGame.CurrencyType.valueOf(parts[0]);
+                                                   currencyId = parts[1];
+                                                } catch (IllegalArgumentException var10) {
+                                                   if (!parts[0].equals("ORBS")) {
+                                                      this.plugin.getLogger()
+                                                            .warning("Unknown currency type in backup: " + parts[0]);
+                                                      this.removeBackup(uuid);
+                                                      return;
+                                                   }
+
+                                                   if (!this.plugin.getCurrencyManager()
+                                                         .isPlaceholderCurrencyEnabled("orbs")) {
+                                                      this.plugin
+                                                            .getLogger()
+                                                            .warning("Legacy ORBS backup found for " + uuid
+                                                                  + " but no placeholder currency 'orbs' is enabled. Skipping...");
+                                                      this.removeBackup(uuid);
+                                                      return;
+                                                   }
+
+                                                   type = CoinFlipGame.CurrencyType.PLACEHOLDER;
+                                                   currencyId = "orbs";
+                                                }
+                                             } else {
+                                                try {
+                                                   type = CoinFlipGame.CurrencyType.valueOf(currencyTypeString);
+                                                } catch (IllegalArgumentException var11) {
+                                                   if (!currencyTypeString.equals("ORBS")) {
+                                                      this.plugin.getLogger().warning(
+                                                            "Unknown currency type in backup: " + currencyTypeString);
+                                                      this.removeBackup(uuid);
+                                                      return;
+                                                   }
+
+                                                   if (!this.plugin.getCurrencyManager()
+                                                         .isPlaceholderCurrencyEnabled("orbs")) {
+                                                      this.plugin
+                                                            .getLogger()
+                                                            .warning("Legacy ORBS backup found for " + uuid
+                                                                  + " but no placeholder currency 'orbs' is enabled. Skipping...");
+                                                      this.removeBackup(uuid);
+                                                      return;
+                                                   }
+
+                                                   type = CoinFlipGame.CurrencyType.PLACEHOLDER;
+                                                   currencyId = "orbs";
+                                                }
+                                             }
+
+                                             this.plugin.getCurrencyManager().deposit(onlinePlayer, type, currencyId,
+                                                   backup.getAmount());
+                                             String unit = this.plugin.getCurrencyManager().getUnit(type, currencyId);
+                                             String message = this.plugin.getMessage("prefix") + " "
+                                                   + this.plugin.getMessage("game.refunded");
+                                             Map<String, String> placeholders = new HashMap<>();
+                                             placeholders.put("amount",
+                                                   this.plugin.getGuiHelper().formatAmount(backup.getAmount()));
+                                             placeholders.put("symbol", unit);
+                                             this.plugin.getAdventureHelper().sendMessage(onlinePlayer, message,
+                                                   placeholders);
+                                             this.removeBackup(uuid);
+                                          }
+                                       });
+                              } else {
+                                 this.plugin
+                                       .getLogger()
+                                       .info("Player " + uuid
+                                             + " went offline before backup could be restored. Backup will be restored on next join.");
+                              }
+                           });
+                  } catch (Exception var4) {
+                     this.plugin.getLogger().severe("Failed to restore backup for " + uuid + ": " + var4.getMessage());
+                     var4.printStackTrace();
+                  }
+               });
       }
    }
 
    private String createConsecutiveWinsKey(UUID uuid1, UUID uuid2) {
-      return uuid1.compareTo(uuid2) < 0 ? uuid1.toString() + "_" + uuid2.toString() : uuid2.toString() + "_" + uuid1.toString();
+      return uuid1.compareTo(uuid2) < 0 ? uuid1.toString() + "_" + uuid2.toString()
+            : uuid2.toString() + "_" + uuid1.toString();
    }
 
    public int getConsecutiveWins(UUID winnerUUID, UUID loserUUID) {
@@ -1593,7 +1657,8 @@ public class CoinFlipManager {
                this.databaseManager.savePlayerStats(entry.getKey(), entry.getValue());
                saved++;
             } catch (Exception var6) {
-               this.plugin.getLogger().warning("Failed to save stats for " + entry.getKey() + " on shutdown: " + var6.getMessage());
+               this.plugin.getLogger()
+                     .warning("Failed to save stats for " + entry.getKey() + " on shutdown: " + var6.getMessage());
             }
          }
 

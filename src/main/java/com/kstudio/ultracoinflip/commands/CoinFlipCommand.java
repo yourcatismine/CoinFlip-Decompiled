@@ -16,7 +16,6 @@ import com.kstudio.ultracoinflip.currency.CurrencyManager;
 import com.kstudio.ultracoinflip.currency.CurrencySettings;
 import com.kstudio.ultracoinflip.data.BettingLimitManager;
 import com.kstudio.ultracoinflip.data.CoinFlipGame;
-import com.kstudio.ultracoinflip.data.HouseCoinFlipManager;
 import com.kstudio.ultracoinflip.gui.impl.CoinFlipHistoryGUI;
 import com.kstudio.ultracoinflip.gui.impl.CoinFlipListGUI;
 import com.kstudio.ultracoinflip.gui.impl.CreateCoinFlipGUI;
@@ -48,12 +47,12 @@ public class CoinFlipCommand extends BaseCommand {
    public static String getCommandAliases(KStudio plugin) {
       List<String> aliases = plugin.getConfig().getStringList("command_aliases");
       return aliases != null && !aliases.isEmpty()
-         ? aliases.stream()
-            .filter(alias -> alias != null && !alias.trim().isEmpty())
-            .map(String::trim)
-            .filter(alias -> !alias.isEmpty())
-            .collect(Collectors.joining("|"))
-         : "coinflip|cf";
+            ? aliases.stream()
+                  .filter(alias -> alias != null && !alias.trim().isEmpty())
+                  .map(String::trim)
+                  .filter(alias -> !alias.isEmpty())
+                  .collect(Collectors.joining("|"))
+            : "coinflip|cf";
    }
 
    @Default
@@ -74,14 +73,14 @@ public class CoinFlipCommand extends BaseCommand {
 
          String message = this.plugin.getMessage("prefix") + " " + noPermMessage;
          if (sender instanceof Player) {
-            this.plugin.getAdventureHelper().sendMessage((Player)sender, message);
+            this.plugin.getAdventureHelper().sendMessage((Player) sender, message);
          } else {
             sender.sendMessage(this.plugin.getAdventureHelper().parseToLegacy(message));
          }
       } else if (this.plugin.getCoinFlipManager().isRefundInProgress()) {
          String message = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("command.reload-busy");
          if (sender instanceof Player) {
-            this.plugin.getAdventureHelper().sendMessage((Player)sender, message);
+            this.plugin.getAdventureHelper().sendMessage((Player) sender, message);
          } else {
             sender.sendMessage(this.plugin.getAdventureHelper().parseToLegacy(message));
          }
@@ -111,7 +110,7 @@ public class CoinFlipCommand extends BaseCommand {
 
             String message = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("command.reload-success");
             if (sender instanceof Player) {
-               Player player = (Player)sender;
+               Player player = (Player) sender;
                this.plugin.getSoundHelper().playSound(player, "command.reload-success");
                this.plugin.getAdventureHelper().sendMessage(player, message);
             } else {
@@ -123,17 +122,19 @@ public class CoinFlipCommand extends BaseCommand {
          } catch (Exception var9) {
             String message = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("command.reload-error");
             if (sender instanceof Player) {
-               Player player = (Player)sender;
+               Player player = (Player) sender;
                this.plugin.getSoundHelper().playSound(player, "command.reload-error");
                this.plugin.getAdventureHelper().sendMessage(player, message);
             } else {
                sender.sendMessage(this.plugin.getAdventureHelper().parseToLegacy(message));
             }
 
-            this.plugin.getLogger().severe("[UltraCoinFlip] Failed to reload plugin configuration: " + var9.getMessage());
+            this.plugin.getLogger()
+                  .severe("[UltraCoinFlip] Failed to reload plugin configuration: " + var9.getMessage());
             this.plugin
-               .getLogger()
-               .severe("[UltraCoinFlip] Please check your configuration files for syntax errors. The plugin will continue using previous settings.");
+                  .getLogger()
+                  .severe(
+                        "[UltraCoinFlip] Please check your configuration files for syntax errors. The plugin will continue using previous settings.");
             var9.printStackTrace();
          } finally {
             if (limiter != null) {
@@ -151,7 +152,7 @@ public class CoinFlipCommand extends BaseCommand {
          String noPermMessage = this.plugin.getMessage("command.no-permission");
          String message = this.plugin.getMessage("prefix") + " " + noPermMessage;
          if (sender instanceof Player) {
-            this.plugin.getAdventureHelper().sendMessage((Player)sender, message);
+            this.plugin.getAdventureHelper().sendMessage((Player) sender, message);
          } else {
             sender.sendMessage(this.plugin.getAdventureHelper().parseToLegacy(message));
          }
@@ -162,37 +163,41 @@ public class CoinFlipCommand extends BaseCommand {
          List<String> messages = new ArrayList<>();
          messages.add(this.plugin.getMessage("admin.audit-header"));
          messages.add(
-            this.plugin.getMessage("admin.audit-active-games").replace("<count>", String.valueOf(this.plugin.getCoinFlipManager().getActiveGameCount()))
-         );
+               this.plugin.getMessage("admin.audit-active-games").replace("<count>",
+                     String.valueOf(this.plugin.getCoinFlipManager().getActiveGameCount())));
          messages.add(
-            this.plugin.getMessage("admin.audit-rolling-games").replace("<count>", String.valueOf(this.plugin.getCoinFlipManager().getRollingGameCount()))
-         );
+               this.plugin.getMessage("admin.audit-rolling-games").replace("<count>",
+                     String.valueOf(this.plugin.getCoinFlipManager().getRollingGameCount())));
          messages.add(
-            this.plugin
-               .getMessage("admin.audit-players-in-transaction")
-               .replace("<count>", String.valueOf(this.plugin.getCoinFlipManager().getPlayersInTransactionCount()))
-         );
+               this.plugin
+                     .getMessage("admin.audit-players-in-transaction")
+                     .replace("<count>",
+                           String.valueOf(this.plugin.getCoinFlipManager().getPlayersInTransactionCount())));
          messages.add(
-            this.plugin.getMessage("admin.audit-refund-in-progress").replace("<status>", this.plugin.getCoinFlipManager().isRefundInProgress() ? yes : no)
-         );
+               this.plugin.getMessage("admin.audit-refund-in-progress").replace("<status>",
+                     this.plugin.getCoinFlipManager().isRefundInProgress() ? yes : no));
          if (limiter != null) {
-            messages.add(this.plugin.getMessage("admin.audit-global-lock").replace("<status>", limiter.isGlobalLocked() ? yes : no));
-            messages.add(this.plugin.getMessage("admin.audit-reloading").replace("<status>", limiter.isReloading() ? yes : no));
-            messages.add(this.plugin.getMessage("admin.audit-active-refund-count").replace("<count>", String.valueOf(limiter.getActiveRefundCount())));
-            messages.add(this.plugin.getMessage("admin.audit-games-processing").replace("<count>", String.valueOf(limiter.getGamesProcessingCount())));
+            messages.add(this.plugin.getMessage("admin.audit-global-lock").replace("<status>",
+                  limiter.isGlobalLocked() ? yes : no));
+            messages.add(this.plugin.getMessage("admin.audit-reloading").replace("<status>",
+                  limiter.isReloading() ? yes : no));
+            messages.add(this.plugin.getMessage("admin.audit-active-refund-count").replace("<count>",
+                  String.valueOf(limiter.getActiveRefundCount())));
+            messages.add(this.plugin.getMessage("admin.audit-games-processing").replace("<count>",
+                  String.valueOf(limiter.getGamesProcessingCount())));
          }
 
          if (this.plugin.getTransactionLogger() != null) {
             messages.add(
-               this.plugin.getMessage("admin.audit-pending-logs").replace("<count>", String.valueOf(this.plugin.getTransactionLogger().getPendingCount()))
-            );
+                  this.plugin.getMessage("admin.audit-pending-logs").replace("<count>",
+                        String.valueOf(this.plugin.getTransactionLogger().getPendingCount())));
          }
 
          messages.add(this.plugin.getMessage("admin.audit-footer"));
 
          for (String line : messages) {
             if (sender instanceof Player) {
-               this.plugin.getAdventureHelper().sendMessage((Player)sender, line);
+               this.plugin.getAdventureHelper().sendMessage((Player) sender, line);
             } else {
                sender.sendMessage(this.plugin.getAdventureHelper().parseToLegacy(line));
             }
@@ -205,15 +210,15 @@ public class CoinFlipCommand extends BaseCommand {
    public void onDelete(Player player, @Optional String[] args) {
       RefundLimiter limiter = this.plugin.getRefundLimiter();
       boolean onCooldown = limiter != null
-         ? limiter.isOnCooldown(player.getUniqueId())
-         : this.plugin.getCoinFlipManager().isOnRefundCooldown(player.getUniqueId());
+            ? limiter.isOnCooldown(player.getUniqueId())
+            : this.plugin.getCoinFlipManager().isOnRefundCooldown(player.getUniqueId());
       if (onCooldown) {
          int remaining = limiter != null
-            ? limiter.getRemainingCooldownSeconds(player.getUniqueId())
-            : this.plugin.getCoinFlipManager().getRemainingCooldown(player.getUniqueId());
+               ? limiter.getRemainingCooldownSeconds(player.getUniqueId())
+               : this.plugin.getCoinFlipManager().getRemainingCooldown(player.getUniqueId());
          String message = this.plugin.getMessage("prefix")
-            + " "
-            + this.plugin.getMessage("command.cooldown-wait").replace("<seconds>", String.valueOf(remaining));
+               + " "
+               + this.plugin.getMessage("command.cooldown-wait").replace("<seconds>", String.valueOf(remaining));
          this.plugin.getAdventureHelper().sendMessage(player, message);
          this.plugin.getSoundHelper().playSound(player, "error.general");
       } else if (limiter == null || !limiter.isGlobalLocked() && !limiter.isReloading()) {
@@ -235,15 +240,16 @@ public class CoinFlipCommand extends BaseCommand {
       RefundLimiter limiter = this.plugin.getRefundLimiter();
       if (cancelled == -1) {
          int remaining = limiter != null
-            ? limiter.getRemainingCooldownSeconds(player.getUniqueId())
-            : this.plugin.getCoinFlipManager().getRemainingCooldown(player.getUniqueId());
+               ? limiter.getRemainingCooldownSeconds(player.getUniqueId())
+               : this.plugin.getCoinFlipManager().getRemainingCooldown(player.getUniqueId());
          String message = this.plugin.getMessage("prefix")
-            + " "
-            + this.plugin.getMessage("command.cooldown-wait").replace("<seconds>", String.valueOf(remaining));
+               + " "
+               + this.plugin.getMessage("command.cooldown-wait").replace("<seconds>", String.valueOf(remaining));
          this.plugin.getAdventureHelper().sendMessage(player, message);
          this.plugin.getSoundHelper().playSound(player, "error.general");
       } else if (cancelled == -2) {
-         String message = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("command.transaction-in-progress");
+         String message = this.plugin.getMessage("prefix") + " "
+               + this.plugin.getMessage("command.transaction-in-progress");
          this.plugin.getAdventureHelper().sendMessage(player, message);
          this.plugin.getSoundHelper().playSound(player, "error.general");
       } else if (cancelled == -3) {
@@ -331,105 +337,6 @@ public class CoinFlipCommand extends BaseCommand {
       this.onCreateWithAmount(player, amountStr, currencyStr);
    }
 
-   @Subcommand("create")
-   @Syntax("<currency> <amount> <bot>")
-   @Description("Create a bot coinflip game (play against server)")
-   @CommandCompletion("@currencies @smart-amounts @bot-subcommand")
-   public void onCreateHouse(Player player, @Single String currencyStr, @Single String amountStr, @Single String houseSubcommand) {
-      HouseCoinFlipManager houseManager = this.plugin.getHouseCoinFlipManager();
-      if (houseManager == null) {
-         this.plugin.getSoundHelper().playSound(player, "error.general");
-         String message = this.plugin.getMessage("prefix") + " &cPlay with Bot is not available!";
-         this.plugin.getAdventureHelper().sendMessage(player, message);
-      } else {
-         String configSubcommand = houseManager.getSubcommandName();
-         if (houseSubcommand != null && houseSubcommand.equalsIgnoreCase(configSubcommand)) {
-            if (this.plugin.getCurrencyManager() == null) {
-               this.plugin.getSoundHelper().playSound(player, "error.general");
-               String message = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("command.economy-not-ready");
-               this.plugin.getAdventureHelper().sendMessage(player, message);
-            } else {
-               double amount;
-               try {
-                  amount = AmountParser.parseFormattedAmount(amountStr);
-               } catch (IllegalArgumentException var14) {
-                  String message = this.plugin.getMessage("prefix") + " &c" + var14.getMessage();
-                  this.plugin.getAdventureHelper().sendMessage(player, message);
-                  return;
-               }
-
-               if (amount <= 0.0) {
-                  this.plugin.getSoundHelper().playSound(player, "error.invalid-amount");
-                  String message = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("command.invalid-amount");
-                  this.plugin.getAdventureHelper().sendMessage(player, message);
-               } else {
-                  String currencyId = null;
-                  currencyStr = currencyStr.toLowerCase();
-                  CurrencyManager.CurrencyInfo currencyInfo = this.plugin.getCurrencyManager().parseCurrencyFromSyntaxCommand(currencyStr);
-                  CoinFlipGame.CurrencyType currencyType;
-                  if (currencyInfo != null) {
-                     currencyType = currencyInfo.getType();
-                     currencyId = currencyInfo.getCurrencyId();
-                  } else if (currencyStr.startsWith("coinsengine:")) {
-                     String id = currencyStr.substring("coinsengine:".length());
-                     if (!this.plugin.getCurrencyManager().isCoinsEngineCurrencyEnabled(id)) {
-                        String message = this.buildInvalidCurrencyMessage(this.plugin, "coinsengine", id);
-                        this.plugin.getAdventureHelper().sendMessage(player, message);
-                        return;
-                     }
-
-                     currencyType = CoinFlipGame.CurrencyType.COINSENGINE;
-                     currencyId = id;
-                  } else if (currencyStr.startsWith("placeholder:")) {
-                     String id = currencyStr.substring("placeholder:".length());
-                     if (!this.plugin.getCurrencyManager().isPlaceholderCurrencyEnabled(id)) {
-                        String message = this.buildInvalidCurrencyMessage(this.plugin, "placeholder", id);
-                        this.plugin.getAdventureHelper().sendMessage(player, message);
-                        return;
-                     }
-
-                     currencyType = CoinFlipGame.CurrencyType.PLACEHOLDER;
-                     currencyId = id;
-                  } else if (this.plugin.getCurrencyManager().isCoinsEngineCurrencyEnabled(currencyStr)) {
-                     currencyType = CoinFlipGame.CurrencyType.COINSENGINE;
-                     currencyId = currencyStr;
-                  } else {
-                     if (!this.plugin.getCurrencyManager().isPlaceholderCurrencyEnabled(currencyStr)) {
-                        this.plugin.getSoundHelper().playSound(player, "error.general");
-                        String message = this.buildInvalidCurrencyMessage(this.plugin, null, currencyStr);
-                        this.plugin.getAdventureHelper().sendMessage(player, message);
-                        return;
-                     }
-
-                     currencyType = CoinFlipGame.CurrencyType.PLACEHOLDER;
-                     currencyId = currencyStr;
-                  }
-
-                  if (!this.plugin.getCurrencyManager().isCurrencyEnabled(currencyType, currencyId)) {
-                     this.plugin.getSoundHelper().playSound(player, "error.general");
-                     String typeDisplay = currencyId != null ? currencyType.name() + " (" + currencyId + ")" : currencyType.name();
-                     String message = this.plugin.getMessage("prefix")
-                        + " "
-                        + this.plugin.getMessage("command.currency-disabled").replace("<type>", typeDisplay);
-                     this.plugin.getAdventureHelper().sendMessage(player, message);
-                  } else if (!this.plugin.getCurrencyManager().canPlayerUseCurrency(player, currencyType, currencyId)) {
-                     this.plugin.getSoundHelper().playSound(player, "error.general");
-                     String restrictionReason = this.plugin.getCurrencyManager().getRestrictionReason(player, currencyType, currencyId);
-                     String message = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("restriction.cannot-use-currency");
-                     if (restrictionReason != null && !restrictionReason.isEmpty()) {
-                        message = message + " " + restrictionReason;
-                     }
-
-                     this.plugin.getAdventureHelper().sendMessage(player, message);
-                  } else {
-                     this.plugin.getCoinFlipManager().createHouseGame(player, currencyType, currencyId, amount);
-                  }
-               }
-            }
-         }
-      }
-   }
-
    private void onCreateWithAmount(Player player, String amountStr, String currencyStr) {
       if (this.plugin.getCurrencyManager() == null) {
          this.plugin.getSoundHelper().playSound(player, "error.general");
@@ -454,7 +361,8 @@ public class CoinFlipCommand extends BaseCommand {
             CoinFlipGame.CurrencyType currencyType;
             if (currencyStr != null && !currencyStr.trim().isEmpty()) {
                currencyStr = currencyStr.toLowerCase();
-               CurrencyManager.CurrencyInfo currencyInfo = this.plugin.getCurrencyManager().parseCurrencyFromSyntaxCommand(currencyStr);
+               CurrencyManager.CurrencyInfo currencyInfo = this.plugin.getCurrencyManager()
+                     .parseCurrencyFromSyntaxCommand(currencyStr);
                if (currencyInfo != null) {
                   currencyType = currencyInfo.getType();
                   currencyId = currencyInfo.getCurrencyId();
@@ -505,14 +413,17 @@ public class CoinFlipCommand extends BaseCommand {
                currencyType = CoinFlipGame.CurrencyType.BEASTTOKENS;
                currencyId = null;
             } else {
-               Set<String> enabledCoinsEngineCurrencies = this.plugin.getCurrencyManager().getEnabledCoinsEngineCurrencyIds();
+               Set<String> enabledCoinsEngineCurrencies = this.plugin.getCurrencyManager()
+                     .getEnabledCoinsEngineCurrencyIds();
                if (!enabledCoinsEngineCurrencies.isEmpty()) {
                   currencyType = CoinFlipGame.CurrencyType.COINSENGINE;
                   currencyId = enabledCoinsEngineCurrencies.iterator().next();
                } else {
-                  Set<String> enabledPlaceholderCurrencies = this.plugin.getCurrencyManager().getEnabledPlaceholderCurrencyIds();
+                  Set<String> enabledPlaceholderCurrencies = this.plugin.getCurrencyManager()
+                        .getEnabledPlaceholderCurrencyIds();
                   if (enabledPlaceholderCurrencies.isEmpty()) {
-                     String message = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("command.no-currency-available");
+                     String message = this.plugin.getMessage("prefix") + " "
+                           + this.plugin.getMessage("command.no-currency-available");
                      this.plugin.getAdventureHelper().sendMessage(player, message);
                      return;
                   }
@@ -524,54 +435,66 @@ public class CoinFlipCommand extends BaseCommand {
 
             if (!this.plugin.getCurrencyManager().isCurrencyEnabled(currencyType, currencyId)) {
                this.plugin.getSoundHelper().playSound(player, "error.general");
-               String typeDisplay = currencyId != null ? currencyType.name() + " (" + currencyId + ")" : currencyType.name();
-               String message = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("command.currency-disabled").replace("<type>", typeDisplay);
+               String typeDisplay = currencyId != null ? currencyType.name() + " (" + currencyId + ")"
+                     : currencyType.name();
+               String message = this.plugin.getMessage("prefix") + " "
+                     + this.plugin.getMessage("command.currency-disabled").replace("<type>", typeDisplay);
                this.plugin.getAdventureHelper().sendMessage(player, message);
             } else {
                if (currencyType == CoinFlipGame.CurrencyType.COINSENGINE && currencyId != null) {
                   CurrencyHandler handler = this.plugin.getCurrencyManager().getHandler(currencyType, currencyId);
                   if (handler == null) {
                      String message = this.plugin.getMessage("prefix")
-                        + " "
-                        + this.plugin.getMessage("command.currency-not-available").replace("<id>", currencyId);
+                           + " "
+                           + this.plugin.getMessage("command.currency-not-available").replace("<id>", currencyId);
                      this.plugin.getAdventureHelper().sendMessage(player, message);
-                     this.plugin.getAdventureHelper().sendMessage(player, this.plugin.getMessage("command.currency-check-hint-1"));
-                     this.plugin.getAdventureHelper().sendMessage(player, this.plugin.getMessage("command.currency-check-hint-2").replace("<id>", currencyId));
-                     this.plugin.getAdventureHelper().sendMessage(player, this.plugin.getMessage("command.currency-check-hint-3"));
+                     this.plugin.getAdventureHelper().sendMessage(player,
+                           this.plugin.getMessage("command.currency-check-hint-1"));
+                     this.plugin.getAdventureHelper().sendMessage(player,
+                           this.plugin.getMessage("command.currency-check-hint-2").replace("<id>", currencyId));
+                     this.plugin.getAdventureHelper().sendMessage(player,
+                           this.plugin.getMessage("command.currency-check-hint-3"));
                      return;
                   }
                } else if (currencyType == CoinFlipGame.CurrencyType.PLACEHOLDER && currencyId != null) {
                   CurrencyHandler handler = this.plugin.getCurrencyManager().getHandler(currencyType, currencyId);
                   if (handler == null) {
                      String message = this.plugin.getMessage("prefix")
-                        + " "
-                        + this.plugin.getMessage("command.currency-not-available").replace("<id>", currencyId);
+                           + " "
+                           + this.plugin.getMessage("command.currency-not-available").replace("<id>", currencyId);
                      this.plugin.getAdventureHelper().sendMessage(player, message);
-                     this.plugin.getAdventureHelper().sendMessage(player, this.plugin.getMessage("command.currency-check-hint-1"));
-                     this.plugin.getAdventureHelper().sendMessage(player, this.plugin.getMessage("command.currency-check-hint-2").replace("<id>", currencyId));
-                     this.plugin.getAdventureHelper().sendMessage(player, this.plugin.getMessage("command.currency-check-hint-3"));
+                     this.plugin.getAdventureHelper().sendMessage(player,
+                           this.plugin.getMessage("command.currency-check-hint-1"));
+                     this.plugin.getAdventureHelper().sendMessage(player,
+                           this.plugin.getMessage("command.currency-check-hint-2").replace("<id>", currencyId));
+                     this.plugin.getAdventureHelper().sendMessage(player,
+                           this.plugin.getMessage("command.currency-check-hint-3"));
                      return;
                   }
                }
 
                if (!this.plugin.getCurrencyManager().canPlayerUseCurrency(player, currencyType, currencyId)) {
                   this.plugin.getSoundHelper().playSound(player, "error.general");
-                  String restrictionReason = this.plugin.getCurrencyManager().getRestrictionReason(player, currencyType, currencyId);
-                  String message = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("restriction.cannot-use-currency");
+                  String restrictionReason = this.plugin.getCurrencyManager().getRestrictionReason(player, currencyType,
+                        currencyId);
+                  String message = this.plugin.getMessage("prefix") + " "
+                        + this.plugin.getMessage("restriction.cannot-use-currency");
                   if (restrictionReason != null && !restrictionReason.isEmpty()) {
                      message = message + " " + restrictionReason;
                   }
 
                   this.plugin.getAdventureHelper().sendMessage(player, message);
                } else {
-                  CurrencySettings currencySettings = this.plugin.getCurrencyManager().getCurrencySettings(currencyType, currencyId);
+                  CurrencySettings currencySettings = this.plugin.getCurrencyManager().getCurrencySettings(currencyType,
+                        currencyId);
                   double minBid = currencySettings.getMinBid();
                   if (amount < minBid) {
                      this.plugin.getSoundHelper().playSound(player, "error.invalid-amount");
                      Map<String, String> placeholders = new HashMap<>();
                      String formattedMinBid = this.plugin.getGuiHelper().formatAmount(minBid, currencyId);
                      placeholders.put("amount", formattedMinBid);
-                     String message = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("command.min-bid");
+                     String message = this.plugin.getMessage("prefix") + " "
+                           + this.plugin.getMessage("command.min-bid");
                      this.plugin.getAdventureHelper().sendMessage(player, message, placeholders);
                   } else {
                      double maxBid = currencySettings.getMaxBid();
@@ -580,18 +503,23 @@ public class CoinFlipCommand extends BaseCommand {
                         Map<String, String> placeholders = new HashMap<>();
                         String formattedMaxBid = this.plugin.getGuiHelper().formatAmount(maxBid, currencyId);
                         placeholders.put("amount", formattedMaxBid);
-                        String message = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("command.max-bid");
+                        String message = this.plugin.getMessage("prefix") + " "
+                              + this.plugin.getMessage("command.max-bid");
                         this.plugin.getAdventureHelper().sendMessage(player, message, placeholders);
-                     } else if (!this.plugin.getCurrencyManager().hasBalanceWithReserve(player, currencyType, currencyId, amount)) {
+                     } else if (!this.plugin.getCurrencyManager().hasBalanceWithReserve(player, currencyType,
+                           currencyId, amount)) {
                         this.plugin.getSoundHelper().playSound(player, "error.not-enough-money");
-                        double currentBalance = this.plugin.getCurrencyManager().getBalance(player, currencyType, currencyId);
+                        double currentBalance = this.plugin.getCurrencyManager().getBalance(player, currencyType,
+                              currencyId);
                         String formattedBalance = this.plugin.getGuiHelper().formatAmount(currentBalance, currencyId);
                         String formattedAmount = this.plugin.getGuiHelper().formatAmount(amount, currencyId);
-                        boolean isReserveIssue = this.plugin.getCurrencyManager().isReserveBalanceIssue(player, currencyType, currencyId, amount);
+                        boolean isReserveIssue = this.plugin.getCurrencyManager().isReserveBalanceIssue(player,
+                              currencyType, currencyId, amount);
                         Map<String, String> placeholders = new HashMap<>();
                         String messageKey;
                         if (isReserveIssue) {
-                           double minReserve = this.plugin.getCurrencyManager().getMinReserveBalance(currencyType, currencyId);
+                           double minReserve = this.plugin.getCurrencyManager().getMinReserveBalance(currencyType,
+                                 currencyId);
                            double maxBet = Math.max(0.0, currentBalance - minReserve);
                            String formattedReserve = this.plugin.getGuiHelper().formatAmount(minReserve, currencyId);
                            String formattedMaxBet = this.plugin.getGuiHelper().formatAmount(maxBet, currencyId);
@@ -639,7 +567,8 @@ public class CoinFlipCommand extends BaseCommand {
                         this.plugin.getAdventureHelper().sendMessage(player, message, placeholders);
                      } else if (this.plugin.getCoinFlipManager().isInRollingGame(player.getUniqueId())) {
                         this.plugin.getSoundHelper().playSound(player, "error.general");
-                        String message = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("command.rolling-active");
+                        String message = this.plugin.getMessage("prefix") + " "
+                              + this.plugin.getMessage("command.rolling-active");
                         this.plugin.getAdventureHelper().sendMessage(player, message);
                      } else if (!this.plugin.getCoinFlipManager().canCreateMoreGames(player)) {
                         this.plugin.getSoundHelper().playSound(player, "error.general");
@@ -655,15 +584,19 @@ public class CoinFlipCommand extends BaseCommand {
                         }
                      } else {
                         BettingLimitManager.LimitCheckResult limitResult = this.plugin
-                           .getBettingLimitManager()
-                           .canPlayerBet(player, currencyType, currencyId, amount);
+                              .getBettingLimitManager()
+                              .canPlayerBet(player, currencyType, currencyId, amount);
                         if (limitResult != null) {
                            this.plugin.getSoundHelper().playSound(player, "error.general");
                            Map<String, String> placeholders = new HashMap<>();
-                           placeholders.put("limit", this.plugin.getGuiHelper().formatAmount(limitResult.getLimit(), currencyId));
-                           placeholders.put("current", this.plugin.getGuiHelper().formatAmount(limitResult.getCurrentTotal(), currencyId));
-                           placeholders.put("remaining", this.plugin.getGuiHelper().formatAmount(limitResult.getRemaining(), currencyId));
-                           String message = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("command." + limitResult.getMessageKey());
+                           placeholders.put("limit",
+                                 this.plugin.getGuiHelper().formatAmount(limitResult.getLimit(), currencyId));
+                           placeholders.put("current",
+                                 this.plugin.getGuiHelper().formatAmount(limitResult.getCurrentTotal(), currencyId));
+                           placeholders.put("remaining",
+                                 this.plugin.getGuiHelper().formatAmount(limitResult.getRemaining(), currencyId));
+                           String message = this.plugin.getMessage("prefix") + " "
+                                 + this.plugin.getMessage("command." + limitResult.getMessageKey());
                            this.plugin.getAdventureHelper().sendMessage(player, message, placeholders);
                         } else {
                            boolean headsTailsEnabled = this.plugin.getConfig().getBoolean("heads-tails.enabled", false);
@@ -671,19 +604,21 @@ public class CoinFlipCommand extends BaseCommand {
                            final String finalCurrencyId = currencyId;
                            if (headsTailsEnabled) {
                               FoliaScheduler.runTask(
-                                 this.plugin,
-                                 player,
-                                 () -> {
-                                    if (player != null && player.isOnline()) {
-                                       this.plugin
-                                          .getGuiManager()
-                                          .openGUI(new HeadsTailsSelectionGUI(this.plugin, player, finalCurrencyType, finalCurrencyId, amount, null), player);
-                                    }
-                                 }
-                              );
+                                    this.plugin,
+                                    player,
+                                    () -> {
+                                       if (player != null && player.isOnline()) {
+                                          this.plugin
+                                                .getGuiManager()
+                                                .openGUI(new HeadsTailsSelectionGUI(this.plugin, player,
+                                                      finalCurrencyType, finalCurrencyId, amount, null), player);
+                                       }
+                                    });
                            } else {
-                              if (!this.plugin.getCurrencyManager().withdraw(player, currencyType, currencyId, amount)) {
-                                 String message = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("command.currency-withdraw-failed");
+                              if (!this.plugin.getCurrencyManager().withdraw(player, currencyType, currencyId,
+                                    amount)) {
+                                 String message = this.plugin.getMessage("prefix") + " "
+                                       + this.plugin.getMessage("command.currency-withdraw-failed");
                                  this.plugin.getAdventureHelper().sendMessage(player, message);
                                  return;
                               }
@@ -710,12 +645,15 @@ public class CoinFlipCommand extends BaseCommand {
                                  messageKey = "command.bet-created-money";
                               }
 
-                              if (this.plugin.getPlayerSettingsManager().isSettingEnabled(player, "message-game-created")) {
-                                 String message = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage(messageKey);
+                              if (this.plugin.getPlayerSettingsManager().isSettingEnabled(player,
+                                    "message-game-created")) {
+                                 String message = this.plugin.getMessage("prefix") + " "
+                                       + this.plugin.getMessage(messageKey);
                                  this.plugin.getAdventureHelper().sendMessage(player, message, placeholders);
                               }
 
-                              if (this.plugin.getPlayerSettingsManager().isSettingEnabled(player, "notification-sound")) {
+                              if (this.plugin.getPlayerSettingsManager().isSettingEnabled(player,
+                                    "notification-sound")) {
                                  this.plugin.getSoundHelper().playSound(player, "game.create");
                               }
 
@@ -726,17 +664,19 @@ public class CoinFlipCommand extends BaseCommand {
                               if (broadcastEnabled && amount >= minBroadcastAmount) {
                                  Map<String, String> broadcastPlaceholders = new HashMap<>();
                                  broadcastPlaceholders.put("player", player.getName());
-                                 String formattedBroadcastAmount = this.plugin.getGuiHelper().formatAmount(amount, currencyId);
+                                 String formattedBroadcastAmount = this.plugin.getGuiHelper().formatAmount(amount,
+                                       currencyId);
                                  broadcastPlaceholders.put("amount", formattedBroadcastAmount);
                                  broadcastPlaceholders.put("symbol", unit);
-                                 String broadcastMsg = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("command.broadcast-created");
+                                 String broadcastMsg = this.plugin.getMessage("prefix") + " "
+                                       + this.plugin.getMessage("command.broadcast-created");
                                  this.plugin
-                                    .getAdventureHelper()
-                                    .broadcastWithFilter(
-                                       broadcastMsg,
-                                       broadcastPlaceholders,
-                                       p -> this.plugin.getPlayerSettingsManager().isSettingEnabled(p, "message-broadcasts")
-                                    );
+                                       .getAdventureHelper()
+                                       .broadcastWithFilter(
+                                             broadcastMsg,
+                                             broadcastPlaceholders,
+                                             p -> this.plugin.getPlayerSettingsManager().isSettingEnabled(p,
+                                                   "message-broadcasts"));
                               }
                            }
                         }
@@ -794,7 +734,8 @@ public class CoinFlipCommand extends BaseCommand {
       }
 
       if (!availableOptions.isEmpty()) {
-         message.append(" ").append(plugin.getMessage("command.available-currencies").replace("<list>", String.join("&7, ", availableOptions)));
+         message.append(" ").append(plugin.getMessage("command.available-currencies").replace("<list>",
+               String.join("&7, ", availableOptions)));
       } else {
          message.append(" ").append(plugin.getMessage("command.no-currencies-enabled"));
       }
@@ -804,13 +745,15 @@ public class CoinFlipCommand extends BaseCommand {
             if (coinsEngineIds.isEmpty()) {
                message.append(" ").append(plugin.getMessage("command.coinsengine-none-enabled"));
             } else {
-               message.append(" ").append(plugin.getMessage("command.coinsengine-ids-available").replace("<ids>", String.join("&7, &e", coinsEngineIds)));
+               message.append(" ").append(plugin.getMessage("command.coinsengine-ids-available").replace("<ids>",
+                     String.join("&7, &e", coinsEngineIds)));
             }
          } else if ("placeholder".equals(currencyType)) {
             if (placeholderIds.isEmpty()) {
                message.append(" ").append(plugin.getMessage("command.placeholder-none-enabled"));
             } else {
-               message.append(" ").append(plugin.getMessage("command.placeholder-ids-available").replace("<ids>", String.join("&7, &e", placeholderIds)));
+               message.append(" ").append(plugin.getMessage("command.placeholder-ids-available").replace("<ids>",
+                     String.join("&7, &e", placeholderIds)));
             }
          }
       }

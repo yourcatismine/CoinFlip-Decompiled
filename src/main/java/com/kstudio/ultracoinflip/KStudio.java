@@ -9,7 +9,6 @@ import com.kstudio.ultracoinflip.currency.CurrencyManager;
 import com.kstudio.ultracoinflip.currency.TaxRateCalculator;
 import com.kstudio.ultracoinflip.data.BettingLimitManager;
 import com.kstudio.ultracoinflip.data.CoinFlipManager;
-import com.kstudio.ultracoinflip.data.HouseCoinFlipManager;
 import com.kstudio.ultracoinflip.data.PlayerSettingsManager;
 import com.kstudio.ultracoinflip.database.DatabaseFactory;
 import com.kstudio.ultracoinflip.database.DatabaseManager;
@@ -64,7 +63,6 @@ public class KStudio extends JavaPlugin {
    private TaxRateCalculator taxRateCalculator;
    private GUIManager guiManager;
    private CoinFlipManager coinFlipManager;
-   private HouseCoinFlipManager houseCoinFlipManager;
    private PlayerSettingsManager playerSettingsManager;
    private BettingLimitManager bettingLimitManager;
    private DatabaseManager databaseManager;
@@ -174,7 +172,6 @@ public class KStudio extends JavaPlugin {
          return;
       }
 
-      this.houseCoinFlipManager = new HouseCoinFlipManager(this);
       this.playerSettingsManager = new PlayerSettingsManager(this);
       this.bettingLimitManager = new BettingLimitManager(this);
       this.guiManager = new GUIManager();
@@ -200,7 +197,8 @@ public class KStudio extends JavaPlugin {
       Bukkit.getPluginManager().registerEvents(new GUIListener(this.guiManager), this);
       Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
       if (FoliaScheduler.isFolia()) {
-         this.colorLogger.info(this.colorLogger.brightPurple("Folia detected!") + this.colorLogger.gray(" Using Folia schedulers."));
+         this.colorLogger.info(
+               this.colorLogger.brightPurple("Folia detected!") + this.colorLogger.gray(" Using Folia schedulers."));
       }
 
       this.checkForUpdates();
@@ -214,11 +212,12 @@ public class KStudio extends JavaPlugin {
          if (this.colorLogger != null) {
             boolean isLegacy = VersionDetector.isLegacy();
             String separator = isLegacy
-               ? "========================================================================"
-               : "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+                  ? "========================================================================"
+                  : "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
             this.colorLogger.warning(separator);
             this.colorLogger
-               .warning("  " + this.colorLogger.bold("UltraCoinFlip v" + this.pluginVersion) + " " + this.colorLogger.brightYellow("is shutting down..."));
+                  .warning("  " + this.colorLogger.bold("UltraCoinFlip v" + this.pluginVersion) + " "
+                        + this.colorLogger.brightYellow("is shutting down..."));
             this.colorLogger.warning(separator);
          }
 
@@ -232,37 +231,6 @@ public class KStudio extends JavaPlugin {
                this.coinFlipManager.closeDatabase();
             } catch (Exception var19) {
                ErrorHandler.handleDisableError(this, var19);
-            }
-         }
-
-         if (this.houseCoinFlipManager != null) {
-            try {
-               Collection<HouseCoinFlipManager.PendingHouseGame> pendingGames = this.houseCoinFlipManager.getPendingGames();
-               if (!pendingGames.isEmpty()) {
-                  this.getLogger().info("Refunding " + pendingGames.size() + " pending bot coinflip game(s)...");
-
-                  for (HouseCoinFlipManager.PendingHouseGame pendingGame : pendingGames) {
-                     Player player = Bukkit.getPlayer(pendingGame.getPlayerUuid());
-                     if (player != null && player.isOnline()) {
-                        if (this.currencyManager != null) {
-                           this.currencyManager.deposit(player, pendingGame.getCurrencyType(), pendingGame.getCurrencyId(), pendingGame.getAmount());
-                        }
-                     } else if (this.coinFlipManager != null) {
-                        try {
-                           this.coinFlipManager
-                              .saveBackupForRefund(
-                                 pendingGame.getPlayerUuid(), pendingGame.getCurrencyType(), pendingGame.getCurrencyId(), pendingGame.getAmount()
-                              );
-                        } catch (Exception var18) {
-                           this.getLogger().warning("Failed to save backup for pending house game: " + var18.getMessage());
-                        }
-                     }
-                  }
-
-                  this.houseCoinFlipManager.clearPendingGames();
-               }
-            } catch (Exception var20) {
-               this.getLogger().warning("Failed to refund pending house games: " + var20.getMessage());
             }
          }
 
@@ -303,28 +271,28 @@ public class KStudio extends JavaPlugin {
    }
 
    private void printStartupBanner() {
-      String[] ultraLines = new String[]{
-         "",
-         "              /$$   /$$ /$$    /$$$$$$$$ /$$$$$$$   /$$$$$$ ",
-         "             | $$  | $$| $$   |__  $$__/| $$__  $$ /$$__  $$",
-         "             | $$  | $$| $$      | $$   | $$  \\ $$| $$  \\ $$",
-         "             | $$  | $$| $$      | $$   | $$$$$$$/| $$$$$$$$",
-         "             | $$  | $$| $$      | $$   | $$__  $$| $$__  $$",
-         "             | $$  | $$| $$      | $$   | $$  \\ $$| $$  | $$",
-         "             |  $$$$$$/| $$$$$$$$| $$   | $$  | $$| $$  | $$",
-         "              \\______/ |________/|__/   |__/  |__/|__/  |__/",
-         ""
+      String[] ultraLines = new String[] {
+            "",
+            "              /$$   /$$ /$$    /$$$$$$$$ /$$$$$$$   /$$$$$$ ",
+            "             | $$  | $$| $$   |__  $$__/| $$__  $$ /$$__  $$",
+            "             | $$  | $$| $$      | $$   | $$  \\ $$| $$  \\ $$",
+            "             | $$  | $$| $$      | $$   | $$$$$$$/| $$$$$$$$",
+            "             | $$  | $$| $$      | $$   | $$__  $$| $$__  $$",
+            "             | $$  | $$| $$      | $$   | $$  \\ $$| $$  | $$",
+            "             |  $$$$$$/| $$$$$$$$| $$   | $$  | $$| $$  | $$",
+            "              \\______/ |________/|__/   |__/  |__/|__/  |__/",
+            ""
       };
-      String[] coinflipLines = new String[]{
-         "  /$$$$$$   /$$$$$$  /$$$$$$ /$$   /$$ /$$$$$$$$ /$$       /$$$$$$ /$$$$$$$ ",
-         " /$$__  $$ /$$__  $$|_  $$_/| $$$ | $$| $$_____/| $$      |_  $$_/| $$__  $$",
-         "| $$  \\__/| $$  \\ $$  | $$  | $$$$| $$| $$      | $$        | $$  | $$  \\ $$",
-         "| $$      | $$  | $$  | $$  | $$ $$ $$| $$$$$   | $$        | $$  | $$$$$$$/",
-         "| $$      | $$  | $$  | $$  | $$  $$$$| $$__/   | $$        | $$  | $$____/ ",
-         "| $$    $$| $$  | $$  | $$  | $$\\  $$$| $$      | $$        | $$  | $$      ",
-         "|  $$$$$$/|  $$$$$$/ /$$$$$$| $$ \\  $$| $$      | $$$$$$$$ /$$$$$$| $$      ",
-         " \\______/  \\______/ |______/|__/  \\__/|__/      |________/|______/|__/      ",
-         ""
+      String[] coinflipLines = new String[] {
+            "  /$$$$$$   /$$$$$$  /$$$$$$ /$$   /$$ /$$$$$$$$ /$$       /$$$$$$ /$$$$$$$ ",
+            " /$$__  $$ /$$__  $$|_  $$_/| $$$ | $$| $$_____/| $$      |_  $$_/| $$__  $$",
+            "| $$  \\__/| $$  \\ $$  | $$  | $$$$| $$| $$      | $$        | $$  | $$  \\ $$",
+            "| $$      | $$  | $$  | $$  | $$ $$ $$| $$$$$   | $$        | $$  | $$$$$$$/",
+            "| $$      | $$  | $$  | $$  | $$  $$$$| $$__/   | $$        | $$  | $$____/ ",
+            "| $$    $$| $$  | $$  | $$  | $$\\  $$$| $$      | $$        | $$  | $$      ",
+            "|  $$$$$$/|  $$$$$$/ /$$$$$$| $$ \\  $$| $$      | $$$$$$$$ /$$$$$$| $$      ",
+            " \\______/  \\______/ |______/|__/  \\__/|__/      |________/|______/|__/      ",
+            ""
       };
 
       for (String line : ultraLines) {
@@ -347,50 +315,54 @@ public class KStudio extends JavaPlugin {
    public void cacheUpdateCheckerConfig() {
       this.cachedUpdateCheckerEnabled = this.configManager.getConfig().getBoolean("update-checker.enabled", true);
       this.cachedNotifyInGame = this.configManager.getConfig().getBoolean("update-checker.notify-in-game", true);
-      this.cachedNotifyPermission = this.configManager.getConfig().getString("update-checker.notify-permission", "ultracoinflip.admin");
+      this.cachedNotifyPermission = this.configManager.getConfig().getString("update-checker.notify-permission",
+            "ultracoinflip.admin");
    }
 
    private void checkForUpdates() {
       if (this.cachedUpdateCheckerEnabled) {
          new UpdateChecker(this, 130124)
-            .getVersion(
-               version -> {
-                  String currentVersion = this.pluginVersion;
-                  boolean notifyInGame = this.cachedNotifyInGame;
-                  String notifyPermission = this.cachedNotifyPermission;
-                  if (currentVersion.equals(version)) {
-                     String latestMsg = this.configManager.getMessage("update.latest-version").replace("<version>", version);
-                     String consoleMsg = this.colorLogger.translateConsoleColors(latestMsg);
-                     this.colorLogger.info("  " + consoleMsg);
-                     synchronized (this.pendingUpdateMessages) {
-                        this.pendingUpdateMessages.clear();
-                     }
-                  } else {
-                     String newVersionMsg = this.configManager.getMessage("update.new-version-available");
-                     String currentVersionMsg = this.configManager.getMessage("update.current-version").replace("<version>", currentVersion);
-                     String latestVersionMsg = this.configManager.getMessage("update.latest-version-label").replace("<version>", version);
-                     String downloadMsg = this.configManager.getMessage("update.download-link");
-                     this.colorLogger.warning("  " + ColorLogger.stripColorCodes(newVersionMsg));
-                     this.colorLogger.warning("     " + ColorLogger.stripColorCodes(currentVersionMsg));
-                     this.colorLogger.warning("     " + ColorLogger.stripColorCodes(latestVersionMsg));
-                     this.colorLogger.warning("     " + ColorLogger.stripColorCodes(downloadMsg));
-                     if (notifyInGame) {
-                        String prefix = this.configManager.getMessage("prefix");
-                        String message = this.configManager
-                           .getMessage("update.in-game-new-version")
-                           .replace("<current>", currentVersion)
-                           .replace("<latest>", version);
-                        String inGameNewVersionMsg = prefix + "<reset> " + message;
-                        synchronized (this.pendingUpdateMessages) {
-                           this.pendingUpdateMessages.clear();
-                           this.pendingUpdateMessages.add(inGameNewVersionMsg);
-                        }
+               .getVersion(
+                     version -> {
+                        String currentVersion = this.pluginVersion;
+                        boolean notifyInGame = this.cachedNotifyInGame;
+                        String notifyPermission = this.cachedNotifyPermission;
+                        if (currentVersion.equals(version)) {
+                           String latestMsg = this.configManager.getMessage("update.latest-version")
+                                 .replace("<version>", version);
+                           String consoleMsg = this.colorLogger.translateConsoleColors(latestMsg);
+                           this.colorLogger.info("  " + consoleMsg);
+                           synchronized (this.pendingUpdateMessages) {
+                              this.pendingUpdateMessages.clear();
+                           }
+                        } else {
+                           String newVersionMsg = this.configManager.getMessage("update.new-version-available");
+                           String currentVersionMsg = this.configManager.getMessage("update.current-version")
+                                 .replace("<version>", currentVersion);
+                           String latestVersionMsg = this.configManager.getMessage("update.latest-version-label")
+                                 .replace("<version>", version);
+                           String downloadMsg = this.configManager.getMessage("update.download-link");
+                           this.colorLogger.warning("  " + ColorLogger.stripColorCodes(newVersionMsg));
+                           this.colorLogger.warning("     " + ColorLogger.stripColorCodes(currentVersionMsg));
+                           this.colorLogger.warning("     " + ColorLogger.stripColorCodes(latestVersionMsg));
+                           this.colorLogger.warning("     " + ColorLogger.stripColorCodes(downloadMsg));
+                           if (notifyInGame) {
+                              String prefix = this.configManager.getMessage("prefix");
+                              String message = this.configManager
+                                    .getMessage("update.in-game-new-version")
+                                    .replace("<current>", currentVersion)
+                                    .replace("<latest>", version);
+                              String inGameNewVersionMsg = prefix + "<reset> " + message;
+                              synchronized (this.pendingUpdateMessages) {
+                                 this.pendingUpdateMessages.clear();
+                                 this.pendingUpdateMessages.add(inGameNewVersionMsg);
+                              }
 
-                        FoliaScheduler.runTask(this, () -> this.sendUpdateMessageToPlayers(inGameNewVersionMsg, notifyPermission));
-                     }
-                  }
-               }
-            );
+                              FoliaScheduler.runTask(this,
+                                    () -> this.sendUpdateMessageToPlayers(inGameNewVersionMsg, notifyPermission));
+                           }
+                        }
+                     });
       }
    }
 
@@ -426,41 +398,49 @@ public class KStudio extends JavaPlugin {
       String version = this.pluginVersion;
       boolean isLegacy = VersionDetector.isLegacy();
       String separator = isLegacy
-         ? "========================================================================"
-         : "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+            ? "========================================================================"
+            : "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
       String chatIcon = isLegacy ? "[!]" : "\ud83d\udcac";
       String starIcon = isLegacy ? "[*]" : "⭐";
       this.colorLogger.success(separator);
-      this.colorLogger.success("  " + this.colorLogger.bold("UltraCoinFlip v" + version) + " " + this.colorLogger.brightGreen("enabled successfully!"));
+      this.colorLogger.success("  " + this.colorLogger.bold("UltraCoinFlip v" + version) + " "
+            + this.colorLogger.brightGreen("enabled successfully!"));
       this.colorLogger.success(separator);
-      this.colorLogger.info("  " + this.colorLogger.white("Developed by") + " " + this.colorLogger.brightPurple("KStudio"));
-      this.colorLogger.info("  " + this.colorLogger.white("Support:") + "     " + this.colorLogger.brightCyan("https://discord.gg/GGDxDnpnDP"));
+      this.colorLogger
+            .info("  " + this.colorLogger.white("Developed by") + " " + this.colorLogger.brightPurple("KStudio"));
+      this.colorLogger.info("  " + this.colorLogger.white("Support:") + "     "
+            + this.colorLogger.brightCyan("https://discord.gg/GGDxDnpnDP"));
       this.colorLogger.info("");
       this.colorLogger
-         .info(
-            "  "
-               + this.colorLogger.brightYellow(chatIcon)
-               + "  "
-               + this.colorLogger.white("Found a bug or have suggestions? Join our Discord for quick support!")
-         );
+            .info(
+                  "  "
+                        + this.colorLogger.brightYellow(chatIcon)
+                        + "  "
+                        + this.colorLogger
+                              .white("Found a bug or have suggestions? Join our Discord for quick support!"));
       this.colorLogger
-         .info(
-            "  "
-               + this.colorLogger.brightYellow(starIcon)
-               + "  "
-               + this.colorLogger.white("Enjoying the plugin? Please leave a 5-star review to help us grow!")
-         );
+            .info(
+                  "  "
+                        + this.colorLogger.brightYellow(starIcon)
+                        + "  "
+                        + this.colorLogger.white("Enjoying the plugin? Please leave a 5-star review to help us grow!"));
    }
 
    private void checkPluginDependencies() {
       boolean isLegacy = VersionDetector.isLegacy();
       String arrow = isLegacy ? "->" : "→";
-      this.colorLogger.info("  " + this.colorLogger.brightCyan(arrow) + " Vault:          " + this.getPluginStatus("Vault"));
-      this.colorLogger.info("  " + this.colorLogger.brightCyan(arrow) + " PlaceholderAPI: " + this.getPluginStatus("PlaceholderAPI"));
-      this.colorLogger.info("  " + this.colorLogger.brightCyan(arrow) + " PlayerPoints:   " + this.getPluginStatus("PlayerPoints"));
-      this.colorLogger.info("  " + this.colorLogger.brightCyan(arrow) + " TokenManager:   " + this.getPluginStatus("TokenManager"));
-      this.colorLogger.info("  " + this.colorLogger.brightCyan(arrow) + " CoinsEngine:    " + this.getPluginStatus("CoinsEngine"));
-      this.colorLogger.info("  " + this.colorLogger.brightCyan(arrow) + " BeastTokens:    " + this.getPluginStatus("BeastTokens"));
+      this.colorLogger
+            .info("  " + this.colorLogger.brightCyan(arrow) + " Vault:          " + this.getPluginStatus("Vault"));
+      this.colorLogger.info(
+            "  " + this.colorLogger.brightCyan(arrow) + " PlaceholderAPI: " + this.getPluginStatus("PlaceholderAPI"));
+      this.colorLogger.info(
+            "  " + this.colorLogger.brightCyan(arrow) + " PlayerPoints:   " + this.getPluginStatus("PlayerPoints"));
+      this.colorLogger.info(
+            "  " + this.colorLogger.brightCyan(arrow) + " TokenManager:   " + this.getPluginStatus("TokenManager"));
+      this.colorLogger.info(
+            "  " + this.colorLogger.brightCyan(arrow) + " CoinsEngine:    " + this.getPluginStatus("CoinsEngine"));
+      this.colorLogger.info(
+            "  " + this.colorLogger.brightCyan(arrow) + " BeastTokens:    " + this.getPluginStatus("BeastTokens"));
    }
 
    private String getPluginStatus(String pluginName) {
@@ -481,8 +461,8 @@ public class KStudio extends JavaPlugin {
          }
 
          return plugin.isEnabled()
-            ? this.colorLogger.brightGreen("Found ") + this.colorLogger.gray("(v" + version + ")")
-            : this.colorLogger.brightYellow("Disabled ") + this.colorLogger.gray("(v" + version + ")");
+               ? this.colorLogger.brightGreen("Found ") + this.colorLogger.gray("(v" + version + ")")
+               : this.colorLogger.brightYellow("Disabled ") + this.colorLogger.gray("(v" + version + ")");
       } else {
          return this.colorLogger.gray("Not installed");
       }
@@ -497,7 +477,7 @@ public class KStudio extends JavaPlugin {
          if (rsp == null) {
             return false;
          } else {
-            this.economy = (Economy)rsp.getProvider();
+            this.economy = (Economy) rsp.getProvider();
             if (this.economy == null) {
                this.colorLogger.error("Failed to get economy provider from Vault!");
                return false;
@@ -539,7 +519,8 @@ public class KStudio extends JavaPlugin {
    public void initializeEconomySystem() {
       if (this.currencyManager == null) {
          if (this.setupEconomy()) {
-            this.colorLogger.info("     " + this.colorLogger.brightGreen("Vault economy ready (from ServiceRegisterEvent)!"));
+            this.colorLogger
+                  .info("     " + this.colorLogger.brightGreen("Vault economy ready (from ServiceRegisterEvent)!"));
             this.currencyManager = new CurrencyManager(this);
             this.taxRateCalculator = new TaxRateCalculator(this);
             this.colorLogger.info("     " + this.colorLogger.brightGreen("Currency system initialized successfully!"));
@@ -619,11 +600,6 @@ public class KStudio extends JavaPlugin {
    @Generated
    public CoinFlipManager getCoinFlipManager() {
       return this.coinFlipManager;
-   }
-
-   @Generated
-   public HouseCoinFlipManager getHouseCoinFlipManager() {
-      return this.houseCoinFlipManager;
    }
 
    @Generated

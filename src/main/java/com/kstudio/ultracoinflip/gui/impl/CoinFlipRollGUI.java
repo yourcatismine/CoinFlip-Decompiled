@@ -4,7 +4,6 @@ import com.kstudio.ultracoinflip.KStudio;
 import com.kstudio.ultracoinflip.currency.CurrencySettings;
 import com.kstudio.ultracoinflip.data.CoinFlipGame;
 import com.kstudio.ultracoinflip.data.CoinFlipLog;
-import com.kstudio.ultracoinflip.data.HouseCoinFlipManager;
 import com.kstudio.ultracoinflip.data.PlayerStats;
 import com.kstudio.ultracoinflip.gui.InventoryButton;
 import com.kstudio.ultracoinflip.gui.InventoryGUI;
@@ -43,9 +42,8 @@ public class CoinFlipRollGUI extends InventoryGUI {
    private List<ItemStack> scheduledRollItems;
    private Player winner;
    private Player loser;
-   private final boolean isBotGame;
-   private final String botName;
-   private final String botTexture;
+   private final String player1Name;
+   private final String player2Name;
    private final SecureRandom secureRandom = new SecureRandom();
    private boolean animationRunning = false;
    private volatile Object currentAnimationTaskId = null;
@@ -163,34 +161,10 @@ public class CoinFlipRollGUI extends InventoryGUI {
       this.amount = amount;
       this.currencyType = currencyType;
       this.currencyId = currencyId;
-      this.isBotGame = false;
-      this.botName = null;
-      this.botTexture = null;
       this.player1UUID = player1 != null ? player1.getUniqueId() : null;
       this.player2UUID = player2 != null ? player2.getUniqueId() : null;
-      this.cacheNotificationConfigValues();
-   }
-
-   public CoinFlipRollGUI(KStudio plugin, Player player, double amount, CoinFlipGame.CurrencyType currencyType,
-         String currencyId, boolean isBotGame) {
-      this.plugin = plugin;
-      this.player1 = player;
-      this.player2 = null;
-      this.amount = amount;
-      this.currencyType = currencyType;
-      this.currencyId = currencyId;
-      this.isBotGame = isBotGame;
-      this.botName = plugin.getConfig().getString("house.name",
-            plugin.getGUIConfig().getString("coinflip-gui.players.bot.name", "YourServer"));
-      this.botTexture = plugin.getConfig()
-            .getString(
-                  "house.display.texture",
-                  plugin.getGUIConfig()
-                        .getString(
-                              "coinflip-gui.players.bot.texture",
-                              "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjQ4ZDU1YjMzZWQ2ZmViNjE0ZTJjYTVkNGY1MGJiMzdmMTYxYWRhMzU4MmZjZmM2ZTQwMjg4YzZmYjA2ZjFmIn19fQ=="));
-      this.player1UUID = player != null ? player.getUniqueId() : null;
-      this.player2UUID = UUID.fromString("00000000-0000-0000-0000-000000000000");
+      this.player1Name = player1 != null ? player1.getName() : "Unknown";
+      this.player2Name = player2 != null ? player2.getName() : "Unknown";
       this.cacheNotificationConfigValues();
    }
 
@@ -404,17 +378,12 @@ public class CoinFlipRollGUI extends InventoryGUI {
 
    public void startAnimation() {
       boolean player1Wins = this.secureRandom.nextBoolean();
-      if (this.isBotGame) {
-         this.winner = player1Wins ? this.player1 : null;
-         this.loser = player1Wins ? null : this.player1;
-      } else {
-         this.winner = player1Wins ? this.player1 : this.player2;
-         this.loser = player1Wins ? this.player2 : this.player1;
-         this.plugin
-               .getCoinFlipManager()
-               .registerRollingGame(this.player1.getUniqueId(), this.player2.getUniqueId(), this.amount,
-                     this.currencyType, this.currencyId);
-      }
+      this.winner = player1Wins ? this.player1 : this.player2;
+      this.loser = player1Wins ? this.player2 : this.player1;
+      this.plugin
+            .getCoinFlipManager()
+            .registerRollingGame(this.player1.getUniqueId(), this.player2.getUniqueId(), this.amount,
+                  this.currencyType, this.currencyId);
 
       this.cacheConfigValues();
       this.cachedWinnerHead = this.createPlayerItem("winner", this.winner);
@@ -530,14 +499,7 @@ public class CoinFlipRollGUI extends InventoryGUI {
          }
 
          this.setupProtectedSlots();
-         if (this.isBotGame) {
-            if (this.player1 == null || !this.player1.isOnline()) {
-               this.plugin.getLogger().warning("Player disconnected before bot animation could start. Refunding...");
-               this.plugin.getCoinFlipManager()
-                     .refundRollingGame(this.player1 != null ? this.player1.getUniqueId() : null);
-               return;
-            }
-         } else if (this.player1 == null || !this.player1.isOnline() || this.player2 == null
+         if (this.player1 == null || !this.player1.isOnline() || this.player2 == null
                || !this.player2.isOnline()) {
             this.plugin.getLogger()
                   .warning("One or both players disconnected before animation could start. Refunding...");
@@ -547,12 +509,8 @@ public class CoinFlipRollGUI extends InventoryGUI {
          }
 
          try {
-            if (this.isBotGame) {
-               this.player1.openInventory(this.getInventory());
-            } else {
-               this.player1.openInventory(this.getInventory());
-               this.player2.openInventory(this.getInventory());
-            }
+            this.player1.openInventory(this.getInventory());
+            this.player2.openInventory(this.getInventory());
          } catch (Exception var10) {
             this.plugin
                   .getLogger()
@@ -576,8 +534,7 @@ public class CoinFlipRollGUI extends InventoryGUI {
             this.plugin.getSoundHelper().playSound(this.player1, "game.start");
          }
 
-         if (!this.isBotGame
-               && this.player2 != null
+         if (this.player2 != null
                && this.player2.isOnline()
                && this.plugin.getPlayerSettingsManager().isSettingEnabled(this.player2,
                      "notification-game-start-sound")) {
@@ -808,7 +765,9 @@ public class CoinFlipRollGUI extends InventoryGUI {
                               final int finalSlot = slotx;
                               this.addButton(slotx, new InventoryButton().creator(p -> {
                                  Inventory inv = this.getInventory();
-                                 return inv != null && finalSlot >= 0 && finalSlot < inv.getSize() ? inv.getItem(finalSlot) : null;
+                                 return inv != null && finalSlot >= 0 && finalSlot < inv.getSize()
+                                       ? inv.getItem(finalSlot)
+                                       : null;
                               }).consumer(event -> {
                               }));
                            }
@@ -836,7 +795,8 @@ public class CoinFlipRollGUI extends InventoryGUI {
                      final int finalSlot = slotx;
                      this.addButton(slotx, new InventoryButton().creator(p -> {
                         Inventory inv = this.getInventory();
-                        return inv != null && finalSlot >= 0 && finalSlot < inv.getSize() ? inv.getItem(finalSlot) : null;
+                        return inv != null && finalSlot >= 0 && finalSlot < inv.getSize() ? inv.getItem(finalSlot)
+                              : null;
                      }).consumer(event -> {
                      }));
                   }
@@ -1088,92 +1048,48 @@ public class CoinFlipRollGUI extends InventoryGUI {
 
    private void setupAnimationPool() {
       this.animationPool = new ArrayList<>();
-      if (this.isBotGame) {
-         ItemStack player1Item = this.createAnimationItem("player1", this.player1);
-         if (player1Item != null) {
-            this.animationPool.add(player1Item);
-         }
+      ItemStack player1Itemx = this.createAnimationItem("player1", this.player1);
+      if (player1Itemx != null) {
+         this.animationPool.add(player1Itemx);
+      }
 
-         ItemStack botItem = this.createAnimationItem("bot", null);
-         if (botItem != null) {
-            this.animationPool.add(botItem);
-         }
+      ItemStack player2Item = this.createAnimationItem("player2", this.player2);
+      if (player2Item != null) {
+         this.animationPool.add(player2Item);
+      }
 
-         if (this.animationPool.isEmpty()) {
-            this.plugin.getLogger().warning("No animation items created for bot game! Creating default heads.");
+      if (this.animationPool.isEmpty()) {
+         this.plugin.getLogger().warning("No animation items created! Creating default heads.");
 
-            try {
-               Material playerHeadMaterial = MaterialHelper.getPlayerHeadMaterial();
-               if (playerHeadMaterial == null) {
-                  this.plugin.getLogger().severe("Failed to parse PLAYER_HEAD material! Cannot create default heads.");
-                  return;
-               }
-
-               ItemStack defaultHead1 = new ItemStack(playerHeadMaterial);
-               SkullMeta meta1 = (SkullMeta) defaultHead1.getItemMeta();
-               if (meta1 != null) {
-                  this.plugin.getGuiHelper().setDisplayName(meta1, "&e&lPlayer");
-                  defaultHead1.setItemMeta(meta1);
-               }
-
-               this.animationPool.add(defaultHead1);
-               ItemStack defaultBotHead = new ItemStack(playerHeadMaterial);
-               SkullMeta botMeta = (SkullMeta) defaultBotHead.getItemMeta();
-               if (botMeta != null) {
-                  this.plugin.getGuiHelper().setDisplayName(botMeta, "&e&lBot");
-                  defaultBotHead.setItemMeta(botMeta);
-               }
-
-               this.animationPool.add(defaultBotHead);
-            } catch (Exception var11) {
-               this.plugin.getLogger()
-                     .severe("Failed to create default animation heads for bot game: " + var11.getMessage());
+         try {
+            String configPath1 = "coinflip-gui.rolling.players.player1";
+            String configPath2 = "coinflip-gui.rolling.players.player2";
+            Material playerHeadMaterialx = MaterialHelper.getPlayerHeadMaterial();
+            if (playerHeadMaterialx == null) {
+               this.plugin.getLogger().severe("Failed to parse PLAYER_HEAD material! Cannot create default heads.");
+               return;
             }
-         }
-      } else {
-         ItemStack player1Itemx = this.createAnimationItem("player1", this.player1);
-         if (player1Itemx != null) {
-            this.animationPool.add(player1Itemx);
-         }
 
-         ItemStack player2Item = this.createAnimationItem("player2", this.player2);
-         if (player2Item != null) {
-            this.animationPool.add(player2Item);
-         }
-
-         if (this.animationPool.isEmpty()) {
-            this.plugin.getLogger().warning("No animation items created! Creating default heads.");
-
-            try {
-               String configPath1 = "coinflip-gui.rolling.players.player1";
-               String configPath2 = "coinflip-gui.rolling.players.player2";
-               Material playerHeadMaterialx = MaterialHelper.getPlayerHeadMaterial();
-               if (playerHeadMaterialx == null) {
-                  this.plugin.getLogger().severe("Failed to parse PLAYER_HEAD material! Cannot create default heads.");
-                  return;
-               }
-
-               ItemStack defaultHead1x = new ItemStack(playerHeadMaterialx);
-               SkullMeta meta1x = (SkullMeta) defaultHead1x.getItemMeta();
-               if (meta1x != null) {
-                  this.plugin.getGuiHelper().setDisplayName(meta1x, "&e&lPlayer 1");
-                  this.plugin.getGuiHelper().applyItemProperties(meta1x, configPath1, this.plugin.getGUIConfig());
-                  defaultHead1x.setItemMeta(meta1x);
-               }
-
-               this.animationPool.add(defaultHead1x);
-               ItemStack defaultHead2 = new ItemStack(playerHeadMaterialx);
-               SkullMeta meta2 = (SkullMeta) defaultHead2.getItemMeta();
-               if (meta2 != null) {
-                  this.plugin.getGuiHelper().setDisplayName(meta2, "&e&lPlayer 2");
-                  this.plugin.getGuiHelper().applyItemProperties(meta2, configPath2, this.plugin.getGUIConfig());
-                  defaultHead2.setItemMeta(meta2);
-               }
-
-               this.animationPool.add(defaultHead2);
-            } catch (Exception var10) {
-               this.plugin.getLogger().severe("Failed to create default animation heads: " + var10.getMessage());
+            ItemStack defaultHead1x = new ItemStack(playerHeadMaterialx);
+            SkullMeta meta1x = (SkullMeta) defaultHead1x.getItemMeta();
+            if (meta1x != null) {
+               this.plugin.getGuiHelper().setDisplayName(meta1x, "&e&lPlayer 1");
+               this.plugin.getGuiHelper().applyItemProperties(meta1x, configPath1, this.plugin.getGUIConfig());
+               defaultHead1x.setItemMeta(meta1x);
             }
+
+            this.animationPool.add(defaultHead1x);
+            ItemStack defaultHead2 = new ItemStack(playerHeadMaterialx);
+            SkullMeta meta2 = (SkullMeta) defaultHead2.getItemMeta();
+            if (meta2 != null) {
+               this.plugin.getGuiHelper().setDisplayName(meta2, "&e&lPlayer 2");
+               this.plugin.getGuiHelper().applyItemProperties(meta2, configPath2, this.plugin.getGUIConfig());
+               defaultHead2.setItemMeta(meta2);
+            }
+
+            this.animationPool.add(defaultHead2);
+         } catch (Exception var10) {
+            this.plugin.getLogger().severe("Failed to create default animation heads: " + var10.getMessage());
          }
       }
    }
@@ -1282,102 +1198,41 @@ public class CoinFlipRollGUI extends InventoryGUI {
 
    private ItemStack createAnimationItem(String playerKey, Player player) {
       try {
-         if (this.isBotGame && "bot".equals(playerKey)) {
-            return this.createBotAnimationItem();
-         } else {
-            String configPath = "coinflip-gui.rolling.players." + playerKey;
-            boolean useHead = this.plugin.getGUIConfig().getBoolean(configPath + ".use-head", true);
-            String materialName = this.plugin.getGUIConfig().getString(configPath + ".material", "RED_WOOL");
-            String displayNameTemplate = this.plugin.getGUIConfig().getString(configPath + ".display-name",
-                  "&e&l{PLAYER}");
-            String displayName = displayNameTemplate.replace("{PLAYER}", player != null ? player.getName() : playerKey);
-            if (useHead) {
-               if (player != null && player.isOnline()) {
-                  return this.createPlayerHeadItem(player, displayName);
-               } else {
-                  Material playerHeadMaterial = MaterialHelper.getPlayerHeadMaterial();
-                  if (playerHeadMaterial == null) {
-                     this.plugin.getLogger().warning("Failed to parse PLAYER_HEAD material for fallback head!");
-                     return null;
-                  } else {
-                     ItemStack head = new ItemStack(playerHeadMaterial);
-                     SkullMeta meta = (SkullMeta) head.getItemMeta();
-                     if (meta != null) {
-                        this.plugin.getGuiHelper().setDisplayName(meta, displayName);
-                        this.plugin.getGuiHelper().applyItemProperties(meta, configPath, this.plugin.getGUIConfig());
-                        head.setItemMeta(meta);
-                     }
-
-                     return head;
-                  }
-               }
-            } else {
-               Material redWoolFallback = MaterialHelper.getRedWoolMaterial();
-               Material material = MaterialHelper.parseMaterial(materialName, redWoolFallback);
-               if (MaterialHelper.isSameMaterial(material, redWoolFallback)
-                     && !materialName.equalsIgnoreCase("RED_WOOL")) {
-                  this.plugin.getLogger()
-                        .warning("Invalid material for " + playerKey + ": " + materialName + ". Using RED_WOOL.");
-               }
-
-               ItemStack item = new ItemStack(material);
-               ItemMeta meta = item.getItemMeta();
-               if (meta != null) {
-                  this.plugin.getGuiHelper().setDisplayName(meta, displayName);
-                  this.plugin.getGuiHelper().applyItemProperties(meta, configPath, this.plugin.getGUIConfig());
-                  item.setItemMeta(meta);
-               }
-
-               return item;
-            }
-         }
-      } catch (Exception var12) {
-         this.plugin.getLogger()
-               .warning("Failed to create animation item for " + playerKey + ": " + var12.getMessage());
-         var12.printStackTrace();
-         return null;
-      }
-   }
-
-   private ItemStack createBotAnimationItem() {
-      try {
-         String configPath = "coinflip-gui.rolling.players.bot";
-         String materialName = this.plugin
-               .getConfig()
-               .getString("house.display.material",
-                     this.plugin.getGUIConfig().getString(configPath + ".material", "PLAYER_HEAD"));
-         String displayNameTemplate = this.plugin
-               .getConfig()
-               .getString("house.display.display-name",
-                     this.plugin.getGUIConfig().getString(configPath + ".display-name", "&e&l{BOT}"));
-         String displayName = displayNameTemplate.replace("{BOT}", this.botName != null ? this.botName : "Bot");
-         boolean useHead = this.plugin
-               .getGUIConfig()
-               .getBoolean(configPath + ".use-head",
-                     MaterialHelper.isPlayerHead(MaterialHelper.parseMaterial(materialName, null)));
+         String configPath = "coinflip-gui.rolling.players." + playerKey;
+         boolean useHead = this.plugin.getGUIConfig().getBoolean(configPath + ".use-head", true);
+         String materialName = this.plugin.getGUIConfig().getString(configPath + ".material", "RED_WOOL");
+         String displayNameTemplate = this.plugin.getGUIConfig().getString(configPath + ".display-name",
+               "&e&l{PLAYER}");
+         String displayName = displayNameTemplate.replace("{PLAYER}", player != null ? player.getName() : playerKey);
          if (useHead) {
-            Material playerHeadMaterial = MaterialHelper.getPlayerHeadMaterial();
-            if (playerHeadMaterial == null) {
-               this.plugin.getLogger().warning("Failed to parse PLAYER_HEAD material for bot head!");
-               return null;
+            if (player != null && player.isOnline()) {
+               return this.createPlayerHeadItem(player, displayName);
             } else {
-               List<?> lore = new ArrayList();
-               return this.plugin
-                     .getGuiHelper()
-                     .createPlayerHead(
-                           playerHeadMaterial,
-                           null,
-                           this.botTexture != null ? this.botTexture : "",
-                           false,
-                           displayName,
-                           lore,
-                           this.plugin.getGUIConfig().getBoolean(configPath + ".glowing", false),
-                           this.plugin.getGUIConfig().getInt(configPath + ".custom-model-data", 0) > 0
-                                 ? this.plugin.getGUIConfig().getInt(configPath + ".custom-model-data", 0)
-                                 : null);
+               Material playerHeadMaterial = MaterialHelper.getPlayerHeadMaterial();
+               if (playerHeadMaterial == null) {
+                  this.plugin.getLogger().warning("Failed to parse PLAYER_HEAD material for fallback head!");
+                  return null;
+               } else {
+                  ItemStack head = new ItemStack(playerHeadMaterial);
+                  SkullMeta meta = (SkullMeta) head.getItemMeta();
+                  if (meta != null) {
+                     this.plugin.getGuiHelper().setDisplayName(meta, displayName);
+                     this.plugin.getGuiHelper().applyItemProperties(meta, configPath, this.plugin.getGUIConfig());
+                     head.setItemMeta(meta);
+                  }
+
+                  return head;
+               }
             }
          } else {
-            Material material = MaterialHelper.parseMaterial(materialName, Material.GOLD_INGOT);
+            Material redWoolFallback = MaterialHelper.getRedWoolMaterial();
+            Material material = MaterialHelper.parseMaterial(materialName, redWoolFallback);
+            if (MaterialHelper.isSameMaterial(material, redWoolFallback)
+                  && !materialName.equalsIgnoreCase("RED_WOOL")) {
+               this.plugin.getLogger()
+                     .warning("Invalid material for " + playerKey + ": " + materialName + ". Using RED_WOOL.");
+            }
+
             ItemStack item = new ItemStack(material);
             ItemMeta meta = item.getItemMeta();
             if (meta != null) {
@@ -1388,16 +1243,17 @@ public class CoinFlipRollGUI extends InventoryGUI {
 
             return item;
          }
-      } catch (Exception var9) {
-         this.plugin.getLogger().warning("Failed to create bot animation item: " + var9.getMessage());
-         var9.printStackTrace();
+      } catch (Exception var12) {
+         this.plugin.getLogger()
+               .warning("Failed to create animation item for " + playerKey + ": " + var12.getMessage());
+         var12.printStackTrace();
          return null;
       }
    }
 
    private ItemStack createPlayerItem(String type, Player player) {
-      if (this.isBotGame && player == null) {
-         return this.createBotResultItem(type);
+      if (player == null) {
+         return null;
       } else {
          String materialName = this.plugin.getGUIConfig().getString("coinflip-gui.results." + type + ".item-type",
                "PLAYER_HEAD");
@@ -1460,75 +1316,6 @@ public class CoinFlipRollGUI extends InventoryGUI {
             this.plugin.getLogger().warning("Invalid material for result item " + type + ": " + materialName);
             return null;
          }
-      }
-   }
-
-   private ItemStack createBotResultItem(String type) {
-      try {
-         String configPath = "coinflip-gui.results." + type;
-         String materialName = this.plugin
-               .getConfig()
-               .getString("house.display.material",
-                     this.plugin.getGUIConfig().getString(configPath + ".item-type", "PLAYER_HEAD"));
-         String displayNameTemplate = this.plugin
-               .getConfig()
-               .getString("house.display.display-name",
-                     this.plugin.getGUIConfig().getString(configPath + ".display.name", "&e{BOT}"));
-         String skinSource = this.plugin.getGUIConfig().getString(configPath + ".skin.source", "player");
-         String base64 = this.plugin.getGUIConfig().getString(configPath + ".skin.texture", "");
-         List<String> lore = this.plugin.getGUIConfig()
-               .getStringList("coinflip-gui.results." + type + ".display.description");
-         Material material = MaterialHelper.parseMaterial(materialName, null);
-         if (material == null) {
-            this.plugin.getLogger().warning("Invalid material for bot result item " + type + ": " + materialName);
-            return null;
-         } else {
-            String displayName = displayNameTemplate.replace("{BOT}", this.botName != null ? this.botName : "Bot");
-            displayName = displayName.replace("{PLAYER}", this.botName != null ? this.botName : "Bot");
-            Map<String, String> placeholders = new HashMap<>();
-            placeholders.put("BOT", this.botName != null ? this.botName : "Bot");
-            placeholders.put("PLAYER", this.botName != null ? this.botName : "Bot");
-            boolean useCustomTexture = "custom".equalsIgnoreCase(skinSource) && this.botTexture != null
-                  && !this.botTexture.isEmpty();
-            Boolean glowing = this.plugin.getGUIConfig().contains(configPath + ".glowing")
-                  ? this.plugin.getGUIConfig().getBoolean(configPath + ".glowing", false)
-                  : null;
-            Integer customModelData = this.plugin.getGUIConfig().contains(configPath + ".custom-model-data")
-                  ? this.plugin.getGUIConfig().getInt(configPath + ".custom-model-data", 0)
-                  : null;
-            if (customModelData != null && customModelData <= 0) {
-               customModelData = null;
-            }
-
-            if (MaterialHelper.isPlayerHead(material)) {
-               List<?> processedLore = (List<?>) (lore != null
-                     ? this.plugin.getGuiHelper().createLore(lore, placeholders)
-                     : new ArrayList());
-               return this.plugin
-                     .getGuiHelper()
-                     .createPlayerHead(material, null, useCustomTexture ? this.botTexture : "", false, displayName,
-                           processedLore, glowing, customModelData);
-            } else {
-               ItemStack item = new ItemStack(material);
-               ItemMeta meta = item.getItemMeta();
-               if (meta != null) {
-                  this.plugin.getGuiHelper().setDisplayName(meta, displayName, placeholders);
-                  if (lore != null && !lore.isEmpty()) {
-                     List<?> loreList = this.plugin.getGuiHelper().createLore(lore, placeholders);
-                     this.plugin.getGuiHelper().setLore(meta, loreList);
-                  }
-
-                  this.plugin.getGuiHelper().applyItemProperties(meta, configPath, this.plugin.getGUIConfig());
-                  item.setItemMeta(meta);
-               }
-
-               return item;
-            }
-         }
-      } catch (Exception var17) {
-         this.plugin.getLogger().warning("Failed to create bot result item: " + var17.getMessage());
-         var17.printStackTrace();
-         return null;
       }
    }
 
@@ -1604,10 +1391,17 @@ public class CoinFlipRollGUI extends InventoryGUI {
          if (!player1Online && !player2Online) {
             this.animationRunning = false;
             this.cancelCurrentAnimationTask();
+
+            // UNREGISTER the game if both are offline to prevent stuck "finish your
+            // coinflip"
+            if (this.player1UUID != null && this.player2UUID != null) {
+               this.plugin.getCoinFlipManager().unregisterRollingGame(this.player1UUID, this.player2UUID);
+            }
+
             if (this.plugin.getDebugManager() != null
                   && this.plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.GUI)) {
                this.plugin.getDebugManager().info(DebugManager.Category.GUI,
-                     "Animation stopped: Both players disconnected");
+                     "Animation stopped and game unregistered: Both players disconnected");
             }
          } else {
             boolean player1InGame = this.player1 != null
@@ -2966,9 +2760,8 @@ public class CoinFlipRollGUI extends InventoryGUI {
    }
 
    private void updateInventoryForPlayers() {
-      boolean bothClosed = this.isBotGame
-            ? this.playersClosedGUI.contains(this.player1UUID)
-            : this.playersClosedGUI.contains(this.player1UUID) && this.playersClosedGUI.contains(this.player2UUID);
+      boolean bothClosed = this.playersClosedGUI.contains(this.player1UUID)
+            && this.playersClosedGUI.contains(this.player2UUID);
       if (bothClosed) {
          if (this.plugin.getDebugManager() != null
                && this.plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.GUI)) {
@@ -2993,7 +2786,7 @@ public class CoinFlipRollGUI extends InventoryGUI {
             }
          }
 
-         if (!this.isBotGame && this.player2 != null && this.player2.isOnline()
+         if (this.player2 != null && this.player2.isOnline()
                && !this.playersClosedGUI.contains(this.player2UUID)) {
             try {
                this.player2.updateInventory();
@@ -3034,17 +2827,15 @@ public class CoinFlipRollGUI extends InventoryGUI {
          } catch (Exception var6) {
          }
 
-         if (!this.isBotGame) {
-            try {
-               if (this.player2 != null
-                     && this.player2.isOnline()
-                     && !this.playersClosedGUI.contains(this.player2UUID)
-                     && this.plugin.getPlayerSettingsManager().isSettingEnabled(this.player2,
-                           "notification-animation-sound")) {
-                  this.plugin.getAdventureHelper().playSound(this.player2, soundName, volume, pitch);
-               }
-            } catch (Exception var5) {
+         try {
+            if (this.player2 != null
+                  && this.player2.isOnline()
+                  && !this.playersClosedGUI.contains(this.player2UUID)
+                  && this.plugin.getPlayerSettingsManager().isSettingEnabled(this.player2,
+                        "notification-animation-sound")) {
+               this.plugin.getAdventureHelper().playSound(this.player2, soundName, volume, pitch);
             }
+         } catch (Exception var5) {
          }
       }
    }
@@ -3057,10 +2848,6 @@ public class CoinFlipRollGUI extends InventoryGUI {
          this.animationRunning = false;
 
          try {
-            if (this.isBotGame) {
-               this.finishBotGame();
-               return;
-            }
 
             if (this.player1 == null || this.player2 == null) {
                this.plugin.getLogger()
@@ -3078,14 +2865,14 @@ public class CoinFlipRollGUI extends InventoryGUI {
                this.plugin.getCoinFlipManager().removeBackupForPlayer(loser.getUniqueId());
                // Unregister the game to prevent refundRollingGame from running
                this.plugin.getCoinFlipManager().unregisterRollingGame(this.player1UUID, this.player2UUID);
-               
+
                if (this.plugin.getDebugManager() != null
                      && this.plugin.getDebugManager().isCategoryEnabled(DebugManager.Category.GUI)) {
                   this.plugin
                         .getDebugManager()
                         .info(
                               DebugManager.Category.GUI,
-                              "finishRoll() - Immediately removed loser backup and unregistered game to prevent exploit. Winner: " 
+                              "finishRoll() - Immediately removed loser backup and unregistered game to prevent exploit. Winner: "
                                     + winner.getName() + ", Loser: " + loser.getName());
                }
             } else {
@@ -3219,14 +3006,18 @@ public class CoinFlipRollGUI extends InventoryGUI {
                double actualTaxRate = totalPot > 0.0 ? actualTax / totalPot : 0.0;
                Map<String, String> winnerPlaceholders = new HashMap<>();
                winnerPlaceholders.put("prefix", this.plugin.getMessage("prefix"));
-               winnerPlaceholders.put("loser", loserOnline ? loser.getName() : "Unknown");
+               winnerPlaceholders.put("loser",
+                     (this.player1UUID != null && this.player1UUID.equals(winner.getUniqueId()) ? this.player2Name
+                           : this.player1Name));
                winnerPlaceholders.put("amount", this.plugin.getGuiHelper().formatAmount(taxedAmount));
                winnerPlaceholders.put("symbol", unit);
                winnerPlaceholders.put("tax_rate", String.valueOf((int) (actualTaxRate * 100.0)));
                winnerPlaceholders.put("tax", this.plugin.getGuiHelper().formatAmount(actualTax));
                Map<String, String> loserPlaceholders = new HashMap<>();
                loserPlaceholders.put("prefix", this.plugin.getMessage("prefix"));
-               loserPlaceholders.put("winner", winnerOnline ? winner.getName() : "Unknown");
+               loserPlaceholders.put("winner",
+                     (this.player1UUID != null && this.player1UUID.equals(loser.getUniqueId()) ? this.player2Name
+                           : this.player1Name));
                loserPlaceholders.put("amount", this.plugin.getGuiHelper().formatAmount(this.amount));
                loserPlaceholders.put("symbol", unit);
                boolean titlesEnabled = this.cachedTitlesEnabled;
@@ -3274,7 +3065,8 @@ public class CoinFlipRollGUI extends InventoryGUI {
                            Map<String, String> consecutiveWinsPlaceholders = new HashMap<>();
                            consecutiveWinsPlaceholders.put("prefix", this.plugin.getMessage("prefix"));
                            consecutiveWinsPlaceholders.put("count", String.valueOf(newConsecutiveWins));
-                           String opponentName = "Unknown";
+                           String opponentName = (this.player1UUID != null && this.player1UUID.equals(winner.getUniqueId()) ? this.player2Name : this.player1Name);
+/*
                            if (loser != null) {
                               try {
                                  String name = loser.getName();
@@ -3282,7 +3074,7 @@ public class CoinFlipRollGUI extends InventoryGUI {
                               } catch (Exception var65) {
                                  opponentName = "Unknown";
                               }
-                           }
+                         */
 
                            consecutiveWinsPlaceholders.put("opponent", opponentName);
                            String ordinalSuffix = this.getOrdinalSuffix(newConsecutiveWins);
@@ -3478,7 +3270,8 @@ public class CoinFlipRollGUI extends InventoryGUI {
                   }
                }
 
-               // Note: Loser backup already removed at the start of finishRoll() to prevent exploit
+               // Note: Loser backup already removed at the start of finishRoll() to prevent
+               // exploit
                if (winnerOnline) {
                   PlayerStats winnerStats = this.plugin.getCoinFlipManager().getStats(winner.getUniqueId());
                   winnerStats.setWins(winnerStats.getWins() + 1);
@@ -3618,10 +3411,10 @@ public class CoinFlipRollGUI extends InventoryGUI {
                      () -> {
                         try {
                            CoinFlipLog log = new CoinFlipLog(
-                                 this.player1.getUniqueId(),
-                                 this.player1.getName(),
-                                 this.player2.getUniqueId(),
-                                 this.player2.getName(),
+                                 this.player1UUID,
+                                 this.player1Name,
+                                 this.player2UUID,
+                                 this.player2Name,
                                  winner.getUniqueId(),
                                  winner.getName(),
                                  loser.getUniqueId(),
@@ -3685,336 +3478,7 @@ public class CoinFlipRollGUI extends InventoryGUI {
             }
          }
       }
-   }
 
-   private void finishBotGame() {
-      UUID finalPlayer1UUID = this.player1UUID;
-      UUID finalPlayer2UUID = this.player2UUID;
-
-      try {
-         if (this.player1 != null && this.player1.isOnline()) {
-            Player winner = this.winner;
-            Player loser = this.loser;
-            boolean playerWins = winner == this.player1;
-            this.playAnimationCompleteSound();
-            int inventorySize = this.cachedInventorySize;
-            ItemStack winnerItem = this.cachedWinnerHead != null ? this.cachedWinnerHead.clone()
-                  : this.createPlayerItem("winner", winner);
-            if (this.cachedLoserHead != null) {
-               this.cachedLoserHead.clone();
-            } else {
-               this.createPlayerItem("loser", loser);
-            }
-
-            String animationType = this.cachedRollingAnimationType != null
-                  ? this.cachedRollingAnimationType.toLowerCase()
-                  : "default";
-            Inventory inventory = this.getInventory();
-            if ("slot-machine".equals(animationType)) {
-               int centerSlot = this.cachedSlotMachineCenterSlot;
-               if (winnerItem != null && centerSlot >= 0 && centerSlot < inventorySize) {
-                  inventory.setItem(centerSlot, winnerItem.clone());
-               }
-            } else if ("circular".equals(animationType)) {
-               int winnerSlot = 20;
-               if (winnerItem != null && winnerSlot >= 0 && winnerSlot < inventorySize) {
-                  inventory.setItem(winnerSlot, winnerItem.clone());
-               }
-            } else if ("vertical".equals(animationType)) {
-               int winnerSlot = 22;
-               if (winnerItem != null && winnerSlot >= 0 && winnerSlot < inventorySize) {
-                  inventory.setItem(winnerSlot, winnerItem.clone());
-               }
-            } else {
-               int resultSlot = this.cachedResultSlot;
-               if (resultSlot < 0 || resultSlot >= inventorySize) {
-                  resultSlot = this.cachedAnimationStartSlot + this.cachedAnimationSlotCount / 2;
-               }
-
-               if (winnerItem != null && resultSlot >= 0 && resultSlot < inventorySize) {
-                  inventory.setItem(resultSlot, winnerItem.clone());
-               }
-            }
-
-            this.updateInventoryForPlayers();
-            String unit = this.plugin.getCurrencyManager().getUnit(this.currencyType, this.currencyId);
-            double totalPot = this.amount * 2.0;
-            double taxRate = this.plugin.getTaxRateCalculator().calculateTaxRate(this.player1, this.amount,
-                  this.currencyType, this.currencyId);
-            double tax = Math.round(totalPot * taxRate * 100.0) / 100.0;
-            double taxedAmount = Math.round(totalPot * (1.0 - taxRate) * 100.0) / 100.0;
-            if (taxedAmount < this.amount && taxRate < 1.0) {
-               double maxTax = totalPot - this.amount;
-               tax = Math.round(maxTax * 100.0) / 100.0;
-               taxedAmount = Math.round((totalPot - tax) * 100.0) / 100.0;
-            }
-
-            double actualTax = totalPot - taxedAmount;
-            double actualTaxRate = totalPot > 0.0 ? actualTax / totalPot : 0.0;
-            String botName = this.botName != null ? this.botName
-                  : this.plugin.getConfig().getString("house.name", "Bot");
-            if (playerWins) {
-               this.plugin.getCurrencyManager().deposit(this.player1, this.currencyType, this.currencyId, taxedAmount);
-               if (this.plugin.getPlayerSettingsManager().isSettingEnabled(this.player1, "message-bot-game")) {
-                  Map<String, String> placeholders = new HashMap<>();
-                  placeholders.put("amount", this.plugin.getGuiHelper().formatAmount(taxedAmount, this.currencyId));
-                  placeholders.put("symbol", unit);
-                  placeholders.put("tax", this.plugin.getGuiHelper().formatAmount(actualTax, this.currencyId));
-                  String winMessage = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("house.win");
-                  this.plugin.getAdventureHelper().sendMessage(this.player1, winMessage, placeholders);
-               }
-
-               if (this.cachedTitlesEnabled
-                     && this.plugin.getPlayerSettingsManager().isSettingEnabled(this.player1, "notification-title")) {
-                  Map<String, String> winnerTitlePlaceholders = new HashMap<>();
-                  winnerTitlePlaceholders.put("amount",
-                        this.plugin.getGuiHelper().formatAmount(taxedAmount, this.currencyId));
-                  winnerTitlePlaceholders.put("symbol", unit);
-                  this.plugin
-                        .getAdventureHelper()
-                        .sendTitle(
-                              this.player1,
-                              this.plugin.getConfigManager().getMessages().getString("titles.game-win-title",
-                                    "&a&lYOU WON!"),
-                              this.plugin.getConfigManager().getMessages().getString("titles.game-win-subtitle",
-                                    "&7Received &a<amount><symbol>"),
-                              winnerTitlePlaceholders);
-               }
-
-               if (this.cachedActionbarEnabled && this.plugin.getPlayerSettingsManager().isSettingEnabled(this.player1,
-                     "notification-actionbar")) {
-                  Map<String, String> winnerActionbarPlaceholders = new HashMap<>();
-                  winnerActionbarPlaceholders.put("amount",
-                        this.plugin.getGuiHelper().formatAmount(taxedAmount, this.currencyId));
-                  winnerActionbarPlaceholders.put("symbol", unit);
-                  String winnerActionbarMsg = this.plugin
-                        .getConfigManager()
-                        .getMessages()
-                        .getString("actionbar.game-win", "&a&lYOU WON! &fReceived &a<amount><symbol>");
-                  this.plugin.getAdventureHelper().sendActionBar(this.player1, winnerActionbarMsg,
-                        winnerActionbarPlaceholders);
-               }
-
-               if (this.cachedBossbarEnabled
-                     && this.plugin.getPlayerSettingsManager().isSettingEnabled(this.player1, "notification-bossbar")) {
-                  Map<String, String> winnerBossbarPlaceholders = new HashMap<>();
-                  winnerBossbarPlaceholders.put("amount",
-                        this.plugin.getGuiHelper().formatAmount(taxedAmount, this.currencyId));
-                  winnerBossbarPlaceholders.put("symbol", unit);
-                  String winnerBossbarMsg = this.plugin
-                        .getConfigManager()
-                        .getMessages()
-                        .getString("bossbar.game-win", "&a&lYOU WON! &fReceived &a<amount><symbol>");
-                  String winnerBossbarColor = this.cachedWinnerBossbarColor;
-                  String winnerBossbarOverlay = this.cachedWinnerBossbarOverlay;
-                  float winnerBossbarProgress = this.cachedWinnerBossbarProgress;
-                  int winnerBossbarDuration = this.cachedBossbarDuration;
-                  BossBar winnerBossBar = this.plugin
-                        .getAdventureHelper()
-                        .sendBossBar(
-                              this.player1,
-                              winnerBossbarMsg,
-                              winnerBossbarProgress,
-                              winnerBossbarColor,
-                              winnerBossbarOverlay,
-                              winnerBossbarDuration,
-                              winnerBossbarPlaceholders);
-                  if (winnerBossBar != null && winnerBossbarDuration > 0) {
-                     Player finalPlayer = this.player1;
-                     FoliaScheduler.runTaskLater(this.plugin, finalPlayer, () -> {
-                        if (finalPlayer != null && finalPlayer.isOnline()) {
-                           this.plugin.getAdventureHelper().removeBossBar(finalPlayer, winnerBossBar);
-                        }
-                     }, winnerBossbarDuration * 20L);
-                  }
-               }
-
-               if (this.plugin.getPlayerSettingsManager().isSettingEnabled(this.player1, "notification-sound")) {
-                  this.plugin.getSoundHelper().playSound(this.player1, "game.win");
-               }
-
-               PlayerStats playerStats = this.plugin.getCoinFlipManager().getStats(this.player1.getUniqueId());
-               playerStats.setWins(playerStats.getWins() + 1);
-               playerStats.setWinstreak(playerStats.getWinstreak() + 1);
-               double netProfit = taxedAmount - this.amount;
-               this.updateStatsForCurrency(playerStats, this.currencyType, this.currencyId, true, netProfit);
-               this.plugin.getCoinFlipManager().saveStats(this.player1.getUniqueId(), playerStats);
-            } else {
-               if (this.plugin.getPlayerSettingsManager().isSettingEnabled(this.player1, "message-bot-game")) {
-                  Map<String, String> placeholders = new HashMap<>();
-                  placeholders.put("amount", this.plugin.getGuiHelper().formatAmount(this.amount, this.currencyId));
-                  placeholders.put("symbol", unit);
-                  String loseMessage = this.plugin.getMessage("prefix") + " " + this.plugin.getMessage("house.lose");
-                  this.plugin.getAdventureHelper().sendMessage(this.player1, loseMessage, placeholders);
-               }
-
-               if (this.cachedTitlesEnabled
-                     && this.plugin.getPlayerSettingsManager().isSettingEnabled(this.player1, "notification-title")) {
-                  Map<String, String> loserTitlePlaceholders = new HashMap<>();
-                  loserTitlePlaceholders.put("amount",
-                        this.plugin.getGuiHelper().formatAmount(this.amount, this.currencyId));
-                  loserTitlePlaceholders.put("symbol", unit);
-                  this.plugin
-                        .getAdventureHelper()
-                        .sendTitle(
-                              this.player1,
-                              this.plugin.getConfigManager().getMessages().getString("titles.game-lose-title",
-                                    "&c&lYOU LOST!"),
-                              this.plugin.getConfigManager().getMessages().getString("titles.game-lose-subtitle",
-                                    "&7Lost &c<amount><symbol>"),
-                              loserTitlePlaceholders);
-               }
-
-               if (this.cachedActionbarEnabled && this.plugin.getPlayerSettingsManager().isSettingEnabled(this.player1,
-                     "notification-actionbar")) {
-                  Map<String, String> loserActionbarPlaceholders = new HashMap<>();
-                  loserActionbarPlaceholders.put("amount",
-                        this.plugin.getGuiHelper().formatAmount(this.amount, this.currencyId));
-                  loserActionbarPlaceholders.put("symbol", unit);
-                  String loserActionbarMsg = this.plugin
-                        .getConfigManager()
-                        .getMessages()
-                        .getString("actionbar.game-lose", "&c&lYOU LOST! &fLost &c<amount><symbol>");
-                  this.plugin.getAdventureHelper().sendActionBar(this.player1, loserActionbarMsg,
-                        loserActionbarPlaceholders);
-               }
-
-               if (this.cachedBossbarEnabled
-                     && this.plugin.getPlayerSettingsManager().isSettingEnabled(this.player1, "notification-bossbar")) {
-                  Map<String, String> loserBossbarPlaceholders = new HashMap<>();
-                  loserBossbarPlaceholders.put("amount",
-                        this.plugin.getGuiHelper().formatAmount(this.amount, this.currencyId));
-                  loserBossbarPlaceholders.put("symbol", unit);
-                  String loserBossbarMsg = this.plugin
-                        .getConfigManager()
-                        .getMessages()
-                        .getString("bossbar.game-lose", "&c&lYOU LOST! &fLost &c<amount><symbol>");
-                  String loserBossbarColor = this.cachedLoserBossbarColor;
-                  String loserBossbarOverlay = this.cachedLoserBossbarOverlay;
-                  float loserBossbarProgress = this.cachedLoserBossbarProgress;
-                  int loserBossbarDuration = this.cachedBossbarDuration;
-                  BossBar loserBossBar = this.plugin
-                        .getAdventureHelper()
-                        .sendBossBar(
-                              this.player1,
-                              loserBossbarMsg,
-                              loserBossbarProgress,
-                              loserBossbarColor,
-                              loserBossbarOverlay,
-                              loserBossbarDuration,
-                              loserBossbarPlaceholders);
-                  if (loserBossBar != null && loserBossbarDuration > 0) {
-                     Player finalPlayer = this.player1;
-                     FoliaScheduler.runTaskLater(this.plugin, finalPlayer, () -> {
-                        if (finalPlayer != null && finalPlayer.isOnline()) {
-                           this.plugin.getAdventureHelper().removeBossBar(finalPlayer, loserBossBar);
-                        }
-                     }, loserBossbarDuration * 20L);
-                  }
-               }
-
-               if (this.plugin.getPlayerSettingsManager().isSettingEnabled(this.player1, "notification-sound")) {
-                  this.plugin.getSoundHelper().playSound(this.player1, "game.lose");
-               }
-
-               PlayerStats playerStats = this.plugin.getCoinFlipManager().getStats(this.player1.getUniqueId());
-               playerStats.setDefeats(playerStats.getDefeats() + 1);
-               playerStats.setWinstreak(0);
-               this.updateStatsForCurrency(playerStats, this.currencyType, this.currencyId, false, this.amount);
-               this.plugin.getCoinFlipManager().saveStats(this.player1.getUniqueId(), playerStats);
-            }
-
-            HouseCoinFlipManager houseManager = this.plugin.getHouseCoinFlipManager();
-            if (houseManager != null) {
-               houseManager.removePendingGame(this.player1.getUniqueId());
-            }
-
-            if (this.plugin.getConfig().getBoolean("house.notifications.enabled", true)
-                  && this.plugin.getConfig().getBoolean("discord.webhook.enabled", false)) {
-               String currencyDisplayName = this.plugin.getCurrencyManager().getDisplayName(this.currencyType,
-                     this.currencyId);
-               if (playerWins) {
-                  this.plugin.getDiscordWebhookHandler().sendGameResult(this.player1.getName(), botName, this.amount,
-                        taxedAmount, currencyDisplayName, unit);
-               } else {
-                  this.plugin.getDiscordWebhookHandler().sendGameResult(botName, this.player1.getName(), this.amount,
-                        0.0, currencyDisplayName, unit);
-               }
-            }
-
-            if (this.plugin.getConfig().getBoolean("house.history.enabled", true)) {
-               UUID finalPlayerUuid = this.player1.getUniqueId();
-               String finalPlayerName = this.player1.getName();
-               UUID finalBotUuid = UUID.fromString("00000000-0000-0000-0000-000000000000");
-               UUID finalWinnerUuid = playerWins ? finalPlayerUuid : finalBotUuid;
-               String finalWinnerName = playerWins ? finalPlayerName : botName;
-               UUID finalLoserUuid = playerWins ? finalBotUuid : finalPlayerUuid;
-               String finalLoserName = playerWins ? botName : finalPlayerName;
-               double finalTaxedAmount = playerWins ? taxedAmount : 0.0;
-               long currentTimestamp = System.currentTimeMillis();
-               FoliaScheduler.runTaskAsynchronously(
-                     this.plugin,
-                     () -> {
-                        try {
-                           CoinFlipLog log = new CoinFlipLog(
-                                 finalPlayerUuid,
-                                 finalPlayerName,
-                                 finalBotUuid,
-                                 botName,
-                                 finalWinnerUuid,
-                                 finalWinnerName,
-                                 finalLoserUuid,
-                                 finalLoserName,
-                                 this.currencyType,
-                                 this.currencyId,
-                                 this.amount,
-                                 totalPot,
-                                 actualTaxRate,
-                                 actualTax,
-                                 finalTaxedAmount,
-                                 currentTimestamp,
-                                 CoinFlipLog.GameType.HOUSE);
-                           this.plugin.getDatabaseManager().saveCoinFlipLog(log);
-                        } catch (Exception var20x) {
-                           this.plugin.getLogger().warning("Failed to save bot coin flip log: " + var20x.getMessage());
-                        }
-                     });
-            }
-
-            FoliaScheduler.runTaskLater(this.plugin, this.player1, () -> {
-               if (this.player1 != null && this.player1.isOnline()) {
-                  try {
-                     this.player1.closeInventory();
-                  } catch (Exception var2x) {
-                  }
-               }
-            }, 60L);
-            return;
-         }
-
-         this.plugin.getLogger().warning("finishBotGame() called but player is offline. Refund was already handled.");
-      } catch (Exception var56) {
-         this.plugin.getLogger().severe("Error in finishBotGame(): " + var56.getMessage());
-         var56.printStackTrace();
-         return;
-      } finally {
-         try {
-            HouseCoinFlipManager houseManagerx = this.plugin.getHouseCoinFlipManager();
-            if (houseManagerx != null && finalPlayer1UUID != null) {
-               houseManagerx.removePendingGame(finalPlayer1UUID);
-            }
-         } catch (Exception var55) {
-            this.plugin.getLogger().warning("Error removing pending game in finally block: " + var55.getMessage());
-         }
-
-         try {
-            if (finalPlayer1UUID != null && finalPlayer2UUID != null) {
-               this.plugin.getCoinFlipManager().unregisterRollingGame(finalPlayer1UUID, finalPlayer2UUID);
-            }
-         } catch (Exception var54) {
-            this.plugin.getLogger().warning("Error unregistering bot game in finally block: " + var54.getMessage());
-         }
-      }
    }
 
    private void updateStatsForCurrency(PlayerStats stats, CoinFlipGame.CurrencyType currencyType, String currencyId,
@@ -4085,7 +3549,7 @@ public class CoinFlipRollGUI extends InventoryGUI {
          });
       }
 
-      if (!this.isBotGame && finalPlayer2 != null && finalPlayer2.isOnline()
+      if (finalPlayer2 != null && finalPlayer2.isOnline()
             && !this.playersClosedGUI.contains(this.player2UUID)) {
          FoliaScheduler.runTask(this.plugin, finalPlayer2, () -> {
             try {

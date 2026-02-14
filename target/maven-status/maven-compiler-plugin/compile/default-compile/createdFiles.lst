@@ -83,7 +83,6 @@ com\kstudio\ultracoinflip\currency\TaxRateConfig$Tier.class
 com\kstudio\ultracoinflip\gui\impl\CoinFlipRollGUI.class
 com\kstudio\ultracoinflip\currency\TokenManagerCurrencyHandler.class
 com\kstudio\ultracoinflip\database\HikariCPFactory.class
-com\kstudio\ultracoinflip\data\HouseCoinFlipManager.class
 com\kstudio\ultracoinflip\refund\RefundLimiter.class
 com\kstudio\ultracoinflip\util\UltraCoinFlipMetrics.class
 com\kstudio\ultracoinflip\util\DebugManager$Level.class
@@ -106,7 +105,6 @@ com\kstudio\ultracoinflip\database\DatabaseManager$BackupData.class
 com\kstudio\ultracoinflip\placeholders\CoinFlipPlaceholders$CacheEntry.class
 com\kstudio\ultracoinflip\gui\cache\PlayerHeadCache$CacheKey.class
 com\kstudio\ultracoinflip\security\ExploitDetector$1.class
-com\kstudio\ultracoinflip\data\HouseCoinFlipManager$PendingHouseGame.class
 com\kstudio\ultracoinflip\database\DatabaseManager.class
 com\kstudio\ultracoinflip\gui\GUIHelper$FormatType.class
 com\kstudio\ultracoinflip\gui\GUIManager.class

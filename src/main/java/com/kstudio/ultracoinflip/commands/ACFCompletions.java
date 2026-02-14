@@ -3,25 +3,13 @@ package com.kstudio.ultracoinflip.commands;
 import co.aikar.commands.BukkitCommandCompletionContext;
 import co.aikar.commands.CommandCompletions;
 import com.kstudio.ultracoinflip.KStudio;
-import com.kstudio.ultracoinflip.data.HouseCoinFlipManager;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ACFCompletions {
-   public static void registerCompletions(KStudio plugin, CommandCompletions<BukkitCommandCompletionContext> completions) {
+   public static void registerCompletions(KStudio plugin,
+         CommandCompletions<BukkitCommandCompletionContext> completions) {
       completions.registerCompletion("currencies", c -> plugin.getCurrencyManager().getAllSyntaxCommands());
-      completions.registerCompletion("bot-subcommand", c -> {
-         List<String> suggestions = new ArrayList<>();
-         HouseCoinFlipManager houseManager = plugin.getHouseCoinFlipManager();
-         if (houseManager != null && houseManager.isEnabled()) {
-            String subcommand = houseManager.getSubcommandName();
-            if (subcommand != null && !subcommand.isEmpty()) {
-               suggestions.add(subcommand);
-            }
-         }
-
-         return suggestions;
-      });
       completions.registerCompletion("smart-amounts", c -> {
          List<String> suggestions = new ArrayList<>();
          suggestions.add("100");
